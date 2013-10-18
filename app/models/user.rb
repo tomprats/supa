@@ -1,0 +1,40 @@
+class User < ActiveRecord::Base
+  has_many :authentications, :dependent => :destroy
+
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :omniauthable,
+         :omniauthable, :recoverable, :rememberable, :trackable,
+         :validatable
+
+  def apply_omniauth(omni)
+    authentications.build(:provider => omni['provider'],
+                          :uid => omni['uid'],
+                          :token => omni['credentials'].token,
+                          :token_secret => omni['credentials'].secret)
+  end
+
+  def password_required?
+    (authentications.empty? || !password.blank?) && super
+  end
+
+  def registered?
+    phone_number &&
+    experience &&
+    shirt_size &&
+    name?
+  end
+
+  def name?
+    !first_name.empty? && !last_name.empty?
+  end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
+end

@@ -1,0 +1,34 @@
+<div class="header navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <%= puts "Remove name from header and place into config" %>
+      <p class="navbar-text header-text hide pull-left">Stewartstown Ultimate Players Association</p>
+      <div class="nav-collapse collapse">
+        <% if user_signed_in? %>
+          <ul class="nav pull-right">
+            <li>
+              <%= link_to(sign_out_path)  do %>
+                <i class="icon-off"></i>
+                Sign Out
+              <% end %>
+            </li>
+          </ul>
+        <% else %>
+          <ul class="nav pull-right">
+            <li>
+              <%= link_to(new_user_session_path)  do %>
+                <i class="icon-signin"></i>
+                Sign In
+              <% end %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

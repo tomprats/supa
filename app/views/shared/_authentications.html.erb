@@ -1,0 +1,38 @@
+<div class="span12">
+  <div class="row-fluid">
+    <div class="span12 center">
+      <h3>Authentications</h3>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 center">
+      <i class="icon-facebook-sign"></i>
+      <% if @facebook %>
+        <%= link_to "Disable?", @facebook, :confirm => 'Are you sure?', :method => :delete %>
+      <% else %>
+        <%= link_to "Enable?", user_omniauth_authorize_path(:facebook) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 center">
+      <i class="icon-twitter"></i>
+      <% if @twitter %>
+        <%= link_to "Disable?", @twitter, :confirm => 'Are you sure?', :method => :delete %>
+      <% else %>
+        <%= link_to "Enable?", user_omniauth_authorize_path(:twitter) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 center">
+      <% if @password %>
+        <i class="icon-check-sign"></i>
+        Password Enabled
+      <% else %>
+        <i class="icon-unlock"></i>
+        Password Disabled
+      <% end %>
+    </div>
+  </div>
+</div>

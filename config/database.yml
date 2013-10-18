@@ -1,0 +1,21 @@
+# PostgreSQL. Versions 8.2 and up are supported.
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: supa_development
+  pool: 5
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: supa_test
+  pool: 5
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: supa_production
+  pool: 5
+  host: localhost

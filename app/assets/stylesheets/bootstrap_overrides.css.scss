@@ -1,0 +1,39 @@
+.row-fluid [class*="span"] {
+  min-height: 0;
+}
+.form-actions {
+  background-color: transparent;
+  border-top: none;
+  padding: 0;
+}
+.date_select.input select {
+  width: auto;
+}
+.center {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+/* Nav Bar Overrides */
+.header {
+  @media (max-width: 769px) {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .header-image {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    margin: 0 -100px;
+  }
+  @media (max-width: 980px) {
+    .header-image {
+      display: none;
+    }
+    .header-text {
+      display: block;
+      text-align: center;
+    }
+  }
+}

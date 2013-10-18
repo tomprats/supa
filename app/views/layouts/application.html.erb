@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <%= render "layouts/head" %>
+  <body>
+    <%= render "layouts/header" %>
+    <div class="row-fluid">
+      <div class="span10 offset1">
+        <% unless devise_error_messages!.empty? %>
+          <% devise_error_messages!.each do |key, value| %>
+            <div class="row-fluid">
+              <div class="span12">
+                <div class="alert alert-error">
+                  <a class="close" data-dismiss="alert">×</a>
+                  <%= key %> <%= value %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <% unless flash.empty? %>
+          <% flash.each do |name, msg| %>
+            <div class="row-fluid">
+              <div class="span12">
+                <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+                  <a class="close" data-dismiss="alert">×</a>
+                  <%= msg.html_safe %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <%= yield %>
+        <%= render "layouts/footer" %>
+      </div>
+    </div>
+  </body>
+</html>

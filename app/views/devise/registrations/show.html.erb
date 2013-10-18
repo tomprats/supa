@@ -1,0 +1,14 @@
+<div class="row-fluid">
+  <div class="span6">
+    <div class="row-fluid">
+      <div class="span12">
+        <%= link_to 'Edit profile', edit_user_registration_path %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+      </div>
+    </div>
+  </div>
+
+  <div class="span6">
+    <%= render :partial => "shared/authentications"%>
+  </div>
+</div>
