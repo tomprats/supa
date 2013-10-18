@@ -1,33 +1,39 @@
-<div class="header navbar">
+<div class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <%= puts "Remove name from header and place into config" %>
-      <p class="navbar-text header-text hide pull-left">Stewartstown Ultimate Players Association</p>
+
+      <a class="brand" href="home">SUPA</a>
+
       <div class="nav-collapse collapse">
-        <% if user_signed_in? %>
-          <ul class="nav pull-right">
+        <ul class="nav">
+          <li><%= link_to "Home", home_path %></li>
+          <% if user_signed_in? %>
             <li>
-              <%= link_to(sign_out_path)  do %>
-                <i class="icon-off"></i>
-                Sign Out
-              <% end %>
+            <%= link_to(profile_path)  do %>
+              <i class="icon-user"></i>
+              Profile
+            <% end %>
             </li>
-          </ul>
-        <% else %>
-          <ul class="nav pull-right">
             <li>
-              <%= link_to(new_user_session_path)  do %>
-                <i class="icon-signin"></i>
-                Sign In
-              <% end %>
+            <%= link_to(sign_out_path)  do %>
+              <i class="icon-off"></i>
+              Sign Out
+            <% end %>
             </li>
-          </ul>
-        <% end %>
+          <% else %>
+            <li>
+            <%= link_to(new_user_session_path)  do %>
+              <i class="icon-signin"></i>
+              Sign In
+            <% end %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>

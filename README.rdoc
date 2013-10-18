@@ -2,8 +2,6 @@
 
 == TODO
 
-* Commit to github
-
 * Add teams
 
 * Add admins

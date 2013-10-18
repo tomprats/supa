@@ -4,6 +4,8 @@ Supa::Application.routes.draw do
     :registrations      => "registrations"
   }
 
+  get      'home',             :to => 'pages#home'
+
   authenticated :user do
     devise_scope :user do
       resources :authentications
@@ -17,8 +19,6 @@ Supa::Application.routes.draw do
 
       get    'profile',          :to => 'registrations#show'
     end
-
-    get      'home',             :to => 'pages#home'
   end
 
   unauthenticated do

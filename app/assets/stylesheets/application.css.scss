@@ -11,8 +11,13 @@
  *= require_self
  *= require_tree .
  *= require formtastic-bootstrap
- *= require bootstrap/responsive
  */
 @import "variables";
 @import "bootstrap";
+body {
+  padding-top: 90px;
+}
+@import "bootstrap-responsive";
 @import "font-awesome";
+
+
