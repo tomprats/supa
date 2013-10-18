@@ -2,9 +2,9 @@
 
 == TODO
 
-* Add teams
-
 * Add admins
+
+* Add stats
 
 * Add paypal integration
 

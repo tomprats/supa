@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
+  has_and_belongs_to_many :teams
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -28,6 +29,10 @@ class User < ActiveRecord::Base
 
   def name?
     !first_name.empty? && !last_name.empty?
+  end
+
+  def name
+    "#{first_name} #{last_name}"
   end
 
   def update_with_password(params, *options)
