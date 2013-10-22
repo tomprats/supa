@@ -16,6 +16,13 @@
   text-align: center;
 }
 /* Nav Bar Overrides */
+.nav-center {
+  text-align: center;
+  li {
+    float:none;
+    display:inline-block;
+  }
+}
 .header {
   @media (max-width: 769px) {
     margin-left: -20px;

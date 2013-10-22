@@ -9,6 +9,13 @@ class User < ActiveRecord::Base
          :omniauthable, :recoverable, :rememberable, :trackable,
          :validatable
 
+  scope :super,    -> { where(admin: "super") }
+  scope :standard, -> { where(admin: "standard") }
+  scope :captain,  -> { where(admin: "captain") }
+  scope :none,     -> { where(admin: "none") }
+  scope :active,   -> { where(active: true) }
+  scope :inactive,   -> { where(active: false) }
+
   def apply_omniauth(omni)
     authentications.build(:provider => omni['provider'],
                           :uid => omni['uid'],
@@ -20,11 +27,27 @@ class User < ActiveRecord::Base
     (authentications.empty? || !password.blank?) && super
   end
 
+  def is_super_admin?
+    admin == "super"
+  end
+
+  def is_real_admin?
+    admin == "super" || admin == "standard"
+  end
+
+  def is_captain?
+    Team.where(:captain => id).count >= 0
+  end
+
   def registered?
     phone_number &&
     experience &&
     shirt_size &&
     name?
+  end
+
+  def team
+    teams.last
   end
 
   def name?

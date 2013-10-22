@@ -11,14 +11,43 @@
 
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li><%= link_to "Home", home_path %></li>
+          <li>
+            <%= link_to(home_path)  do %>
+              <i class="icon-home"></i>
+              Home
+            <% end %>
+          </li>
           <% if user_signed_in? %>
             <li>
-            <%= link_to(profile_path)  do %>
-              <i class="icon-user"></i>
-              Profile
-            <% end %>
+              <%= link_to(profile_path)  do %>
+                <i class="icon-user"></i>
+                Profile
+              <% end %>
             </li>
+            <% if current_user && current_user.is_super_admin? %>
+              <li>
+              <%= link_to(super_path)  do %>
+                <i class="icon-code"></i>
+                Super
+              <% end %>
+              </li>
+            <% end %>
+            <% if current_user && current_user.is_real_admin? %>
+              <li>
+              <%= link_to(admin_path)  do %>
+                <i class="icon-coffee"></i>
+                Admin
+              <% end %>
+              </li>
+            <% end %>
+            <% if current_user && current_user.is_captain? %>
+              <li>
+              <%= link_to(captain_path)  do %>
+                <i class="icon-anchor"></i>
+                Captain
+              <% end %>
+              </li>
+            <% end %>
             <li>
             <%= link_to(sign_out_path)  do %>
               <i class="icon-off"></i>

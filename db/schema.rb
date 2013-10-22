@@ -29,6 +29,10 @@ ActiveRecord::Schema.define(version: 20131018034551) do
   create_table "teams", force: true do |t|
     t.string   "name"
     t.integer  "captain"
+    t.string   "season"
+    t.integer  "year"
+    t.boolean  "active",     default: true
+    t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,6 +65,7 @@ ActiveRecord::Schema.define(version: 20131018034551) do
     t.string   "gender"
     t.string   "shirt_size"
     t.string   "admin",                  default: "none"
+    t.boolean  "active",                 default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

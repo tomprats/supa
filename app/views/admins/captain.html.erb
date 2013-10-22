@@ -1,0 +1,30 @@
+<div class="admins captain">
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#current-team" data-toggle="tab">Current Team</a></li>
+    <li><a href="#teams" data-toggle="tab">Teams</a></li>
+  </ul>
+
+  <div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="current-team">
+      <div class="row-fluid">
+        <h3>Current Team</h3>
+        <% if !@current_team %>
+          <p>You don't have a team this season yet!</p>
+        <% else %>
+          <%= render :partial => "shared/teams", :locals => { :teams => [@current_team] } %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="teams">
+      <div class="row-fluid">
+        <h3>Teams</h3>
+        <% if @teams.empty? %>
+          <p>You don't have any teams!</p>
+        <% else %>
+          <%= render :partial => "shared/teams", :locals => { :teams => @teams } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

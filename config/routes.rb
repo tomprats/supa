@@ -5,6 +5,7 @@ Supa::Application.routes.draw do
   }
 
   get      'home',             :to => 'pages#home'
+  resources :teams
 
   authenticated :user do
     devise_scope :user do
@@ -18,6 +19,11 @@ Supa::Application.routes.draw do
       delete 'users/sign_out',   :to => 'devise/sessions#destroy'
 
       get    'profile',          :to => 'registrations#show'
+      get    'team',             :to => 'teams#show'
+
+      get    'super',            :to => 'admins#super'
+      get    'admin',            :to => 'admins#standard'
+      get    'captain',          :to => 'admins#captain'
     end
   end
 

@@ -1,0 +1,11 @@
+<div class="team">
+  <h3>Team</h3>
+  <h4>Name:</h4>
+  <%= @team.name %>
+  <h4>Captain:</h4>
+  <%= User.find(@team.captain).name %>
+  <h4>Season:</h4>
+  <%= @team.season %>
+  <h4>Year:</h4>
+  <%= @team.year %>
+</div>

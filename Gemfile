@@ -25,7 +25,7 @@ gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
-gem "formtastic"
+gem "formtastic", :git => 'git://github.com/justinfrench/formtastic.git'
 gem "formtastic-bootstrap"
 gem "font-awesome-rails"
 

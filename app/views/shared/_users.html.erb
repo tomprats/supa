@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Experience</th>
+      <th>Gender</th>
+      <th>Shirt Size</th>
+      <th>Active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone_number %></td>
+        <td><%= user.experience %></td>
+        <td><%= user.gender %></td>
+        <td><%= user.shirt_size %></td>
+        <td><%= user.active %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

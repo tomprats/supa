@@ -2,19 +2,17 @@
 
 == TODO
 
-* Add admins
-
 * Add stats
 
 * Add paypal integration
+
+* Add static pages for supa
 
 * Error pages minigames
 
 * Write tests
 
 * Write real README
-
-* Add static pages for supa
 
 == OTHER
 
