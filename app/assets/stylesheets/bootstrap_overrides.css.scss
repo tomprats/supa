@@ -9,6 +9,15 @@
 .date_select.input select {
   width: auto;
 }
+td {
+  select,
+  input {
+    width: auto;
+}
+}
+input.integer {
+  width: 50px;
+}
 .center {
   float: none;
   margin-left: auto;

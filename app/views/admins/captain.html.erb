@@ -2,6 +2,12 @@
   <ul class="nav nav-pills">
     <li class="active"><a href="#current-team" data-toggle="tab">Current Team</a></li>
     <li><a href="#teams" data-toggle="tab">Teams</a></li>
+
+    <%= link_to "Add Game",
+                "#games_new_modal",
+                :class => "admin_modal btn btn-primary pull-right",
+                :role => "button",
+                :data => { :toggle => "modal" } %>
   </ul>
 
   <div id="my-tab-content" class="tab-content">
@@ -28,3 +34,5 @@
     </div>
   </div>
 </div>
+
+<%= render :partial => "shared/modals/games_new_modal" %>

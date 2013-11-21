@@ -1,0 +1,28 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user|%>
+      <%= simple_form_for(user, :url => admin_update_user_path(user.id), :html => { :class => "auto-width", :method => :post }) do |f| %>
+        <tr>
+          <td><%= f.input :first_name, :label => false %></td>
+          <td><%= f.input :last_name, :label => false %></td>
+          <td><%= f.input :email, :label => false %></td>
+          <td><%= f.input :phone_number, :label => false %></td>
+          <td><%= f.input :admin, :label => false, :as => :select, :collection => user.admin_collection %></td>
+          <td class="btn-group">
+            <%= f.button :submit, "Update", :class => "btn btn-primary" %>
+            <%= link_to "Back", super_path, :class => "btn btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,15 +1,11 @@
-<%= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "wide" }) do |f| %>
-  <%= f.inputs do %>
-    <div class="row-fluid">
-      <div class="span5">
-        <%= f.input :email %>
-      </div>
-      <div class="span5 offset1">
-        <%= f.input :password %>
-      </div>
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "wide" }) do |f| %>
+  <div class="row-fluid">
+    <div class="span5">
+      <%= f.input :email %>
     </div>
-  <% end %>
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :button, :button_html => { :class => "btn btn-primary" } %>
-  <% end %>
+    <div class="span5 offset1">
+      <%= f.input :password %>
+    </div>
+  </div>
+  <%= f.button :submit, :class => "btn btn-primary" %>
 <% end %>

@@ -1,3 +1,39 @@
 <div class="admins super">
-  Admins Super
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#none" data-toggle="tab">None</a></li>
+    <li><a href="#standards" data-toggle="tab">Standards</a></li>
+    <li><a href="#supers" data-toggle="tab">Supers</a></li>
+  </ul>
+  <div id="content" class="tab-content">
+    <div class="tab-pane active" id="none">
+      <div class="row-fluid">
+        <h3>None</h3>
+        <% if @none.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render :partial => "shared/admin_users", :locals => { :users => @none } %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="standards">
+      <div class="row-fluid">
+        <h3>Standards</h3>
+        <% if @standards.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render :partial => "shared/admin_users", :locals => { :users => @standards } %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="supers">
+      <div class="row-fluid">
+        <h3>Supers</h3>
+        <% if @supers.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render :partial => "shared/admin_users", :locals => { :users => @supers } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

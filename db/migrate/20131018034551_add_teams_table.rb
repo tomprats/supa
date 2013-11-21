@@ -2,7 +2,7 @@ class AddTeamsTable < ActiveRecord::Migration
   def change
     create_table :teams do |t|
       t.string  :name
-      t.integer :captain
+      t.integer :captain_id
       t.string  :season
       t.integer :year
       t.boolean :active, :default => :true

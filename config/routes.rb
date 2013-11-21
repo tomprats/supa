@@ -6,6 +6,7 @@ Supa::Application.routes.draw do
 
   get      'home',             :to => 'pages#home'
   resources :teams
+  resources :games
 
   authenticated :user do
     devise_scope :user do
@@ -14,9 +15,7 @@ Supa::Application.routes.draw do
       root :to => 'devise/sessions#new', :as => "authenticated"
 
       get    'sign_in',          :to => 'devise/sessions#new'
-      get    'sign_out',         :to => 'devise/sessions#destroy'
       delete 'sign_out',         :to => 'devise/sessions#destroy'
-      delete 'users/sign_out',   :to => 'devise/sessions#destroy'
 
       get    'profile',          :to => 'registrations#show'
       get    'team',             :to => 'teams#show'
@@ -24,6 +23,9 @@ Supa::Application.routes.draw do
       get    'super',            :to => 'admins#super'
       get    'admin',            :to => 'admins#standard'
       get    'captain',          :to => 'admins#captain'
+
+      post 'update/user/:id',    :to => 'admins#update_user',
+                                 :as => 'admin_update_user'
     end
   end
 

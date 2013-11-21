@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   scope :captain,  -> { where(admin: "captain") }
   scope :none,     -> { where(admin: "none") }
   scope :active,   -> { where(active: true) }
-  scope :inactive,   -> { where(active: false) }
+  scope :inactive, -> { where(active: false) }
 
   def apply_omniauth(omni)
     authentications.build(:provider => omni['provider'],
@@ -27,6 +27,14 @@ class User < ActiveRecord::Base
     (authentications.empty? || !password.blank?) && super
   end
 
+  def admin_collection
+    {
+      "None" => :none,
+      "Standard" => :standard,
+      "Super" => :super
+    }
+  end
+
   def is_super_admin?
     admin == "super"
   end
@@ -36,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def is_captain?
-    Team.where(:captain => id).count >= 0
+    Team.where(:captain_id => id).count > 0
   end
 
   def registered?
@@ -56,6 +64,10 @@ class User < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def paid?
+    paid
   end
 
   def update_with_password(params, *options)

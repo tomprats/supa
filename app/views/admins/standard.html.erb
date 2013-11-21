@@ -5,12 +5,20 @@
     <li><a href="#captains" data-toggle="tab">Captains</a></li>
     <li><a>|</a></li>
     <li><a href="#users" data-toggle="tab">Users</a></li>
+    <li><a>|</a></li>
+    <li><a href="#games" data-toggle="tab">Games</a></li>
 
-    <%= link_to "New Team",
-                "#teams_new_modal",
-                :class => "admin_modal btn btn-primary pull-right",
-                :role => "button",
-                :data => { :toggle => "modal" } %>
+    <div class="btn-group pull-right">
+      <%= link_to "Add Game",
+                  "#games_new_modal",
+                  :class => "admin_modal btn btn-success",
+                  :role => "button",
+                  :data => { :toggle => "modal" } %>
+      <%= link_to "Add Team",
+                  "#teams_new_modal",
+                  :class => "admin_modal btn btn-primary",
+                  :role => "button",
+                  :data => { :toggle => "modal" } %>
   </ul>
 
   <div id="my-tab-content" class="tab-content">
@@ -133,7 +141,48 @@
         </div>
       </div>
     </div>
+
+    <div class="tab-pane" id="games">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#all-games" data-toggle="tab">Games</a></li>
+        <li><a href="#current-games" data-toggle="tab">Current games</a></li>
+        <li><a href="#inactive-games" data-toggle="tab">Inactive games</a></li>
+      </ul>
+      <div id="games-content" class="tab-content">
+        <div class="tab-pane active" id="all-games">
+          <div class="row-fluid">
+            <h3>Games</h3>
+            <% if @games.empty? %>
+              <p>There aren't any games yet!</p>
+            <% else %>
+              <%= render :partial => "shared/games", :locals => { :games => @games } %>
+            <% end %>
+          </div>
+        </div>
+        <div class="tab-pane" id="current-games">
+          <div class="row-fluid">
+            <h3>Current Games</h3>
+            <% if @current_games.empty? %>
+              <p>There aren't any current games!</p>
+            <% else %>
+              <%= render :partial => "shared/games", :locals => { :games => @current_games } %>
+            <% end %>
+          </div>
+        </div>
+        <div class="tab-pane" id="inactive-games">
+          <div class="row-fluid">
+            <h3>Inactive Games</h3>
+            <% if @inactive_games.empty? %>
+              <p>There aren't any inactive games!</p>
+            <% else %>
+              <%= render :partial => "shared/games", :locals => { :games => @inactive_games } %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <%= render :partial => "shared/modals/teams_new_modal" %>
+<%= render :partial => "shared/modals/games_new_modal" %>

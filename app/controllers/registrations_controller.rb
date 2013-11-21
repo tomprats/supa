@@ -10,6 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    params[:user][:birthday] = convert_birthday_to_date(params[:user][:birthday])
     super
     session[:omniauth] = nil unless @user.new_record?
   end
@@ -29,11 +30,17 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
+    params[:user][:birthday] = convert_birthday_to_date(params[:user][:birthday])
     authentications
     super
   end
 
   private
+  def convert_birthday_to_date(birthday)
+    puts birthday
+    DateTime.strptime(birthday, "%m/%d/%Y").to_date
+  end
+
   def authentications
     @user = current_user
     @facebook = current_user.authentications.where(:provider => "facebook").first

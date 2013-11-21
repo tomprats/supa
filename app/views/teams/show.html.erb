@@ -8,4 +8,11 @@
   <%= @team.season %>
   <h4>Year:</h4>
   <%= @team.year %>
+
+  <h3>Games</h3>
+  <% if @team.games.empty? %>
+    <p><%= "#{@team.name} has not played any games yet!"%></p>
+  <% else %>
+    <%= render :partial => "shared/games", :locals => { :games => @team.games } %>
+  <% end %>
 </div>

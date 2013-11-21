@@ -21,5 +21,9 @@ module Supa
     # config.i18n.default_locale = :de
     config.assets.paths << "#{Rails.root}/app/assets/html"
     config.assets.precompile += %w(404.html 500.html)
+
+    my_date_formats = { :default => '%m/%d/%Y' }
+    Time::DATE_FORMATS.merge!(my_date_formats)
+    Date::DATE_FORMATS.merge!(my_date_formats)
   end
 end

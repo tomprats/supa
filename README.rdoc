@@ -6,9 +6,11 @@
 
 * Add paypal integration
 
-* Add static pages for supa
+* Add static pages for supa with alternative navbar
 
 * Error pages minigames
+
+* Remove config files from git, add to heroku
 
 * Write tests
 

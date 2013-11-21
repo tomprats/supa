@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'letter'
 gem "nifty-generators", :group => :development
 
+# Heroku compatable assets
+gem 'rails_12factor', group: :production
+
 # User authentication
 gem 'devise'
 gem 'omniauth'
@@ -25,9 +28,8 @@ gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
-gem "formtastic", :git => 'git://github.com/justinfrench/formtastic.git'
-gem "formtastic-bootstrap"
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
+gem 'simple_form'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

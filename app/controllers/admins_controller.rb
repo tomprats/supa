@@ -2,38 +2,65 @@ class AdminsController < ApplicationController
   before_filter :check_admin_level
 
   def super
-    @super = User.super
-    @standard = User.standard
-    @captain = User.captain
+    @supers = User.super
+    @standards = User.standard
     @none = User.none
-
-    @team = Team.new
-    @teams = Team.all
-    @captains = @teams.collect { |t| User.find(t.captain) }
   end
 
   def standard
     @team = Team.new
+    new_game
 
     @teams = Team.all
     @current_teams = Team.active
     @inactive_teams = Team.inactive
 
-    @captains = @teams.collect { |t| User.find(t.captain) }
-    @current_captains = @current_teams.collect { |t| User.find(t.captain) }
-    @inactive_captains = @inactive_teams.collect { |t| User.find(t.captain) }
+    @captains = @teams.collect { |t| t.captain }
+    @current_captains = @current_teams.collect { |t| t.captain }
+    @inactive_captains = @inactive_teams.collect { |t| t.captain }
 
     @users = User.all
     @active_users = User.active
     @inactive_users = User.inactive
+
+    @games = Game.all
+    @current_games = Game.active
+    @inactive_games = Game.inactive
   end
 
   def captain
-    @current_team = Team.active.where(:captain => current_user.id).first
-    @teams = Team.where(:captain => current_user.id)
+    new_game
+
+    @current_team = Team.active.find_by(:captain_id => current_user.id)
+    @teams = Team.where(:captain_id => current_user.id)
+  end
+
+  def update_user
+    @user = User.find(params[:id])
+    @user.update_attributes(user_params)
+    redirect_to super_path, :notice => "User updated successfully!"
   end
 
   private
+  def user_params
+    params.required(:user).permit(:first_name,
+                                  :last_name,
+                                  :email,
+                                  :phone_number,
+                                  :admin)
+  end
+
+  def new_game
+    @game = Game.new
+    @game.build_team_stats1
+    @game.build_team_stats2
+    team = current_user.teams.active.first.try(:id)
+    @game.winner_id = team
+    @game.loser_id = team
+    @game.team_stats1.player_stats.build
+    @game.team_stats2.player_stats.build
+  end
+
   def check_admin_level
     case action_name
     when "super"

@@ -1,0 +1,11 @@
+development:
+  app_id: DGKSRkP5mtMt0tfM9K0RNg
+  secret: jcPKRihS9LuC1x1L0ergjTz8PDuxXzfgiLPKzXnnY
+
+test:
+  app_id: DGKSRkP5mtMt0tfM9K0RNg
+  secret: jcPKRihS9LuC1x1L0ergjTz8PDuxXzfgiLPKzXnnY
+
+production:
+  app_id: 4hNpblZzBALZp65ApcaQ
+  secret: vPUm18Awv0TEzk08Jcl0iERzBmQYAky8t6wBbf2IRRQ
