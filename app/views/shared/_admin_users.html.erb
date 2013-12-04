@@ -19,7 +19,6 @@
           <td><%= f.input :admin, :label => false, :as => :select, :collection => user.admin_collection %></td>
           <td class="btn-group">
             <%= f.button :submit, "Update", :class => "btn btn-primary" %>
-            <%= link_to "Back", super_path, :class => "btn btn-primary" %>
           </td>
         </tr>
       <% end %>

@@ -1,0 +1,16 @@
+<%= simple_form_for(@draft) do |f| %>
+  <div class="row-fluid">
+    <div class="span5">
+      <%= f.input :season, :as => :select, :collection => @team.season_collection %>
+    </div>
+    <div class="span5 offset1">
+      <%= f.input :year, :as => :select, :collection => @team.year_collection %>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span5">
+      <%= f.input :active, :as => :select %>
+    </div>
+  </div>
+  <%= f.button :submit, "Submit", :class => "btn btn-primary" %>
+<% end %>

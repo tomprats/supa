@@ -11,6 +11,7 @@ Supa::Application.routes.draw do
   authenticated :user do
     devise_scope :user do
       resources :authentications
+      resources :drafts
 
       root :to => 'devise/sessions#new', :as => "authenticated"
 
@@ -24,7 +25,7 @@ Supa::Application.routes.draw do
       get    'admin',            :to => 'admins#standard'
       get    'captain',          :to => 'admins#captain'
 
-      post 'update/user/:id',    :to => 'admins#update_user',
+      post   'update/user/:id',  :to => 'admins#update_user',
                                  :as => 'admin_update_user'
     end
   end

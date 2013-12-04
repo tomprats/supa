@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_and_belongs_to_many :teams
+  has_many :draft_players
+  has_many :draft_groups
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -56,6 +58,18 @@ class User < ActiveRecord::Base
 
   def team
     teams.last
+  end
+
+  def teams_captain_of
+    Team.where(:captain_id => id)
+  end
+
+  def drafts
+    drafts = []
+    teams_captain_of.each do |dteam|
+      drafts += Draft.where("season = ? AND year = ?", dteam.season, dteam.year)
+    end
+    drafts
   end
 
   def name?

@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131024031126) do
+ActiveRecord::Schema.define(version: 20131130214539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "authentications", force: true do |t|
     t.string   "user_id"
@@ -22,6 +23,32 @@ ActiveRecord::Schema.define(version: 20131024031126) do
     t.string   "uid"
     t.string   "token"
     t.string   "token_secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "draft_groups", force: true do |t|
+    t.string   "name"
+    t.integer  "draft_id"
+    t.integer  "captain_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "draft_players", force: true do |t|
+    t.integer  "draft_group_id"
+    t.integer  "player_id"
+    t.string   "position"
+    t.integer  "rating"
+    t.string   "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "drafts", force: true do |t|
+    t.string   "season"
+    t.integer  "year"
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

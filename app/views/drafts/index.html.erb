@@ -1,0 +1,25 @@
+<div class="draft">
+  <h3 class="center">Drafts</h3>
+  <br>
+  <% if @drafts.empty? %>
+    <div class="center">The teams you captain are not draftable yet.</div>
+  <% else %>
+    <% @drafts.each_with_index do |draft, index| %>
+      <div class="row">
+        <div class="span2 offset2">
+          <%= link_to "View Draft #{draft.id}", draft_path(draft.id), :class => "btn btn-primary" %>
+        </div>
+        <div class="span2">
+          <%= link_to "Team: #{@teams[index].name}", team_path(@teams[index].id), :class => "btn btn-success" %>
+        </div>
+        <div class="span2">
+          <%= "Draft Groups: #{draft.groups(current_user.id).count}" %>
+        </div>
+        <div class="span2">
+          <%= "Draft Players: #{draft.players(current_user.id).count}" %>
+        </div>
+      </div>
+      <br>
+    <% end %>
+  <% end %>
+</div>

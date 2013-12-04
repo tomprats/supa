@@ -3,6 +3,14 @@
     <li class="active"><a href="#none" data-toggle="tab">None</a></li>
     <li><a href="#standards" data-toggle="tab">Standards</a></li>
     <li><a href="#supers" data-toggle="tab">Supers</a></li>
+    <li><a href="#drafts" data-toggle="tab">Drafts</a></li>
+    <div class="pull-right">
+      <%= link_to "Add Draft",
+                  "#drafts_new_modal",
+                  :class => "admin_modal btn btn-success",
+                  :role => "button",
+                  :data => { :toggle => "modal" } %>
+    </div>
   </ul>
   <div id="content" class="tab-content">
     <div class="tab-pane active" id="none">
@@ -35,5 +43,17 @@
         <% end %>
       </div>
     </div>
+    <div class="tab-pane" id="drafts">
+      <div class="row-fluid">
+        <h3>Drafts</h3>
+        <% if @drafts.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render :partial => "shared/drafts", :locals => { :drafts => @drafts } %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
+
+<%= render :partial => "shared/modals/drafts_new_modal" %>
