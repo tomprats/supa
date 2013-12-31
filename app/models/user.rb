@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_and_belongs_to_many :teams
+  has_many :drafted_players
   has_many :draft_players
   has_many :draft_groups
 
@@ -56,17 +57,26 @@ class User < ActiveRecord::Base
     name?
   end
 
+  def drafted?(draft_id)
+    !DraftedPlayer.where(:player_id => id,
+                        :draft_id => draft_id).empty?
+  end
+
   def team
     teams.last
   end
 
-  def teams_captain_of
+  def captains_team
+    captains_teams.last
+  end
+
+  def captains_teams
     Team.where(:captain_id => id)
   end
 
   def drafts
     drafts = []
-    teams_captain_of.each do |dteam|
+    captains_teams.each do |dteam|
       drafts += Draft.where("season = ? AND year = ?", dteam.season, dteam.year)
     end
     drafts

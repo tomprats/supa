@@ -10,10 +10,17 @@ Supa::Application.routes.draw do
 
   authenticated :user do
     devise_scope :user do
+      root :to => 'devise/sessions#new', :as => "authenticated"
+
       resources :authentications
       resources :drafts
 
-      root :to => 'devise/sessions#new', :as => "authenticated"
+      post   'drafts/:id/order', :to => 'drafts#order',
+                                 :as => 'draft_order'
+      get    'drafts/:id/turn',  :to => 'drafts#turn'
+
+      resources :draft_groups
+      resources :draft_players
 
       get    'sign_in',          :to => 'devise/sessions#new'
       delete 'sign_out',         :to => 'devise/sessions#destroy'
@@ -27,6 +34,9 @@ Supa::Application.routes.draw do
 
       post   'update/user/:id',  :to => 'admins#update_user',
                                  :as => 'admin_update_user'
+
+      put    'drafted_player/:id', :to => 'drafted_players#create',
+                                   :as => 'drafted_player'
     end
   end
 

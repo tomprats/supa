@@ -4,6 +4,7 @@
       <th>Season</th>
       <th>Year</th>
       <th>Active</th>
+      <th>Order</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,11 @@
           <td><%= f.input :season, :label => false, :as => :select, :collection => @team.season_collection %></td>
           <td><%= f.input :year, :label => false, :as => :select, :collection => @team.year_collection %></td>
           <td><%= f.input :active, :label => false, :as => :select %></td>
+          <td><%= link_to "Edit",
+            "#drafts_order_modal",
+            :class => "admin_modal btn btn-success",
+            :role => "button",
+            :data => { :id => draft.id, :toggle => "modal" } %></td>
           <td class="btn-group">
             <%= f.button :submit, "Update", :class => "btn btn-primary" %>
             <%= link_to "Delete", draft_path(draft), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete this draft?" %>
@@ -22,3 +28,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= render :partial => "shared/modals/drafts_order_modal" %>

@@ -36,7 +36,7 @@ class AdminsController < ApplicationController
     new_game
 
     @current_team = Team.active.find_by(:captain_id => current_user.id)
-    @teams = Team.where(:captain_id => current_user.id)
+    @teams = current_user.captains_teams
   end
 
   def update_user

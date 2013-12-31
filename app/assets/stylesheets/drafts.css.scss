@@ -1,0 +1,45 @@
+.draft {
+  h3 > span {
+    padding-left: 40px;
+  }
+
+  h4 > span {
+    padding-left: 40px;
+  }
+
+  .captains-turn {
+    color: blue;
+  }
+
+  .check input {
+    margin: 0;
+  }
+
+  .group {
+    border: black solid 3px;
+    padding: 5px;
+    margin-bottom: 20px;
+    height: 250px;
+    overflow-y: auto;
+    h4 {
+      text-align: center;
+    }
+    .max-width {
+      select,
+      input {
+        width: 90%;
+      }
+      input.normal,
+      .normal {
+        width: auto;
+      }
+    }
+  }
+}
+
+.super {
+  #drafts_order_modal {
+    width: 300px;
+    margin-left: -150px;
+  }
+}

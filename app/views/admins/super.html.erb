@@ -1,9 +1,9 @@
 <div class="admins super">
   <ul class="nav nav-pills">
-    <li class="active"><a href="#none" data-toggle="tab">None</a></li>
+    <li class="active"><a href="#drafts" data-toggle="tab">Drafts</a></li>
+    <li><a href="#none" data-toggle="tab">None</a></li>
     <li><a href="#standards" data-toggle="tab">Standards</a></li>
     <li><a href="#supers" data-toggle="tab">Supers</a></li>
-    <li><a href="#drafts" data-toggle="tab">Drafts</a></li>
     <div class="pull-right">
       <%= link_to "Add Draft",
                   "#drafts_new_modal",
@@ -13,7 +13,17 @@
     </div>
   </ul>
   <div id="content" class="tab-content">
-    <div class="tab-pane active" id="none">
+    <div class="tab-pane active" id="drafts">
+      <div class="row-fluid">
+        <h3>Drafts</h3>
+        <% if @drafts.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render :partial => "shared/drafts", :locals => { :drafts => @drafts } %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="none">
       <div class="row-fluid">
         <h3>None</h3>
         <% if @none.empty? %>
@@ -40,16 +50,6 @@
           <p>There aren't any yet!</p>
         <% else %>
           <%= render :partial => "shared/admin_users", :locals => { :users => @supers } %>
-        <% end %>
-      </div>
-    </div>
-    <div class="tab-pane" id="drafts">
-      <div class="row-fluid">
-        <h3>Drafts</h3>
-        <% if @drafts.empty? %>
-          <p>There aren't any yet!</p>
-        <% else %>
-          <%= render :partial => "shared/drafts", :locals => { :drafts => @drafts } %>
         <% end %>
       </div>
     </div>
