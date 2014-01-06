@@ -4,6 +4,8 @@ class Draft < ActiveRecord::Base
 
   serialize :order
 
+  default_scope order('created_at DESC')
+
   def groups(captain)
     draft_groups.where(:captain_id => captain)
   end
@@ -36,5 +38,12 @@ class Draft < ActiveRecord::Base
 
   def my_turn?(current_user)
     captains_turn == current_user.name
+  end
+
+  def players_undrafted?
+    User.active.each do |player|
+      return true if !player.drafted?(id)
+    end
+    false
   end
 end

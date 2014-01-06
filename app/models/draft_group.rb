@@ -4,4 +4,6 @@ class DraftGroup < ActiveRecord::Base
   belongs_to :draft
 
   accepts_nested_attributes_for :draft_players
+
+  default_scope order('created_at DESC')
 end

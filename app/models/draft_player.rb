@@ -5,4 +5,6 @@ class DraftPlayer < ActiveRecord::Base
   validates_presence_of :player_id
 
   accepts_nested_attributes_for :player
+
+  default_scope order('created_at DESC')
 end

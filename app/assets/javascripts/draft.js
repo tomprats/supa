@@ -15,6 +15,11 @@ $(document).ready(function() {
     });
   }
 
+  // Feed
+  if($(".feed")[0]) {
+    setInterval(check_turn, 1000);
+  }
+
   // View/Edit Group Swap
   $(".draft .group a").click(function(e) {
     var groupID = $(this).data("id");
@@ -71,7 +76,6 @@ function check_turn() {
   var draftID = $(".draft .check").data("id");
   var turn = $(".draft .check").data("turn");
   $.get("/drafts/" + draftID +  "/turn", function(data) {
-    console.log(data);
     if (data["turn"] != turn) {
       if(purl().param("reload") == "true") {
         location.reload();

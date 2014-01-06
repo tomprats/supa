@@ -1,4 +1,20 @@
 .draft {
+  &.feed {
+    .draft-round {
+      color: #3EAAED; // Blue
+    }
+    .draft-player {
+      color: #0FAB34; // Green
+    }
+    .draft-captain,
+    .draft-team {
+      color: #3EAAED; // Blue
+    }
+    .draft-position {
+      color: #F29C2C; // Orange
+    }
+  }
+
   h3 > span {
     padding-left: 40px;
   }

@@ -18,6 +18,8 @@ Supa::Application.routes.draw do
       post   'drafts/:id/order', :to => 'drafts#order',
                                  :as => 'draft_order'
       get    'drafts/:id/turn',  :to => 'drafts#turn'
+      get    'drafts/:id/feed',  :to => 'drafts#feed',
+                                 :as => 'feed'
 
       resources :draft_groups
       resources :draft_players
