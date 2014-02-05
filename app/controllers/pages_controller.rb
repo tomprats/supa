@@ -4,4 +4,7 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def spring2014
+  end
 end

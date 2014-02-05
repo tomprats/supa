@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   def signed_in_root_path(resource_or_scope)
-      home_path
+    profile_path
   end
 
   def check_attr

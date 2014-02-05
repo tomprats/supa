@@ -5,6 +5,8 @@ Supa::Application.routes.draw do
   }
 
   get      'home',             :to => 'pages#home'
+  get      'spring',           :to => 'pages#spring2014'
+
   resources :teams
   resources :games
 
@@ -27,6 +29,7 @@ Supa::Application.routes.draw do
       get    'sign_in',          :to => 'devise/sessions#new'
       delete 'sign_out',         :to => 'devise/sessions#destroy'
 
+      get    'register',         :to => 'registrations#spring'
       get    'profile',          :to => 'registrations#show'
       get    'team',             :to => 'teams#show'
 

@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   scope :none,     -> { where(admin: "none") }
   scope :active,   -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
+  scope :spring_registered, -> { where(spring_registered: true) }
 
   def apply_omniauth(omni)
     authentications.build(:provider => omni['provider'],
@@ -55,6 +56,10 @@ class User < ActiveRecord::Base
     experience &&
     shirt_size &&
     name?
+  end
+
+  def spring_registered?
+    spring_registered
   end
 
   def drafted?(draft_id)

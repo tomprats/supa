@@ -19,6 +19,11 @@ class RegistrationsController < Devise::RegistrationsController
     authentications
   end
 
+  def spring
+    current_user.update_attributes(:spring_registered => true)
+    redirect_to :back, :notice => "You've been successfully registered for the Spring League 2014"
+  end
+
   def edit
     authentications
     if @password

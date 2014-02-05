@@ -3,7 +3,17 @@
     <div class="row-fluid">
       <div class="span12">
         <%= link_to 'Edit profile', edit_user_registration_path %> |
-        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+        <%= link_to "Logout", sign_out_path, method: :delete %>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span12">
+        <h3>Sign Up for Spring 2014</h3>
+        <% if @user.spring_registered? %>
+          <%= link_to "Registered", "#", :class => "btn"  %>
+        <% else %>
+          <%= link_to "Register", register_path, :class => "btn btn-success"  %>
+        <% end %>
       </div>
     </div>
     <div class="row-fluid">
