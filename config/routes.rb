@@ -29,7 +29,8 @@ Supa::Application.routes.draw do
       get    'sign_in',          :to => 'devise/sessions#new'
       delete 'sign_out',         :to => 'devise/sessions#destroy'
 
-      get    'register',         :to => 'registrations#spring'
+      get    'register',         :to => 'registrations#register'
+      get    'unregister',       :to => 'registrations#unregister'
       get    'profile',          :to => 'registrations#show'
       get    'team',             :to => 'teams#show'
 
@@ -42,6 +43,10 @@ Supa::Application.routes.draw do
 
       put    'drafted_player/:id', :to => 'drafted_players#create',
                                    :as => 'drafted_player'
+
+      get    'questionnaire',     :to => 'registrations#create_questionnaire'
+      get    'questionnaire/:id', :to => 'registrations#questionnaire',
+                                  :as => 'user_questionnaire'
     end
   end
 

@@ -1,14 +1,4 @@
-<h3>Spring 2014 Sign Ups</h3>
-<div class="row-fluid">
-  <div class="span12">
-    <% if current_user %>
-      <% if current_user.spring_registered? %>
-        <%= link_to "Registered", "#", :class => "btn"  %>
-      <% else %>
-        <%= link_to "Register", register_path, :class => "btn btn-success"  %>
-      <% end %>
-    <% else %>
-      <%= link_to "Sign in to Register!", new_user_session_path, :class => "btn btn-success"  %>
-    <% end %>
-  </div>
+<div class="center">
+  <%= image_tag "spring.jpg" %>
+  <%= render :partial => "shared/spring" %>
 </div>

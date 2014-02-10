@@ -19,9 +19,14 @@ class RegistrationsController < Devise::RegistrationsController
     authentications
   end
 
-  def spring
+  def register
     current_user.update_attributes(:spring_registered => true)
     redirect_to :back, :notice => "You've been successfully registered for the Spring League 2014"
+  end
+
+  def unregister
+    current_user.update_attributes(:spring_registered => false)
+    redirect_to :back, :alert => "You've been unregistered for the Spring League 2014"
   end
 
   def edit
@@ -38,6 +43,28 @@ class RegistrationsController < Devise::RegistrationsController
     params[:user][:birthday] = convert_birthday_to_date(params[:user][:birthday])
     authentications
     super
+  end
+
+  def questionnaire
+    @user = User.find(params[:id])
+    @questionnaire = @user.questionnaire
+  end
+
+  def create_questionnaire
+    current_user.questionnaire.destroy if current_user.questionnaire
+    cocaptain = params[:cocaptain] == "Yes"
+    current_user.create_questionnaire(
+      handling: params[:handling],
+      cutting: params[:cutting],
+      defense: params[:defense],
+      fitness: params[:fitness],
+      injuries: params[:injuries],
+      height: params[:height],
+      teams: params[:teams],
+      cocaptain: cocaptain,
+      roles: params[:roles]
+    )
+    redirect_to profile_path, notice: "Thanks for filling out the questionnaire!"
   end
 
   private

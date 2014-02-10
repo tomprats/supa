@@ -58,7 +58,7 @@
         </div>
         <%= f.simple_fields_for :draft_players do |player| %>
           <div class="row-fluid add-here">
-            <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => User.spring_registered %></div>
+            <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => User.registered %></div>
             <div class="span3"><%= player.input :position, :label => false %></div>
             <div class="span3"><%= player.input :rating, :label => false %></div>
             <div class="span3"><%= player.input :info, :label => false %></div>
@@ -142,7 +142,7 @@
           </div>
           <%= f.simple_fields_for :draft_players do |player| %>
             <div class="row-fluid add-here">
-              <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => User.spring_registered %></div>
+              <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => User.registered %></div>
               <div class="span3"><%= player.input :position, :label => false %></div>
               <div class="span3"><%= player.input :rating, :label => false %></div>
               <div class="span3"><%= player.input :info, :label => false %></div>

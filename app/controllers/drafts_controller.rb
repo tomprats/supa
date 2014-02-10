@@ -52,7 +52,7 @@ class DraftsController < ApplicationController
         redirect_to :back, :notice => "Draft does not have a picking order yet"
       end
     else
-      redirect_to captain_path, :notice => "All the active players have been drafted"
+      redirect_to captain_path, :notice => "All the registered players have been drafted"
     end
   end
 

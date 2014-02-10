@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_and_belongs_to_many :teams
-  has_many :drafted_players
-  has_many :draft_players
-  has_many :draft_groups
+  has_many :drafted_players, :dependent => :destroy
+  has_many :draft_players, :dependent => :destroy
+  has_many :draft_groups, :dependent => :destroy
+  has_one :questionnaire, :dependent => :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -16,9 +17,8 @@ class User < ActiveRecord::Base
   scope :standard, -> { where(admin: "standard") }
   scope :captain,  -> { where(admin: "captain") }
   scope :none,     -> { where(admin: "none") }
-  scope :active,   -> { where(active: true) }
-  scope :inactive, -> { where(active: false) }
-  scope :spring_registered, -> { where(spring_registered: true) }
+  scope :registered, -> { where(spring_registered: true) }
+  scope :unregistered, -> { where(spring_registered: false) }
 
   def apply_omniauth(omni)
     authentications.build(:provider => omni['provider'],

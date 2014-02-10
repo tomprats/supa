@@ -1,6 +1,6 @@
 class Draft < ActiveRecord::Base
   has_many :draft_groups, :dependent => :destroy
-  has_many :drafted_players
+  has_many :drafted_players, :dependent => :destroy
 
   serialize :order
 
@@ -41,7 +41,7 @@ class Draft < ActiveRecord::Base
   end
 
   def players_undrafted?
-    User.active.each do |player|
+    User.registered.each do |player|
       return true if !player.drafted?(id)
     end
     false

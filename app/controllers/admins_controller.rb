@@ -24,8 +24,8 @@ class AdminsController < ApplicationController
     @inactive_captains = @inactive_teams.collect { |t| t.captain }
 
     @users = User.all
-    @active_users = User.active
-    @inactive_users = User.inactive
+    @registered_users = User.registered
+    @unregistered_users = User.unregistered
 
     @games = Game.all
     @current_games = Game.active

@@ -106,8 +106,8 @@
     <div class="tab-pane" id="users">
       <ul class="nav nav-pills">
         <li class="active"><a href="#all-users" data-toggle="tab">Users</a></li>
-        <li><a href="#active-users" data-toggle="tab">Active Users</a></li>
-        <li><a href="#inactive-users" data-toggle="tab">Inactive Users</a></li>
+        <li><a href="#registered" data-toggle="tab">Registered Users</a></li>
+        <li><a href="#unregistered" data-toggle="tab">Unregistered Users</a></li>
       </ul>
       <div id="users-content" class="tab-content">
         <div class="tab-pane active" id="all-users">
@@ -120,23 +120,23 @@
             <% end %>
           </div>
         </div>
-        <div class="tab-pane" id="active-users">
+        <div class="tab-pane" id="registered">
           <div class="row-fluid">
-            <h3>Active Users</h3>
-            <% if @active_users.empty? %>
-              <p>There aren't any active users yet!</p>
+            <h3>Registered</h3>
+            <% if @registered_users.empty? %>
+              <p>There aren't any registered users yet!</p>
             <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @active_users } %>
+              <%= render :partial => "shared/users", :locals => { :users => @registered_users } %>
             <% end %>
           </div>
         </div>
-        <div class="tab-pane" id="inactive-users">
+        <div class="tab-pane" id="unregistered">
           <div class="row-fluid">
-            <h3>Inactive Users</h3>
-            <% if @inactive_users.empty? %>
-              <p>There aren't any inactive users!</p>
+            <h3>Unregistered</h3>
+            <% if @unregistered_users.empty? %>
+              <p>There aren't any unregistered users!</p>
             <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @inactive_users } %>
+              <%= render :partial => "shared/users", :locals => { :users => @unregistered_users } %>
             <% end %>
           </div>
         </div>
