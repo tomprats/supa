@@ -6,9 +6,10 @@ class AdminsController < ApplicationController
     @drafts = Draft.all
     @team = Team.new
 
-    @supers = User.super
-    @standards = User.standard
-    @none = User.none
+    key = params[:key] || "last_name"
+    @supers = User.super.order("#{key} ASC")
+    @standards = User.standard.order("#{key} ASC")
+    @none = User.none.order("#{key} ASC")
   end
 
   def standard
@@ -23,9 +24,10 @@ class AdminsController < ApplicationController
     @current_captains = @current_teams.collect { |t| t.captain }
     @inactive_captains = @inactive_teams.collect { |t| t.captain }
 
-    @users = User.all
-    @registered_users = User.registered
-    @unregistered_users = User.unregistered
+    key = params[:key] || "last_name"
+    @users = User.all.order("#{key} ASC")
+    @registered_users = User.registered.order("#{key} ASC")
+    @unregistered_users = User.unregistered.order("#{key} ASC")
 
     @games = Game.all
     @current_games = Game.active
@@ -37,6 +39,7 @@ class AdminsController < ApplicationController
 
     @current_team = Team.active.find_by(:captain_id => current_user.id)
     @teams = current_user.captains_teams
+    @users = User.registered
   end
 
   def update_user

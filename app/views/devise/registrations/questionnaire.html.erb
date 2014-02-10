@@ -41,5 +41,15 @@
     <div><%= @questionnaire.roles %></div>
   </div>
 </div>
+<div class="row center">
+  <div class="span6">
+    <h4>Availability</h4>
+    <div><%= @questionnaire.availability %></div>
+  </div>
+  <div class="span6">
+    <h4>Additional Comments</h4>
+    <div><%= @questionnaire.comments %></div>
+  </div>
+</div>
 <br>
-<div class="center"><%= link_to "Back", admin_path, class: "btn btn-primary" %></div>
+<div class="center"><%= link_to "Back", :back, class: "btn btn-primary" %></div>

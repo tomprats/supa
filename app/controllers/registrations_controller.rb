@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :authenticate_user!, :except => [:show, :edit]
+  before_filter :check_attr, :only => [:show]
 
   def build_resource(*args)
     super
@@ -62,7 +63,9 @@ class RegistrationsController < Devise::RegistrationsController
       height: params[:height],
       teams: params[:teams],
       cocaptain: cocaptain,
-      roles: params[:roles]
+      roles: params[:roles],
+      availability: params[:availability],
+      comments: params[:comments]
     )
     redirect_to profile_path, notice: "Thanks for filling out the questionnaire!"
   end
@@ -78,5 +81,11 @@ class RegistrationsController < Devise::RegistrationsController
     @facebook = current_user.authentications.where(:provider => "facebook").first
     @twitter  = current_user.authentications.where(:provider => "twitter").first
     @password = !current_user.encrypted_password.blank?
+  end
+
+  def check_attr
+    if !current_user.account_registered?
+      redirect_to edit_user_registration_path, :alert => "Please fill in your registration information below."
+    end
   end
 end

@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
 
   def check_attr
     if !devise_controller?
-      if !current_user.registered?
-        redirect_to edit_user_registration_path, :notice => "Please fill in your registration information below."
+      if !current_user.account_registered?
+        redirect_to edit_user_registration_path, :alert => "Please fill in your registration information below."
       end
     end
   end

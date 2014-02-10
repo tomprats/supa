@@ -2,6 +2,7 @@
   <ul class="nav nav-pills">
     <li class="active"><a href="#current-team" data-toggle="tab">Current Team</a></li>
     <li><a href="#teams" data-toggle="tab">Teams</a></li>
+    <li><a href="#players" data-toggle="tab">Registered Players</a></li>
 
     <div class="btn-group pull-right">
       <%= link_to "View Drafts",
@@ -34,6 +35,17 @@
           <p>You don't have any teams!</p>
         <% else %>
           <%= render :partial => "shared/teams", :locals => { :teams => @teams } %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="players">
+      <div class="row-fluid">
+        <h3>Players</h3>
+        <% if @users.empty? %>
+          <p>There aren't any players!</p>
+        <% else %>
+          <%= render :partial => "shared/users", :locals => { :users => @users } %>
         <% end %>
       </div>
     </div>

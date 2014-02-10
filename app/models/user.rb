@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_and_belongs_to_many :teams
-  has_many :drafted_players, :dependent => :destroy
-  has_many :draft_players, :dependent => :destroy
-  has_many :draft_groups, :dependent => :destroy
+  has_many :drafted_players, :foreign_key => :player_id, :dependent => :destroy
+  has_many :draft_players, :foreign_key => :player_id, :dependent => :destroy
+  has_many :draft_groups, :foreign_key => :captain_id, :dependent => :destroy
   has_one :questionnaire, :dependent => :destroy
 
   # Include default devise modules. Others available are:
@@ -51,8 +51,9 @@ class User < ActiveRecord::Base
     Team.where(:captain_id => id).count > 0
   end
 
-  def registered?
+  def account_registered?
     phone_number &&
+    (phone_number.length == 14) &&
     experience &&
     shirt_size &&
     name?

@@ -55,7 +55,7 @@ $(document).ready(function(){
       title: 'Fitness',
       html:'<select name="fitness">'+
           '<option value="Seriously injured">Seriously injured</option>'+
-          '<option value="Athletically challenged">Athetically challenged</option>'+
+          '<option value="Athletically challenged">Athletically challenged</option>'+
           '<option value="Easily winded">Easily winded</option>'+
           '<option value="Average but out of shape">Average athlete but not currently in shape</option>'+
           '<option value="Average with regular exercise">Average athlete with regular exercise</option>'+
@@ -135,6 +135,28 @@ $(document).ready(function(){
       html:'<label><input type="checkbox" name="roles" value="Handler">Handler</label>'+
            '<label><input type="checkbox" name="roles" value="Cutter">Cutter</label>'+
            '<label><input type="checkbox" name="roles" value="Deep Cutter">Deep Cutter</label>',
+      buttons: { Back: -1, Next: 1 },
+      focus: 1,
+      submit:function(e,v,m,f){
+        if(v==1) $.prompt.goToState('state9')
+        if(v==-1) $.prompt.goToState('state7');
+        e.preventDefault();
+      }
+    },
+    state9: {
+      title: 'Availability',
+      html:'<textarea name="availability"></textarea>',
+      buttons: { Back: -1, Next: 1 },
+      focus: 1,
+      submit:function(e,v,m,f){
+        if(v==1) $.prompt.goToState('state10')
+        if(v==-1) $.prompt.goToState('state8');
+        e.preventDefault();
+      }
+    },
+    state10: {
+      title: 'Additional comments',
+      html:'<textarea name="comments"></textarea>',
       buttons: { Back: -1, Done: 1 },
       focus: 1,
       submit:function(e,v,m,f){
@@ -144,7 +166,7 @@ $(document).ready(function(){
           $(".jqiform").attr("onsubmit", "return true");
           $(".jqiform").submit();
         }
-        if(v==-1) $.prompt.goToState('state7');
+        if(v==-1) $.prompt.goToState('state9');
       }
     }
   };
