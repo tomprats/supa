@@ -1,5 +1,11 @@
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "wide" }) do |f| %>
-  <% if action_name == "new" %>
+<% if action_name == "new" || action_name == "create" %>
+  <% method = "post" %>
+<% else %>
+  <% method = "put" %>
+<% end %>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => method, :class => "wide" }) do |f| %>
+  <% if action_name == "new" || action_name == "create" %>
   <div class="row-fluid">
     <div class="span5">
       <%= f.input :email %>
@@ -74,7 +80,11 @@
   </div>
   <div class="row-fluid">
     <div class="span12">
-      <%= f.input :birthday, :as => :string, :input_html => { :value => localize(f.object.birthday) } %>
+      <% if f.object.birthday %>
+        <%= f.input :birthday, :as => :string, :input_html => { :value => localize(f.object.birthday) } %>
+      <% else %>
+        <%= f.input :birthday, :as => :string, :input_html => { :value => "" } %>
+      <% end %>
     </div>
   </div>
   <%= f.button :submit, :class => "btn btn-primary" %>

@@ -11,9 +11,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    params[:user][:birthday] = convert_birthday_to_date(params[:user][:birthday])
-    super
-    session[:omniauth] = nil unless @user.new_record?
+    begin
+      params[:user][:birthday] = convert_birthday_to_date(params[:user][:birthday])
+      super
+      session[:omniauth] = nil unless @user.new_record?
+    rescue ArgumentError
+      flash[:alert] = "Please fill in all necessary fields correctly"
+      redirect_to action: :new
+    end
   end
 
   def show
@@ -41,9 +46,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    params[:user][:birthday] = convert_birthday_to_date(params[:user][:birthday])
-    authentications
-    super
+    begin
+      params[:user][:birthday] = convert_birthday_to_date(params[:user][:birthday])
+      authentications
+      super
+    rescue ArgumentError
+      flash[:alert] = "Please fill in all necessary fields correctly"
+      redirect_to action: :edit
+    end
   end
 
   def questionnaire
@@ -72,7 +82,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
   def convert_birthday_to_date(birthday)
-    puts birthday
     DateTime.strptime(birthday, "%m/%d/%Y").to_date
   end
 
