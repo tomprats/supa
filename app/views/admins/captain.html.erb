@@ -23,7 +23,7 @@
         <% if !@current_team %>
           <p>You don't have a team this season yet!</p>
         <% else %>
-          <%= render :partial => "shared/teams", :locals => { :teams => [@current_team] } %>
+          <%= render :partial => "shared/users", :locals => { :users => @current_team.players } %>
         <% end %>
       </div>
     </div>

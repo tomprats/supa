@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_filter :check_admin_level
+ before_filter :check_admin_level
 
   def super
     @draft = Draft.new
@@ -70,7 +70,7 @@ class AdminsController < ApplicationController
 
   def check_admin_level
     case action_name
-    when "super", "create_draft", "update_draft"
+    when "super", "create_draft"
       if current_user.admin != "super"
         redirect_to profile_path, :notice => "You are not authorized to be there!"
       end

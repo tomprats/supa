@@ -17,37 +17,16 @@ class DraftsController < ApplicationController
 
   def show
     @draft = Draft.find(params[:id])
+    @users = User.registered.select { |u| !u.drafted?(@draft.id) }
 
     if @draft.players_undrafted?
-      if @draft.drafted_players.empty?
-        @draft.captains.each do |captain|
-          DraftedPlayer.create(
-            :team_id => captain.captains_team.id,
-            :player_id => captain.id,
-            :position => "Captain",
-            :round => 0,
-            :draft_id => @draft.id
-          )
-
-          captain.captains_team.players.each do |player|
-            DraftedPlayer.create(
-              :team_id => captain.captains_team.id,
-              :player_id => player.id,
-              :position => "Retainee",
-              :round => 0,
-              :draft_id => @draft.id
-            )
-          end
-        end
-      end
-
       if @draft.order
         @groups = @draft.groups(current_user.id).order("created_at")
         @group = DraftGroup.new(:draft_id => @draft.id,
                                 :captain_id => current_user.id)
         @group.draft_players.build
 
-        flash[:notice] = "#{@draft.drafted_players.last.name} has been drafted by #{@draft.drafted_players.last.team.name}"
+        flash[:notice] = "#{@draft.drafted_players.last.name} has been drafted by #{@draft.drafted_players.last.team.name}: <a target=\"_blank\" href=\"#{feed_path(@draft.id)}\">View Feed</a>"
       else
         redirect_to :back, :notice => "Draft does not have a picking order yet"
       end
@@ -67,6 +46,9 @@ class DraftsController < ApplicationController
 
   def update
     @draft = Draft.find(params[:id])
+    if params[:draft][:active] == "true" && @draft.active == false
+      @draft.setup_players
+    end
     @draft.update(draft_params)
     redirect_to :back, :notice => "Draft successfully updated."
   end
@@ -105,7 +87,11 @@ class DraftsController < ApplicationController
       if current_user.admin != "super"
         redirect_to profile_path, :notice => "You are not authorized to be there!"
       end
-    when "show", "index", "feed"
+    when "feed"
+      if !current_user.is_captain? && !current_user.is_real_admin?
+        redirect_to profile_path, :notice => "You are not authorized to be there!"
+      end
+    when "show", "index"
       if !current_user.is_captain?
         redirect_to profile_path, :notice => "You are not authorized to be there!"
       end

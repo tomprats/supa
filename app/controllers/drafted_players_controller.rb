@@ -6,7 +6,9 @@ class DraftedPlayersController < ApplicationController
     draft = draft_player.draft_group.draft
     player = draft_player.player
 
-    if draft.my_turn?(current_user)
+    if !draft.active?
+      redirect_to :back, :alert => "The draft has not started yet."
+    elsif draft.my_turn?(current_user)
       if player.drafted?(draft.id)
         redirect_to :back, :alert => "Player already drafted."
       else
@@ -17,7 +19,10 @@ class DraftedPlayersController < ApplicationController
           :round => draft.round,
           :draft_id => draft.id
         )
-        draft.update_attributes(:turn => draft.turn + 1)
+        draft.update_turn
+        unless draft.players_undrafted?
+          draft.update_players
+        end
         redirect_to :back, :notice => "Player successfully drafted."
       end
     else

@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
          :omniauthable, :recoverable, :rememberable, :trackable,
          :validatable
 
+  default_scope { order('last_name ASC') }
   scope :super,    -> { where(admin: "super") }
   scope :standard, -> { where(admin: "standard") }
   scope :captain,  -> { where(admin: "captain") }

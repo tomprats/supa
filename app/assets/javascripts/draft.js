@@ -75,13 +75,15 @@ $(document).ready(function() {
 function check_turn() {
   var draftID = $(".draft .check").data("id");
   var turn = $(".draft .check").data("turn");
-  $.get("/drafts/" + draftID +  "/turn", function(data) {
-    if (data["turn"] != turn) {
-      if(purl().param("reload") == "true") {
-        location.reload();
-      } else {
-        window.location.href = window.location.href + "?reload=true";
+  if(draftID && turn) {
+    $.get("/drafts/" + draftID +  "/turn", function(data) {
+      if (data["turn"] != turn) {
+        if(purl().param("reload") == "true") {
+          location.reload();
+        } else {
+          window.location.href = window.location.href + "?reload=true";
+        }
       }
-    }
-  }, "json");
+    }, "json");
+  }
 }

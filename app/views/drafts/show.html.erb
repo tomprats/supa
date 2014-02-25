@@ -5,16 +5,20 @@
       <span><%= @draft.season %> <%= @draft.year %></span>
     </h3>
     <h4 class="center">
-      <% if @draft.my_turn?(current_user) %>
+      <% if !@draft.active? %>
+        <span class="red">The draft has not started yet</span>
+      <% elsif @draft.my_turn?(current_user) %>
         <span class="captains-turn">Captain's Turn: <%= @draft.captains_turn %></span>
       <% else %>
         <span>Captain's Turn: <%= @draft.captains_turn %></span>
       <% end %>
       <span>Round: <%= @draft.round %></span>
     </h4>
-    <h5 class="center check" data-id="<%= @draft.id %>" data-turn="<%= @draft.turn %>">
-      Auto-refresh? <%= check_box_tag("accept") %>
-    </h5>
+    <% if @draft.active? %>
+      <h5 class="center check" data-id="<%= @draft.id %>" data-turn="<%= @draft.turn %>">
+        Auto-refresh? <%= check_box_tag("accept") %>
+      </h5>
+    <% end %>
   </div>
   <hr>
   <div class="row-fluid center">
@@ -58,7 +62,7 @@
         </div>
         <%= f.simple_fields_for :draft_players do |player| %>
           <div class="row-fluid add-here">
-            <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => User.registered %></div>
+            <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => @users %></div>
             <div class="span3"><%= player.input :position, :label => false %></div>
             <div class="span3"><%= player.input :rating, :label => false %></div>
             <div class="span3"><%= player.input :info, :label => false %></div>
@@ -142,7 +146,7 @@
           </div>
           <%= f.simple_fields_for :draft_players do |player| %>
             <div class="row-fluid add-here">
-              <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => User.registered %></div>
+              <div class="span3"><%= player.input :player_id, :label => false, :as => :select, :collection => @users %></div>
               <div class="span3"><%= player.input :position, :label => false %></div>
               <div class="span3"><%= player.input :rating, :label => false %></div>
               <div class="span3"><%= player.input :info, :label => false %></div>
