@@ -1,18 +1,36 @@
-<div class="team">
-  <h3>Team</h3>
-  <h4>Name:</h4>
-  <%= @team.name %>
-  <h4>Captain:</h4>
-  <%= User.find(@team.captain).name %>
-  <h4>Season:</h4>
-  <%= @team.season %>
-  <h4>Year:</h4>
-  <%= @team.year %>
-
-  <h3>Games</h3>
-  <% if @team.games.empty? %>
-    <p><%= "#{@team.name} has not played any games yet!"%></p>
-  <% else %>
-    <%= render :partial => "shared/games", :locals => { :games => @team.games } %>
-  <% end %>
+<div class="team center">
+  <h3><%= @team.name %></h3>
+  <%= image_tag @team.image if @team.image %>
+  <br>
+  <br>
+  <div class="row">
+    <div class="span4 offset2">
+      <h4>Captain</h4>
+      <div>
+        <span><%= @team.captain.name %></span>
+        <% if current_user && @team.players.collect { |p| p.id }.include?(current_user.id) %>
+          <span>| <%= @team.captain.phone_number %></span>
+          <span>| <%= @team.captain.email %></span>
+        <% end %>
+      </div>
+      <h4>Season</h4>
+      <div><%= @team.season %></div>
+      <h4>Year</h4>
+      <div><%= @team.year %></div>
+    </div>
+    <div class="span4">
+      <h4>Roster</h4>
+      <% if @team.players %>
+        <div class="text-left offset2">
+          <ol>
+            <% @team.players.each do |player| %>
+              <li><%= player.name %></li>
+            <% end %>
+          </ol>
+        </div>
+      <% else %>
+        There are no players on this team
+      <% end %>
+    </div>
+  </div>
 </div>

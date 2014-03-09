@@ -6,5 +6,6 @@ class PagesController < ApplicationController
   end
 
   def spring2014
+    @teams = Draft.where(year: 2014, season: "Spring").first.teams
   end
 end

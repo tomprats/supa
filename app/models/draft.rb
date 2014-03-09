@@ -49,6 +49,9 @@ class Draft < ActiveRecord::Base
 
   def update_turn
     new_turn = turn + 1
+    while round_on(new_turn) < whose_turn_on(new_turn).captains_team.drafted_players.count
+      new_turn = new_turn + 1
+    end
     update_attributes(turn: new_turn)
   end
 

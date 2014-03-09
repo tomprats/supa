@@ -1,4 +1,7 @@
 class TeamsController < ApplicationController
+  skip_before_filter :authenticate_user!, only: [:show]
+  skip_before_filter :check_attr, only: [:show]
+
   def create
     @team = Team.create(team_params)
     redirect_to :back, :notice => "#{@team.name} was successfully created."
