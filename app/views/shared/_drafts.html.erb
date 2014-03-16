@@ -5,26 +5,38 @@
       <th>Year</th>
       <th>Active</th>
       <th>Order</th>
+      <th>Snake</th>
     </tr>
   </thead>
   <tbody>
     <% drafts.each do |draft|%>
       <tr>
-        <%= simple_form_for(draft, :url => draft_path(draft.id), :html => { :class => "auto-width", :method => :put }) do |f| %>
-          <td><%= f.input :season, :label => false, :as => :select, :collection => @team.season_collection %></td>
-          <td><%= f.input :year, :label => false, :as => :select, :collection => @team.year_collection %></td>
-          <td><%= f.input :active, :label => false, :as => :select %></td>
-          <td><%= link_to "Edit",
-            "#drafts_order_modal",
-            :class => "admin_modal btn btn-success",
-            :role => "button",
-            :data => { :id => draft.id, :toggle => "modal" } %></td>
-          <td class="btn-group">
-            <%= f.button :submit, "Update", :class => "btn btn-primary" %>
-            <%= link_to "Feed", feed_path(draft.id), :class => "btn btn-inverse" %>
-            <%= link_to "Delete", draft_path(draft), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete this draft?" %>
-          </td>
-        <% end %>
+        <td><%= draft.season %></td>
+        <td><%= draft.year %></td>
+        <td>
+          <% if draft.active? %>
+            <%= link_to "Deactivate", activate_draft_path(draft.id, active: false), :class => "btn btn-success" %>
+          <% else %>
+            <%= link_to "Activate", activate_draft_path(draft.id, active: true), :class => "btn btn-success" %>
+          <% end %>
+        </td>
+        <td><%= link_to "Edit",
+          "#drafts_order_modal",
+          :class => "admin_modal btn btn-success",
+          :role => "button",
+          :data => { :id => draft.id, :toggle => "modal" } %>
+        </td>
+        <td>
+          <% if draft.snake? %>
+            <%= link_to "Turn off", snake_draft_path(draft.id, snake: false), :class => "btn btn-success" %>
+          <% else %>
+            <%= link_to "Turn on", snake_draft_path(draft.id, snake: true), :class => "btn btn-success" %>
+          <% end %>
+        </td>
+        <td class="btn-group">
+          <%= link_to "Feed", feed_path(draft.id), :class => "btn btn-inverse" %>
+          <%= link_to "Delete", draft_path(draft), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete this draft?" %>
+        </td>
       </tr>
     <% end %>
   </tbody>

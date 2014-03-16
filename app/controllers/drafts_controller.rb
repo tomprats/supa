@@ -26,12 +26,33 @@ class DraftsController < ApplicationController
                                 :captain_id => current_user.id)
         @group.draft_players.build
 
-        flash[:notice] = "#{@draft.drafted_players.last.name} has been drafted by #{@draft.drafted_players.last.team.name}: <a target=\"_blank\" href=\"#{feed_path(@draft.id)}\">View Feed</a>"
+        if @draft.drafted_players.last
+          flash[:notice] = "#{@draft.drafted_players.last.name} has been drafted by #{@draft.drafted_players.last.team.name}: <a target=\"_blank\" href=\"#{feed_path(@draft.id)}\">View Feed</a>"
+        end
       else
         redirect_to :back, :notice => "Draft does not have a picking order yet"
       end
     else
       redirect_to captain_path, :notice => "All the registered players have been drafted"
+    end
+  end
+
+  def activate
+    draft = Draft.find(params[:id])
+    draft.setup_players
+    if draft.update_attributes(active: params[:active])
+      redirect_to :back, :notice => "Draft has been updated"
+    else
+      redirect_to :back, :alert => "Draft cannot be updated"
+    end
+  end
+
+  def snake
+    draft = Draft.find(params[:id])
+    if draft.update_attributes(snake: params[:snake])
+      redirect_to :back, :notice => "Draft has been updated"
+    else
+      redirect_to :back, :alert => "Draft cannot be updated"
     end
   end
 
@@ -45,10 +66,6 @@ class DraftsController < ApplicationController
   end
 
   def update
-    @draft = Draft.find(params[:id])
-    if params[:draft][:active] == "true" && @draft.active == false
-      @draft.setup_players
-    end
     @draft.update(draft_params)
     redirect_to :back, :notice => "Draft successfully updated."
   end

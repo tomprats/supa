@@ -2,7 +2,7 @@ class Draft < ActiveRecord::Base
   has_many :draft_groups, :dependent => :destroy
   has_many :drafted_players, :dependent => :destroy
 
-  serialize :order
+  serialize :order, Array
 
   default_scope order('created_at DESC')
 
@@ -27,7 +27,7 @@ class Draft < ActiveRecord::Base
   end
 
   def round_on(turn_number)
-    (turn_number / captains.count).floor + 1
+    ((turn_number - 1) / captains.count).floor + 1
   end
 
   def captains_turn
@@ -48,11 +48,10 @@ class Draft < ActiveRecord::Base
   end
 
   def update_turn
-    new_turn = turn + 1
-    while round_on(new_turn) < whose_turn_on(new_turn).captains_team.drafted_players.count
-      new_turn = new_turn + 1
+    if snake? && turn % order.count <= 0
+      update_attributes(order: order.reverse)
     end
-    update_attributes(turn: new_turn)
+    update_attributes(turn: turn + 1)
   end
 
   def update_players
@@ -88,6 +87,10 @@ class Draft < ActiveRecord::Base
 
   def active?
     active
+  end
+
+  def snake?
+    snake
   end
 
   def my_turn?(current_user)

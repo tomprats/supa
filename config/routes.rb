@@ -15,7 +15,10 @@ Supa::Application.routes.draw do
       root :to => 'devise/sessions#new', :as => "authenticated"
 
       resources :authentications
-      resources :drafts
+      resources :drafts do
+        get 'snake', on: :member
+        get 'activate', on: :member
+      end
 
       post   'drafts/:id/order', :to => 'drafts#order',
                                  :as => 'draft_order'
