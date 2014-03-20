@@ -7,5 +7,6 @@ class PagesController < ApplicationController
 
   def spring2014
     @teams = Draft.where(year: 2014, season: "Spring").first.teams
+    @games = Field.all.collect { |f| f.games }
   end
 end

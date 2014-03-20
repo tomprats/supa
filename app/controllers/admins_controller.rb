@@ -2,11 +2,13 @@ class AdminsController < ApplicationController
  before_filter :check_admin_level
 
   def super
+    @field = Field.new
     @draft = Draft.new
     @drafts = Draft.all
     @team = Team.new
 
     key = params[:key] || "last_name"
+    @fields = Field.all
     @supers = User.super.order("#{key} ASC")
     @standards = User.standard.order("#{key} ASC")
     @none = User.none.order("#{key} ASC")

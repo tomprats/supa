@@ -1,6 +1,7 @@
 <div class="admins super">
   <ul class="nav nav-pills">
     <li class="active"><a href="#drafts" data-toggle="tab">Drafts</a></li>
+    <li><a href="#fields" data-toggle="tab">Fields</a></li>
     <li><a href="#none" data-toggle="tab">None</a></li>
     <li><a href="#standards" data-toggle="tab">Standards</a></li>
     <li><a href="#supers" data-toggle="tab">Supers</a></li>
@@ -8,6 +9,11 @@
       <%= link_to "Add Draft",
                   "#drafts_new_modal",
                   :class => "admin_modal btn btn-success",
+                  :role => "button",
+                  :data => { :toggle => "modal" } %>
+      <%= link_to "Add Field",
+                  "#fields_new_modal",
+                  :class => "admin_modal btn btn-primary",
                   :role => "button",
                   :data => { :toggle => "modal" } %>
     </div>
@@ -20,6 +26,16 @@
           <p>There aren't any yet!</p>
         <% else %>
           <%= render :partial => "shared/drafts", :locals => { :drafts => @drafts } %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="fields">
+      <div class="row-fluid">
+        <h3>Fields</h3>
+        <% if @fields.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render :partial => "fields/index", :locals => { :fields => @fields } %>
         <% end %>
       </div>
     </div>
@@ -57,3 +73,4 @@
 </div>
 
 <%= render :partial => "shared/modals/drafts_new_modal" %>
+<%= render :partial => "fields/new_modal" %>

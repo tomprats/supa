@@ -4,7 +4,9 @@ class Draft < ActiveRecord::Base
 
   serialize :order, Array
 
-  default_scope order('created_at DESC')
+  def self.default_scope
+    order('created_at DESC')
+  end
 
   def groups(captain)
     draft_groups.where(:captain_id => captain)

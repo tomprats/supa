@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316030606) do
+ActiveRecord::Schema.define(version: 20140319031536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,12 +66,22 @@ ActiveRecord::Schema.define(version: 20140316030606) do
     t.boolean  "snake"
   end
 
+  create_table "fields", force: true do |t|
+    t.string   "name"
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "games", force: true do |t|
-    t.integer "winner_id"
-    t.integer "loser_id"
-    t.integer "creator_id"
-    t.integer "team_stats1_id"
-    t.integer "team_stats2_id"
+    t.integer  "winner_id"
+    t.integer  "loser_id"
+    t.integer  "creator_id"
+    t.integer  "team_stats1_id"
+    t.integer  "team_stats2_id"
+    t.datetime "datetime"
+    t.integer  "field_id"
+    t.string   "name"
   end
 
   create_table "player_stats", force: true do |t|

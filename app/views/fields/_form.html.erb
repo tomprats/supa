@@ -1,0 +1,17 @@
+<%= simple_form_for(@field) do |f| %>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="row-fluid">
+        <div class="span6">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
+        <div class="span6">
+          <%= f.label :location %>
+          <%= f.text_field :location, placeholder: "Optional" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.button :submit, "Submit", :class => "btn btn-primary" %>
+<% end %>

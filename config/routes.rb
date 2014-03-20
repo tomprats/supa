@@ -15,6 +15,7 @@ Supa::Application.routes.draw do
       root :to => 'devise/sessions#new', :as => "authenticated"
 
       resources :authentications
+      resources :fields
       resources :drafts do
         get 'snake', on: :member
         get 'activate', on: :member

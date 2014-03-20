@@ -13,7 +13,6 @@ class Team < ActiveRecord::Base
   scope :inactive, -> { where(active: false) }
 
   def games
-    # Should be ordered
     wins + losses
   end
 

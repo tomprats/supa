@@ -1,17 +1,12 @@
 class GamesController < ApplicationController
+ before_filter :check_admin_level, except: [:show]
+
   def create
-    if params[:game][:winner_id] && params[:game][:loser_id]
-      if params[:game][:winner_id] == params[:game][:loser_id]
-        redirect_to :back, :alert => "A team cannot play itself!"
-      else
-        params[:game][:team_stats1_attributes][:team_id] = params[:game][:winner_id]
-        params[:game][:team_stats2_attributes][:team_id] = params[:game][:loser_id]
-        params[:game][:creator_id] = current_user.id
-        Game.create(game_params)
-        redirect_to :back, :notice => "Game was successfully saved!"
-      end
+    params[:game][:datetime] = convert_to_datetime(params[:game][:date], params[:game][:time])
+    if Game.create(game_params.merge!(creator_id: current_user.id)).valid?
+      redirect_to :back, notice: "Game was successfully created"
     else
-      redirect_to :back, :alert => "A game must have a winner and loser!"
+      redirect_to :back, alert: "Game could not be created"
     end
   end
 
@@ -24,23 +19,37 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = Game.find(params[:id])
-    @game.update(game_params)
-    redirect_to home_path, :notice => "Game successfully updated."
+    params[:game][:datetime] = convert_to_datetime(params[:game][:date], params[:game][:time])
+    if Game.find(params[:id]).update_attributes(game_params)
+      redirect_to :back, notice: "Game was successfully updated"
+    else
+      redirect_to :back, alert: "Game could not be updated"
+    end
   end
 
   def destroy
-    @game = Game.find(params[:id]).destroy
-    redirect_to :back, :notice => "Game was successfully destroyed."
+    if Game.find(params[:id]).destroy
+      redirect_to :back, notice: "Game was successfully destroyed"
+    else
+      redirect_to :back, alert: "Game could not be destroyed"
+    end
   end
 
   private
   def game_params
-    params.require(:game).permit(:winner_id,
-                                 :loser_id,
-                                 :creator_id,
-                                 :team_stats1_id,
-                                 :team_stats2_id
-                                )
+    params.require(:game).permit(:datetime, :field_id, :name,
+      team_stats1_attributes: [:id, :team_id],
+      team_stats2_attributes: [:id, :team_id]
+    )
+  end
+
+  def convert_to_datetime(date, time)
+    DateTime.strptime("#{date} #{time}", "%m/%d/%Y %I:%M %p")
+  end
+
+  def check_admin_level
+    if current_user.admin == "none"
+      redirect_to profile_path, :notice => "You are not authorized to be there!"
+    end
   end
 end

@@ -29,6 +29,7 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 2.3'
 gem 'font-awesome-rails', '~> 3.0'
+gem 'pickadate-rails'
 gem 'simple_form'
 
 # Use Uglifier as compressor for JavaScript assets

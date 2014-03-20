@@ -156,7 +156,7 @@
             <% if @games.empty? %>
               <p>There aren't any games yet!</p>
             <% else %>
-              <%= render :partial => "shared/games", :locals => { :games => @games } %>
+              <%= render :partial => "games/index", :locals => { :games => @games } %>
             <% end %>
           </div>
         </div>
@@ -166,7 +166,7 @@
             <% if @current_games.empty? %>
               <p>There aren't any current games!</p>
             <% else %>
-              <%= render :partial => "shared/games", :locals => { :games => @current_games } %>
+              <%= render :partial => "games/index", :locals => { :games => @current_games } %>
             <% end %>
           </div>
         </div>
@@ -176,7 +176,7 @@
             <% if @inactive_games.empty? %>
               <p>There aren't any inactive games!</p>
             <% else %>
-              <%= render :partial => "shared/games", :locals => { :games => @inactive_games } %>
+              <%= render :partial => "games/index", :locals => { :games => @inactive_games } %>
             <% end %>
           </div>
         </div>
