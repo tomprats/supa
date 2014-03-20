@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
+  has_many :announcements
   has_and_belongs_to_many :teams
   has_many :drafted_players, :foreign_key => :player_id, :dependent => :destroy
   has_many :draft_players, :foreign_key => :player_id, :dependent => :destroy

@@ -6,7 +6,19 @@ class PagesController < ApplicationController
   end
 
   def spring2014
+    @announcements = Announcement.all
     @teams = Draft.where(year: 2014, season: "Spring").first.teams
-    @games = Field.all.collect { |f| f.games }
+    @games = Game.all.group_by { |game| game.date }
+    @games.keys.each do |date|
+      name = @games[date].collect { |g| g.name }.reject { |g| g.blank? }.first
+      fields = @games[date].collect { |g| g.field }.uniq
+      times = @games[date].collect { |g| g.time }.uniq
+      @games[date] = {
+        games: @games[date],
+        name: name,
+        fields: fields,
+        times: times
+      }
+    end
   end
 end

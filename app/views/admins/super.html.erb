@@ -1,11 +1,17 @@
 <div class="admins super">
   <ul class="nav nav-pills">
-    <li class="active"><a href="#drafts" data-toggle="tab">Drafts</a></li>
+    <li class="active"><a href="#announcements" data-toggle="tab">Announcements</a></li>
+    <li><a href="#drafts" data-toggle="tab">Drafts</a></li>
     <li><a href="#fields" data-toggle="tab">Fields</a></li>
     <li><a href="#none" data-toggle="tab">None</a></li>
     <li><a href="#standards" data-toggle="tab">Standards</a></li>
     <li><a href="#supers" data-toggle="tab">Supers</a></li>
     <div class="pull-right">
+      <%= link_to "Add Announcement",
+                  "#announcements_new_modal",
+                  :class => "admin_modal btn btn-warning",
+                  :role => "button",
+                  :data => { :toggle => "modal" } %>
       <%= link_to "Add Draft",
                   "#drafts_new_modal",
                   :class => "admin_modal btn btn-success",
@@ -19,7 +25,17 @@
     </div>
   </ul>
   <div id="content" class="tab-content">
-    <div class="tab-pane active" id="drafts">
+    <div class="tab-pane active" id="announcements">
+      <div class="row-fluid">
+        <h3>Announcements</h3>
+        <% if @announcements.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render :partial => "announcements/index", :locals => { :announcements => @announcements } %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="drafts">
       <div class="row-fluid">
         <h3>Drafts</h3>
         <% if @drafts.empty? %>
@@ -72,5 +88,6 @@
   </div>
 </div>
 
+<%= render :partial => "announcements/new_modal" %>
 <%= render :partial => "shared/modals/drafts_new_modal" %>
 <%= render :partial => "fields/new_modal" %>

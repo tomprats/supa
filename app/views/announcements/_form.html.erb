@@ -1,0 +1,23 @@
+<%= simple_form_for(@announcement) do |f| %>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="row-fluid">
+        <div class="span6">
+          <%= f.label :heading %>
+          <%= f.text_field :heading %>
+        </div>
+        <div class="span6">
+          <%= f.label :importance %>
+          <%= f.number_field :importance %>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12">
+          <%= f.label :text %>
+          <%= f.text_area :text %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.button :submit, "Submit", :class => "btn btn-primary" %>
+<% end %>

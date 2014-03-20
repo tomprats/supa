@@ -10,21 +10,65 @@
     <% end %>
   </div>
 </div>
-<br>
 <div class="center">
-  <h3>Schedule</h3>
-  <div>
-    <% @games.each do |game| %>
+  <h3>Announcements</h3>
+  <% if !@announcements.empty? %>
+    <% @announcements.each do |announcement| %>
+      <div class="row">
+        <div class="span6 offset3">
+          <h4><%= announcement.heading %></h4>
+          <p class="text-left"><%=raw announcement.text.gsub("\n", "<br>") %></p>
+        </div>
+      </div>
     <% end %>
+  <% else %>
+    <p>There aren't any announcements at this time</p>
+  <% end %>
+</div>
+<% if !@games.empty? %>
+  <br>
+  <div class="center schedule">
+    <h3>Schedule</h3>
+    <div class="row">
+      <% @games.keys.each_with_index do |date, index| %>
+        <% if index != 0 && index % 2 == 0 %>
+          </div>
+          <div class="row">
+        <% end %>
+        <div class="span6">
+          <table class="center-th table table-bordered">
+            <thead>
+              <tr>
+                <th colspan="100"><%= @games[date][:name] %></th>
+              </tr>
+              <tr>
+                <th colspan="100"><%= date %></th>
+              </tr>
+              <tr>
+                <th>Time</th>
+                <% @games[date][:fields].each do |field| %>
+                  <th><%= field.name %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% @games[date][:times].each do |time| %>
+                <tr>
+                  <td><%= time %></td>
+                  <% @games[date][:fields].each do |field| %>
+                    <% game = @games[date][:games].select { |g| g.time == time && g.field == field }.first %>
+                    <% if game %>
+                      <td><%= game.teams.collect(&:name).join(" vs ") %></td>
+                    <% else %>
+                      <td>No game</td>
+                    <% end %>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
-<br>
-<div class="row">
-  <div class="span8 offset2">
-    <p>
-      Same as the Fall, we will continue to play at Camp Security park, corner of Eastern Boulevard and Locust Grove Rd (map below or link <a href="https://goo.gl/maps/qfLZB">here</a>).
-      Also same as Fall each team will play 2 games to 15 with hour and a half time caps.
-    </p>
-   </div>
- </div>
-</div>
+<% end %>

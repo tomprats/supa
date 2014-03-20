@@ -5,6 +5,9 @@ jQuery(function($){
     format: "mm/dd/yyyy"
   });
   $("#game_time").pickatime({
-    format: "hh:i A"
+    format: "hh:i A",
+    interval: 15,
+    min: [9, 0],
+    max: [21, 0]
   });
 });
