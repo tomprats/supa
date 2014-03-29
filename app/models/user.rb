@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :draft_players, :foreign_key => :player_id, :dependent => :destroy
   has_many :draft_groups, :foreign_key => :captain_id, :dependent => :destroy
   has_one :questionnaire, :dependent => :destroy
+  has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -14,13 +15,17 @@ class User < ActiveRecord::Base
          :omniauthable, :recoverable, :rememberable, :trackable,
          :validatable
 
-  default_scope { order('last_name ASC') }
   scope :super,    -> { where(admin: "super") }
   scope :standard, -> { where(admin: "standard") }
   scope :captain,  -> { where(admin: "captain") }
   scope :none,     -> { where(admin: "none") }
   scope :registered, -> { where(spring_registered: true) }
   scope :unregistered, -> { where(spring_registered: false) }
+  scope :current, -> { includes(:teams).where.not(teams: { id: nil }) }
+
+  def self.default_scope
+    order("last_name ASC")
+  end
 
   def apply_omniauth(omni)
     authentications.build(:provider => omni['provider'],
@@ -100,6 +105,30 @@ class User < ActiveRecord::Base
 
   def paid?
     paid
+  end
+
+  def games_played
+    stats.map(&:team_stats).uniq.count
+  end
+
+  def assists
+    stats.reduce(0){|sum, s| sum + s.assists.to_i }
+  end
+
+  def goals
+    stats.reduce(0){|sum, s| sum + s.goals.to_i }
+  end
+
+  def points
+    assists + goals
+  end
+
+  def points_per_game
+    if games_played.zero?
+      0
+    else
+      (points/games_played).round(2)
+    end
   end
 
   def update_with_password(params, *options)

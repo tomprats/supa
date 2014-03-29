@@ -3,13 +3,13 @@ class Game < ActiveRecord::Base
   belongs_to :winner,   class_name: "Team"
   belongs_to :loser,    class_name: "Team"
   belongs_to :creator,  class_name: "User"
-  belongs_to :team_stats1, class_name: "TeamStat"
-  belongs_to :team_stats2, class_name: "TeamStat"
+  belongs_to :team_stats1, class_name: "TeamStat", dependent: :destroy
+  belongs_to :team_stats2, class_name: "TeamStat", dependent: :destroy
   accepts_nested_attributes_for :team_stats1
   accepts_nested_attributes_for :team_stats2
 
   validates_presence_of :datetime, :field
-  validate :team1_exists, :team2_exists, :teams_differ
+  validate :team1_exists, :team2_exists, :teams_differ, :winners_losers
 
   scope :active,   -> { includes(:winner).where(:teams => { :active => true }) }
   scope :inactive, -> { includes(:winner).where(:teams => { :active => false }) }
@@ -54,6 +54,12 @@ class Game < ActiveRecord::Base
   def teams_differ
     if team1 && team2 && team1 == team2
       errors.add(:teams, "must differ")
+    end
+  end
+
+  def winners_losers
+    if winner && loser && winner == loser
+      errors.add(:winners, "must be different than losers")
     end
   end
 end

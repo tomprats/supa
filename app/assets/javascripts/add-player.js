@@ -1,22 +1,21 @@
 $(document).ready(function() {
-  $(".add-winner.icon-plus-sign").click(function() {
-    addWinner();
+  $(".add-player1.icon-plus-sign").click(function() {
+    addPlayer(1);
   });
-  $(".add-loser.icon-plus-sign").click(function() {
-    addLoser();
+  $(".add-player2.icon-plus-sign").click(function() {
+    addPlayer(2);
+  });
+  $("#team1 .delete, #team2 .delete").click(function(e) {
+    $(this).closest(".row-fluid").remove();
+    e.preventDefault();
   });
 });
 
-function addWinner() {
-  var winner = $("#winners .game_team_stats1_player_stats_player_id:last").clone();
-  winner = updatePlayer(winner);
-  winner.appendTo("#winners .row-fluid");
-}
-
-function addLoser() {
-  var loser = $("#losers .game_team_stats2_player_stats_player_id:last").clone();
-  loser = updatePlayer(loser);
-  loser.appendTo("#losers .row-fluid");
+function addPlayer(type) {
+  var selector = "#team" + type;
+  var player = $(selector + " select:last").closest(".row-fluid").clone();
+  player = updatePlayer(player);
+  player.appendTo(selector + " .players");
 }
 
 function updatePlayer(player) {

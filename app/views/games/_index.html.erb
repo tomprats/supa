@@ -17,11 +17,13 @@
         <td><%= game.team1.name %></td>
         <td><%= game.team2.name %></td>
         <td class="btn-group">
-          <%= link_to "View", game_path(game), :class => "btn btn-success" %>
-          <%= link_to "Edit", edit_game_path(game), :class => "btn btn-primary" %>
-          <%= link_to "Delete", game_path(game), :method => :delete, :class => "btn btn-danger", :confirm => "Are you sure you want to delete this game?" %>
+          <%= link_to "Stats", "#", class: "btn btn-success edit-stats", data: { id: game.id } %>
+          <%= link_to "Edit", edit_game_path(game), class: "btn btn-primary" %>
+          <%= link_to "Delete", game_path(game), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this game?" %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= render partial: "stats/modal" %>

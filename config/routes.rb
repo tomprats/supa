@@ -1,4 +1,6 @@
 Supa::Application.routes.draw do
+  root to: "pages#spring2014"
+
   devise_for :users, :controllers => {
     :omniauth_callbacks => "authentications",
     :registrations      => "registrations"
@@ -6,14 +8,15 @@ Supa::Application.routes.draw do
 
   get      'home',             :to => 'pages#home'
   get      'spring',           :to => 'pages#spring2014'
+  get      'stats',            :to => 'stats#index'
 
   resources :teams
-  resources :games
+  resources :games do
+    resource :stats, only: [:show, :edit, :update]
+  end
 
   authenticated :user do
     devise_scope :user do
-      root :to => 'devise/sessions#new', :as => "authenticated"
-
       resources :authentications
       resources :announcements
       resources :fields
@@ -52,12 +55,6 @@ Supa::Application.routes.draw do
       get    'questionnaire',     :to => 'registrations#create_questionnaire'
       get    'questionnaire/:id', :to => 'registrations#questionnaire',
                                   :as => 'user_questionnaire'
-    end
-  end
-
-  unauthenticated do
-    devise_scope :user do
-      root to: "devise/sessions#new", :as => "unauthenticated"
     end
   end
 end

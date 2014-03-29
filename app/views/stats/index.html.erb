@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Player Name</th>
+      <th>Games Played</th>
+      <th>Assists</th>
+      <th>Goals</th>
+      <th>Points</th>
+      <th>Points Per Game</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.team.name %></td>
+        <td><%= player.name %></td>
+        <td><%= player.games_played %></td>
+        <td><%= player.assists %></td>
+        <td><%= player.goals %></td>
+        <td><%= player.points %></td>
+        <td><%= number_with_precision(player.points_per_game, strip_insignificant_zeros: true, precision: 2) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
