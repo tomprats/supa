@@ -12,41 +12,26 @@
  *= require pickadate/default
  *= require pickadate/default.date
  *= require pickadate/default.time
+ *= require dataTables/jquery.dataTables.bootstrap3
  *
  *= require_tree .
  */
+@import "font-awesome";
 @import "variables";
 @import "bootstrap";
 body {
   padding-top: 90px;
 }
-@import "bootstrap-responsive";
-@import "font-awesome";
 
 form {
-  i.icon-plus-sign:hover {
+  i.fa-plus-circle:hover {
     cursor: pointer;
   }
-  input.width-60 {
-    width: 60px;
-  }
-}
-
-.short-input {
-  width: 50px;
 }
 
 .login-button {
   font-size: 1.5em;
   padding: 10px;
-}
-
-.auto-width input {
-  width: auto;
-}
-
-select.auto-width {
-  width: auto;
 }
 
 .left {

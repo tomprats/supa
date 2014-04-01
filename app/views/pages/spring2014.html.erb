@@ -6,7 +6,7 @@
   <h3>Check out this years teams!</h3>
   <div>
     <% @teams.each do |team| %>
-      <%= link_to team.name, team_path(team.id), :class => "btn btn-primary" %>
+      <%= link_to team.name, team_path(team.id), class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
@@ -15,7 +15,7 @@
   <% if !@announcements.empty? %>
     <% @announcements.each do |announcement| %>
       <div class="row">
-        <div class="span6 offset3">
+        <div class="col-md-6 col-md-offset-3">
           <h4><%= announcement.heading %></h4>
           <p class="text-left"><%=raw announcement.text.gsub("\n", "<br>") %></p>
         </div>
@@ -35,7 +35,7 @@
           </div>
           <div class="row">
         <% end %>
-        <div class="span6">
+        <div class="col-md-6">
           <table class="center-th table table-bordered">
             <thead>
               <tr>

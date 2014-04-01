@@ -11,8 +11,8 @@ class Game < ActiveRecord::Base
   validates_presence_of :datetime, :field
   validate :team1_exists, :team2_exists, :teams_differ, :winners_losers
 
-  scope :active,   -> { includes(:winner).where(:teams => { :active => true }) }
-  scope :inactive, -> { includes(:winner).where(:teams => { :active => false }) }
+  scope :active,   -> { includes(:winner).where(teams: { active: true }) }
+  scope :inactive, -> { includes(:winner).where(teams: { active: false }) }
 
   def self.default_scope
     order("datetime ASC")

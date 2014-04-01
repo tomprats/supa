@@ -1,8 +1,10 @@
+<h3 class="center">Spring Stats</h3>
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Team</th>
-      <th>Player Name</th>
       <th>Games Played</th>
       <th>Assists</th>
       <th>Goals</th>
@@ -12,9 +14,10 @@
   </thead>
   <tbody>
     <% @players.each do |player| %>
-      <tr>
+      <tr class="<%= player.team.color %>">
         <td><%= player.team.name %></td>
-        <td><%= player.name %></td>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
         <td><%= player.games_played %></td>
         <td><%= player.assists %></td>
         <td><%= player.goals %></td>

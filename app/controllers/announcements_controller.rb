@@ -36,7 +36,7 @@ class AnnouncementsController < ApplicationController
 
   def check_admin_level
     if current_user.admin != "super"
-      redirect_to profile_path, :notice => "You are not authorized to be there!"
+      redirect_to profile_path, notice: "You are not authorized to be there!"
     end
   end
 end

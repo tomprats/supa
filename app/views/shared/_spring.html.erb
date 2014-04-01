@@ -1,21 +1,21 @@
-<div class="row-fluid">
-  <div class="span12">
+<div class="row">
+  <div class="col-md-12">
     <h3>Spring 2014 Sign Ups</h3>
     <% if current_user %>
       <% if current_user.spring_registered? %>
-        <%= link_to "Unregister", unregister_path, :class => "btn btn-danger" %>
-        <%= link_to "Retake Questionnaire", "#", :class => "btn btn-primary question" %>
+        <%= link_to "Unregister", unregister_path, class: "btn btn-danger" %>
+        <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
       <% else %>
         <% if current_user.questionnaire %>
-          <%= link_to "Register", register_path, :class => "btn btn-success" %>
-          <%= link_to "Retake Questionnaire", "#", :class => "btn btn-primary question" %>
+          <%= link_to "Register", register_path, class: "btn btn-success" %>
+          <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
         <% else %>
-          <%= link_to "Register", "#", data: { confirm: 'You must take the questionnaire first!' }, :class => "btn btn-success" %>
-          <%= link_to "Questionnaire", "#", :class => "btn btn-primary question" %>
+          <%= link_to "Register", "#", data: { confirm: 'You must take the questionnaire first!' }, class: "btn btn-success" %>
+          <%= link_to "Questionnaire", "#", class: "btn btn-primary question" %>
         <% end %>
       <% end %>
     <% else %>
-      <%= link_to "Sign in to Register!", new_user_session_path, :class => "btn btn-success"  %>
+      <%= link_to "Sign in to Register!", new_user_session_path, class: "btn btn-success"  %>
     <% end %>
   </div>
 </div>

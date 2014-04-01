@@ -5,46 +5,50 @@
     <li><a href="#players" data-toggle="tab">Registered Players</a></li>
 
     <div class="btn-group pull-right">
-      <%= link_to "View Drafts",
-                  drafts_path,
-                  :class => "btn btn-primary",
-                  :role => "button" %>
+      <%= link_to "View Drafts", drafts_path, class: "btn btn-primary" %>
+    </div>
   </ul>
 
   <div id="my-tab-content" class="tab-content">
     <div class="tab-pane active" id="current-team">
-      <div class="row-fluid">
-        <h3>Current Team</h3>
-        <% if !@current_team %>
-          <p>You don't have a team this season yet!</p>
-        <% else %>
-          <%= render :partial => "shared/users", :locals => { :users => @current_team.players } %>
-        <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Current Team</h3>
+          <% if !@current_team %>
+            <p>You don't have a team this season yet!</p>
+          <% else %>
+            <%= render partial: "shared/users", locals: { users: @current_team.players } %>
+          <% end %>
+        </div>
       </div>
     </div>
 
     <div class="tab-pane" id="teams">
-      <div class="row-fluid">
-        <h3>Teams</h3>
-        <% if @teams.empty? %>
-          <p>You don't have any teams!</p>
-        <% else %>
-          <%= render :partial => "shared/teams", :locals => { :teams => @teams } %>
-        <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Teams</h3>
+          <% if @teams.empty? %>
+            <p>You don't have any teams!</p>
+          <% else %>
+            <%= render partial: "shared/teams", locals: { teams: @teams } %>
+          <% end %>
+        </div>
       </div>
     </div>
 
     <div class="tab-pane" id="players">
-      <div class="row-fluid">
-        <h3>Players</h3>
-        <% if @users.empty? %>
-          <p>There aren't any players!</p>
-        <% else %>
-          <%= render :partial => "shared/users", :locals => { :users => @users } %>
-        <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Players</h3>
+          <% if @users.empty? %>
+            <p>There aren't any players!</p>
+          <% else %>
+            <%= render partial: "shared/users", locals: { users: @users } %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<%= render :partial => "shared/modals/games_new_modal" %>
+<%= render partial: "shared/modals/games_new_modal" %>

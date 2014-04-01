@@ -1,6 +1,6 @@
 class Draft < ActiveRecord::Base
-  has_many :draft_groups, :dependent => :destroy
-  has_many :drafted_players, :dependent => :destroy
+  has_many :draft_groups, dependent: :destroy
+  has_many :drafted_players, dependent: :destroy
 
   serialize :order, Array
 
@@ -41,12 +41,16 @@ class Draft < ActiveRecord::Base
   end
 
   def whose_turn_on(turn_number)
-    index = (turn_number % order.count) - 1
-    if index < 0
-      index = order.count - 1
-    end
+    if order.count != 0
+      index = (turn_number % order.count) - 1
+      if index < 0
+        index = order.count - 1
+      end
 
-    User.find(order[index])
+      User.find(order[index])
+    else
+      nil
+    end
   end
 
   def update_turn
@@ -68,20 +72,20 @@ class Draft < ActiveRecord::Base
 
     captains.each do |captain|
       DraftedPlayer.create(
-        :team_id => captain.captains_team.id,
-        :player_id => captain.id,
-        :position => "Captain",
-        :round => 0,
-        :draft_id => id
+        team_id: captain.captains_team.id,
+        player_id: captain.id,
+        position: "Captain",
+        round: 0,
+        draft_id: id
       )
 
       captain.captains_team.players.each do |player|
         DraftedPlayer.create(
-          :team_id => captain.captains_team.id,
-          :player_id => player.id,
-          :position => "Retainee",
-          :round => 0,
-          :draft_id => id
+          team_id: captain.captains_team.id,
+          player_id: player.id,
+          position: "Retainee",
+          round: 0,
+          draft_id: id
         )
       end
     end

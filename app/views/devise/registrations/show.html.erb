@@ -1,30 +1,25 @@
-<div class="row-fluid registrations-show">
-  <div class="span6">
-    <div class="row-fluid">
-      <div class="span12">
+<div class="row registrations-show">
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
         <%= link_to 'Edit profile', edit_user_registration_path %> |
         <%= link_to "Logout", sign_out_path, method: :delete %>
       </div>
     </div>
-    <%= render :partial => "shared/spring" %>
-    <div class="row-fluid">
-      <div class="span12">
+    <%= render partial: "shared/spring" %>
+    <div class="row">
+      <div class="col-md-12">
         <h3>Teams</h3>
         <% if @user.teams.empty? %>
           <p>You aren't signed up for any teams yet, sorry!</p>
         <% else %>
-          <%= render :partial => "shared/teams", :locals => { :teams => @user.teams } %>
+          <%= render partial: "shared/teams", locals: { teams: @user.teams } %>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="span6">
-    <%= render :partial => "shared/authentications"%>
-    <div class="row-fluid">
-      <div class="span12 center">
-        <%= link_to "Home", home_path, :class => "btn btn-success" %>
-      </div>
-    </div>
+  <div class="col-md-6">
+    <%= render partial: "shared/authentications"%>
   </div>
 </div>

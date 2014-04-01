@@ -1,8 +1,8 @@
 $(document).ready(function() {
-  $(".add-player1.icon-plus-sign").click(function() {
+  $(".add-player1.fa-plus-circle").click(function() {
     addPlayer(1);
   });
-  $(".add-player2.icon-plus-sign").click(function() {
+  $(".add-player2.fa-plus-circle").click(function() {
     addPlayer(2);
   });
   $("#team1 .delete, #team2 .delete").click(function(e) {

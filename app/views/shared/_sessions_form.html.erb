@@ -1,11 +1,15 @@
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "wide" }) do |f| %>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :email %>
-    </div>
-    <div class="span5 offset1">
-      <%= f.input :password %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= f.label :email, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :email, { class: "form-control" } %>
     </div>
   </div>
-  <%= f.button :submit, :class => "btn btn-primary" %>
+  <div class="form-group">
+    <%= f.label :password, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :password, { class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

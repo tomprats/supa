@@ -4,88 +4,99 @@
   <% method = "put" %>
 <% end %>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => method, :class => "wide" }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: method, class: "form-horizontal" }) do |f| %>
   <% if action_name == "new" || action_name == "create" %>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :email %>
+    <div class="form-group">
+      <%= f.label :email, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :email, { class: "form-control" } %>
+      </div>
     </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :password %>
+    <div class="form-group">
+      <%= f.label :password, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :password, { class: "form-control" } %>
+      </div>
     </div>
-    <div class="span5 offset1">
-      <%= f.input :password_confirmation %>
+    <div class="form-group">
+      <%= f.label :password_confirmation, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :password_confirmation, { class: "form-control" } %>
+      </div>
     </div>
-  </div>
   <% else %>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :email, :input_html => { :readonly => true } %>
+    <div class="form-group">
+      <%= f.label :email, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :email, { readonly: true, class: "form-control" } %>
+      </div>
     </div>
-    <div class="span5 offset1">
-      <% if @password %>
-        <%= f.input :current_password %>
-      <% end %>
+    <% if @password %>
+      <div class="form-group">
+        <%= f.label :current_password, class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :current_password, { class: "form-control" } %>
+        </div>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :password, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :password, { class: "form-control" } %>
+      </div>
     </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :password, :label => "New Password" %>
+    <div class="form-group">
+      <%= f.label :password_confirmation, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :password_confirmation, { class: "form-control" } %>
+      </div>
     </div>
-    <div class="span5 offset1">
-      <%= f.input :password_confirmation %>
-    </div>
-  </div>
   <% end %>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :first_name %>
-    </div>
-    <div class="span5 offset1">
-      <%= f.input :last_name %>
+  <div class="form-group">
+    <%= f.label :first_name, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :first_name, { class: "form-control" } %>
     </div>
   </div>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :gender, :as => :select, :collection => { "Male" => :male, "Female" => :female } %>
-    </div>
-    <div class="span5 offset1">
-      <%= f.input :experience,
-                  :as => :select,
-                  :label => "Experience (years)",
-                  :collection => { "0" => :"0 years",
-                                   "1-2" => "1-2 years",
-                                   "3-4" => "3-4 years",
-                                   "6++" => "6++ years",
-                                 } %>
+  <div class="form-group">
+    <%= f.label :last_name, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :last_name, { class: "form-control" } %>
     </div>
   </div>
-  <div class="row-fluid">
-    <div class="span5">
-      <%= f.input :phone_number %>
-    </div>
-    <div class="span5 offset1">
-      <%= f.input :shirt_size,
-                  :as => :select,
-                  :collection => { "XSmall" => :xsmall,
-                                   "Small" => :small,
-                                   "Medium" => :medium,
-                                   "Large" => :large,
-                                   "XLarge" => :xlarge,
-                                   "XXLarge" => :xxlarge
-                                 } %>
+  <div class="form-group">
+    <%= f.label :gender, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :gender, { "Male" => :male, "Female" => :female }, {}, { class: "form-control" } %>
     </div>
   </div>
-  <div class="row-fluid">
-    <div class="span12">
+  <div class="form-group">
+    <%= f.label :experience, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :experience, { "0" => "0 years", "1-2" => "1-2 years", "3-4" => "3-4 years", "6++" => "6++ years" }, {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :phone_number, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :phone_number, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :shirt_size, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :shirt_size, { "xsmall" => :xsmall, "small" => :small, "medium" => :medium, "large" => :large, "xlarge" => :xlarge, "xxlarge" => :xxlarge }, {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :birthday, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
       <% if f.object.birthday %>
-        <%= f.input :birthday, :as => :string, :input_html => { :value => localize(f.object.birthday) } %>
+        <%= f.text_field :birthday, { value: localize(f.object.birthday), class: "form-control" } %>
       <% else %>
-        <%= f.input :birthday, :as => :string, :input_html => { :value => "" } %>
+        <%= f.text_field :birthday, { value: "", class: "form-control" } %>
       <% end %>
     </div>
   </div>
-  <%= f.button :submit, :class => "btn btn-primary" %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

@@ -1,22 +1,5 @@
-.row-fluid [class*="span"] {
-  min-height: 0;
-}
-.form-actions {
-  background-color: transparent;
-  border-top: none;
-  padding: 0;
-}
-.date_select.input select {
-  width: auto;
-}
-td {
-  select,
-  input {
-    width: auto;
-  }
-}
-input.integer {
-  width: 50px;
+td.btn-group {
+  min-width: 150px;
 }
 .center {
   float: none;

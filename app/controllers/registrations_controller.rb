@@ -26,13 +26,13 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def register
-    current_user.update_attributes(:spring_registered => true)
-    redirect_to :back, :notice => "You've been successfully registered for the Spring League 2014"
+    current_user.update_attributes(spring_registered: true)
+    redirect_to :back, notice: "You've been successfully registered for the Spring League 2014"
   end
 
   def unregister
-    current_user.update_attributes(:spring_registered => false)
-    redirect_to :back, :alert => "You've been unregistered for the Spring League 2014"
+    current_user.update_attributes(spring_registered: false)
+    redirect_to :back, alert: "You've been unregistered for the Spring League 2014"
   end
 
   def edit
@@ -87,14 +87,14 @@ class RegistrationsController < Devise::RegistrationsController
 
   def authentications
     @user = current_user
-    @facebook = current_user.authentications.where(:provider => "facebook").first
-    @twitter  = current_user.authentications.where(:provider => "twitter").first
+    @facebook = current_user.authentications.where(provider: "facebook").first
+    @twitter  = current_user.authentications.where(provider: "twitter").first
     @password = !current_user.encrypted_password.blank?
   end
 
   def check_attr
     if !current_user.account_registered?
-      redirect_to edit_user_registration_path, :alert => "Please fill in your registration information below."
+      redirect_to edit_user_registration_path, alert: "Please fill in your registration information below."
     end
   end
 end

@@ -9,16 +9,8 @@
     <li><a href="#games" data-toggle="tab">Games</a></li>
 
     <div class="btn-group pull-right">
-      <%= link_to "Add Game",
-                  "#games_new_modal",
-                  :class => "admin_modal btn btn-success",
-                  :role => "button",
-                  :data => { :toggle => "modal" } %>
-      <%= link_to "Add Team",
-                  "#teams_new_modal",
-                  :class => "admin_modal btn btn-primary",
-                  :role => "button",
-                  :data => { :toggle => "modal" } %>
+      <%= link_to "Add Game", "#games_new_modal", class: "admin_modal btn btn-success", role: "button", data: { toggle: "modal" } %>
+      <%= link_to "Add Team","#teams_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
     </div>
   </ul>
 
@@ -31,33 +23,39 @@
       </ul>
       <div id="teams-content" class="tab-content">
         <div class="tab-pane active" id="all-teams">
-          <div class="row-fluid">
-            <h3>Teams</h3>
-            <% if @teams.empty? %>
-              <p>There aren't any teams yet!</p>
-            <% else %>
-              <%= render :partial => "shared/teams", :locals => { :teams => @teams } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Teams</h3>
+              <% if @teams.empty? %>
+                <p>There aren't any teams yet!</p>
+              <% else %>
+                <%= render partial: "shared/teams", locals: { teams: @teams } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="current-teams">
-          <div class="row-fluid">
-            <h3>Current Teams</h3>
-            <% if @current_teams.empty? %>
-              <p>There aren't any current teams!</p>
-            <% else %>
-              <%= render :partial => "shared/teams", :locals => { :teams => @current_teams } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Current Teams</h3>
+              <% if @current_teams.empty? %>
+                <p>There aren't any current teams!</p>
+              <% else %>
+                <%= render partial: "shared/teams", locals: { teams: @current_teams } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="inactive-teams">
-          <div class="row-fluid">
-            <h3>Inactive Teams</h3>
-            <% if @inactive_teams.empty? %>
-              <p>There aren't any inactive teams!</p>
-            <% else %>
-              <%= render :partial => "shared/teams", :locals => { :teams => @inactive_teams } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Inactive Teams</h3>
+              <% if @inactive_teams.empty? %>
+                <p>There aren't any inactive teams!</p>
+              <% else %>
+                <%= render partial: "shared/teams", locals:  { teams:  @inactive_teams } %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -71,33 +69,39 @@
       </ul>
       <div id="captains-content" class="tab-content">
         <div class="tab-pane active" id="all-captains">
-          <div class="row-fluid">
-            <h3>Captains</h3>
-            <% if @captains.empty? %>
-              <p>There aren't any captains yet!</p>
-            <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @captains } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Captains</h3>
+              <% if @captains.empty? %>
+                <p>There aren't any captains yet!</p>
+              <% else %>
+                <%= render partial: "shared/users", locals: { users: @captains } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="current-captains">
-          <div class="row-fluid">
-            <h3>Current Captains</h3>
-            <% if @current_captains.empty? %>
-              <p>There aren't any current captains!</p>
-            <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @current_captains } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Current Captains</h3>
+              <% if @current_captains.empty? %>
+                <p>There aren't any current captains!</p>
+              <% else %>
+                <%= render partial: "shared/users", locals: { users: @current_captains } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="inactive-captains">
-          <div class="row-fluid">
-            <h3>Inactive Captains</h3>
-            <% if @inactive_captains.empty? %>
-              <p>There aren't any inactive captains!</p>
-            <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @inactive_captains } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Inactive Captains</h3>
+              <% if @inactive_captains.empty? %>
+                <p>There aren't any inactive captains!</p>
+              <% else %>
+                <%= render partial: "shared/users", locals: { users: @inactive_captains } %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -111,33 +115,39 @@
       </ul>
       <div id="users-content" class="tab-content">
         <div class="tab-pane active" id="all-users">
-          <div class="row-fluid">
-            <h3>All Users</h3>
-            <% if @users.empty? %>
-              <p>There aren't any users yet!</p>
-            <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @users } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>All Users</h3>
+              <% if @users.empty? %>
+                <p>There aren't any users yet!</p>
+              <% else %>
+                <%= render partial: "shared/users", locals: { users: @users } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="registered">
-          <div class="row-fluid">
-            <h3>Registered</h3>
-            <% if @registered_users.empty? %>
-              <p>There aren't any registered users yet!</p>
-            <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @registered_users } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Registered</h3>
+              <% if @registered_users.empty? %>
+                <p>There aren't any registered users yet!</p>
+              <% else %>
+                <%= render partial: "shared/users", locals: { users: @registered_users } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="unregistered">
-          <div class="row-fluid">
-            <h3>Unregistered</h3>
-            <% if @unregistered_users.empty? %>
-              <p>There aren't any unregistered users!</p>
-            <% else %>
-              <%= render :partial => "shared/users", :locals => { :users => @unregistered_users } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Unregistered</h3>
+              <% if @unregistered_users.empty? %>
+                <p>There aren't any unregistered users!</p>
+              <% else %>
+                <%= render partial: "shared/users", locals: { users: @unregistered_users } %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -151,33 +161,39 @@
       </ul>
       <div id="games-content" class="tab-content">
         <div class="tab-pane active" id="all-games">
-          <div class="row-fluid">
-            <h3>Games</h3>
-            <% if @games.empty? %>
-              <p>There aren't any games yet!</p>
-            <% else %>
-              <%= render :partial => "games/index", :locals => { :games => @games } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Games</h3>
+              <% if @games.empty? %>
+                <p>There aren't any games yet!</p>
+              <% else %>
+                <%= render partial: "games/index", locals: { games: @games } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="current-games">
-          <div class="row-fluid">
-            <h3>Current Games</h3>
-            <% if @current_games.empty? %>
-              <p>There aren't any current games!</p>
-            <% else %>
-              <%= render :partial => "games/index", :locals => { :games => @current_games } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Current Games</h3>
+              <% if @current_games.empty? %>
+                <p>There aren't any current games!</p>
+              <% else %>
+                <%= render partial: "games/index", locals: { games: @current_games } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="inactive-games">
-          <div class="row-fluid">
-            <h3>Inactive Games</h3>
-            <% if @inactive_games.empty? %>
-              <p>There aren't any inactive games!</p>
-            <% else %>
-              <%= render :partial => "games/index", :locals => { :games => @inactive_games } %>
-            <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Inactive Games</h3>
+              <% if @inactive_games.empty? %>
+                <p>There aren't any inactive games!</p>
+              <% else %>
+                <%= render partial: "games/index", locals: { games: @inactive_games } %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -185,5 +201,5 @@
   </div>
 </div>
 
-<%= render :partial => "shared/modals/teams_new_modal" %>
-<%= render :partial => "shared/modals/games_new_modal" %>
+<%= render partial: "shared/modals/teams_new_modal" %>
+<%= render partial: "shared/modals/games_new_modal" %>

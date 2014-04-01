@@ -3,9 +3,9 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
     @authentication = Authentication.find(params[:id])
     if current_user.authentications.count > 1 || !current_user.encrypted_password.blank?
       @authentication.destroy
-      redirect_to :back, :notice => "Successfully destroyed authentication."
+      redirect_to :back, notice: "Successfully destroyed authentication."
     else
-      redirect_to :back, :alert => "You must have at least 1 method of authentication (password, facebook, twitter...)."
+      redirect_to :back, alert: "You must have at least 1 method of authentication (password, facebook, twitter...)."
     end
   end
 
@@ -34,7 +34,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
       token = omni['credentials'].token
       token_secret = omni['credentials'].secret
 
-      current_user.authentications.create!(:provider => omni['provider'], :uid => omni['uid'], :token => token, :token_secret => token_secret)
+      current_user.authentications.create!(provider: omni['provider'], uid: omni['uid'], token: token, token_secret: token_secret)
       flash[:notice] = "Authentication successful."
       sign_in_and_redirect current_user
     else

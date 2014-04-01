@@ -18,5 +18,7 @@
 //= require pickadate/picker
 //= require pickadate/picker.date
 //= require pickadate/picker.time
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap3
 //
 //= require_tree .

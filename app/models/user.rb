@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
-  has_many :authentications, :dependent => :destroy
+  has_many :authentications, dependent: :destroy
   has_many :announcements
   has_and_belongs_to_many :teams
-  has_many :drafted_players, :foreign_key => :player_id, :dependent => :destroy
-  has_many :draft_players, :foreign_key => :player_id, :dependent => :destroy
-  has_many :draft_groups, :foreign_key => :captain_id, :dependent => :destroy
-  has_one :questionnaire, :dependent => :destroy
+  has_many :drafted_players, foreign_key: :player_id, dependent: :destroy
+  has_many :draft_players, foreign_key: :player_id, dependent: :destroy
+  has_many :draft_groups, foreign_key: :captain_id, dependent: :destroy
+  has_one :questionnaire, dependent: :destroy
   has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
 
   # Include default devise modules. Others available are:
@@ -28,10 +28,10 @@ class User < ActiveRecord::Base
   end
 
   def apply_omniauth(omni)
-    authentications.build(:provider => omni['provider'],
-                          :uid => omni['uid'],
-                          :token => omni['credentials'].token,
-                          :token_secret => omni['credentials'].secret)
+    authentications.build(provider: omni['provider'],
+                          uid: omni['uid'],
+                          token: omni['credentials'].token,
+                          token_secret: omni['credentials'].secret)
   end
 
   def password_required?
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def is_captain?
-    Team.where(:captain_id => id).count > 0
+    Team.where(captain_id: id).count > 0
   end
 
   def account_registered?
@@ -71,8 +71,7 @@ class User < ActiveRecord::Base
   end
 
   def drafted?(draft_id)
-    !DraftedPlayer.where(:player_id => id,
-                        :draft_id => draft_id).empty?
+    !DraftedPlayer.where(player_id: id, draft_id: draft_id).empty?
   end
 
   def team
@@ -84,7 +83,7 @@ class User < ActiveRecord::Base
   end
 
   def captains_teams
-    Team.where(:captain_id => id)
+    Team.where(captain_id: id)
   end
 
   def drafts

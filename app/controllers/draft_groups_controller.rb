@@ -3,7 +3,7 @@ class DraftGroupsController < ApplicationController
 
   def create
     @draft_group = DraftGroup.create(draft_group_params)
-    redirect_to :back, :notice => "Draft Group successfully created."
+    redirect_to :back, notice: "Draft Group successfully created."
   end
 
   def update
@@ -15,12 +15,12 @@ class DraftGroupsController < ApplicationController
     end
 
     @draft_group.update(draft_group_params)
-    redirect_to :back, :notice => "Draft Group successfully updated."
+    redirect_to :back, notice: "Draft Group successfully updated."
   end
 
   def destroy
     @draft_group = DraftGroup.find(params[:id]).destroy
-    redirect_to :back, :notice => "Draft Group successfully destroyed."
+    redirect_to :back, notice: "Draft Group successfully destroyed."
   end
 
   private

@@ -1,69 +1,71 @@
 <div class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+  <div class="navbar-header">
+    <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <%= fa_icon "bars" %>
+    </a>
 
-      <a class="brand" href="spring">SUPA</a>
+    <a class="navbar-brand" href="spring">SUPA</a>
+  </div>
 
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li>
-            <%= link_to(spring_path)  do %>
-              <i class="icon-home"></i>
-              Spring
-            <% end %>
-          </li>
-          <% if user_signed_in? %>
-            <li>
-              <%= link_to(profile_path)  do %>
-                <i class="icon-user"></i>
-                Profile
-              <% end %>
-            </li>
-            <% if current_user && current_user.is_super_admin? %>
-              <li>
-              <%= link_to(super_path)  do %>
-                <i class="icon-code"></i>
-                Super
-              <% end %>
-              </li>
-            <% end %>
-            <% if current_user && current_user.is_real_admin? %>
-              <li>
-              <%= link_to(admin_path)  do %>
-                <i class="icon-coffee"></i>
-                Admin
-              <% end %>
-              </li>
-            <% end %>
-            <% if current_user && current_user.is_captain? %>
-              <li>
-              <%= link_to(captain_path)  do %>
-                <i class="icon-anchor"></i>
-                Captain
-              <% end %>
-              </li>
-            <% end %>
-            <li>
-            <%= link_to(sign_out_path, :method => :delete)  do %>
-              <i class="icon-off"></i>
-              Sign Out
-            <% end %>
-            </li>
-          <% else %>
-            <li>
-            <%= link_to(new_user_session_path)  do %>
-              <i class="icon-signin"></i>
-              Sign In
-            <% end %>
-            </li>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li>
+        <%= link_to(spring_path)  do %>
+          <%= fa_icon "home" %>
+          Spring
+        <% end %>
+      </li>
+      <li>
+        <%= link_to(stats_path)  do %>
+          <%= fa_icon "bar-chart-o" %>
+          Stats
+        <% end %>
+      </li>
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to(profile_path)  do %>
+            <%= fa_icon "user" %>
+            Profile
           <% end %>
-        </ul>
-      </div>
-    </div>
+        </li>
+        <% if current_user && current_user.is_super_admin? %>
+          <li>
+          <%= link_to(super_path)  do %>
+            <%= fa_icon "code" %>
+            Super
+          <% end %>
+          </li>
+        <% end %>
+        <% if current_user && current_user.is_real_admin? %>
+          <li>
+          <%= link_to(admin_path)  do %>
+            <%= fa_icon "coffee" %>
+            Admin
+          <% end %>
+          </li>
+        <% end %>
+        <% if current_user && current_user.is_captain? %>
+          <li>
+          <%= link_to(captain_path)  do %>
+            <%= fa_icon "anchor" %>
+            Captain
+          <% end %>
+          </li>
+        <% end %>
+        <li>
+        <%= link_to(sign_out_path, method: :delete)  do %>
+          <%= fa_icon "power-off" %>
+          Sign Out
+        <% end %>
+        </li>
+      <% else %>
+        <li>
+        <%= link_to(new_user_session_path)  do %>
+          <%= fa_icon "sign-in" %>
+          Sign In
+        <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

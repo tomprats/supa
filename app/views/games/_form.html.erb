@@ -1,38 +1,43 @@
-<%= simple_form_for(@game) do |f| %>
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="row-fluid">
-        <div class="span6">
-          <%= label_tag :date %>
-          <%= text_field_tag "game[date]", "", data: { value: @game.date } %>
-        </div>
-        <div class="span6">
-          <%= label_tag :time %>
-          <%= text_field_tag "game[time]", "", data: { value: @game.time } %>
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span6">
-          <%= f.simple_fields_for :team_stats1 do |stats| %>
-            <%= stats.input :team_id, :as => :select, :collection => Team.active %>
-          <% end %>
-        </div>
-        <div class="span6">
-          <%= f.simple_fields_for :team_stats2 do |stats| %>
-            <%= stats.input :team_id, :as => :select, :collection => Team.active %>
-          <% end %>
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span6">
-          <%= f.input :field_id, :as => :select, :collection => Field.all %>
-        </div>
-        <div class="span6">
-          <%= f.label :name %>
-          <%= f.text_field :name, placeholder: "Only need 1 name per date/time" %>
-        </div>
-      </div>
+<%= form_for(@game, html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= label_tag :date, "Date", class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= text_field_tag "game[date]", "", class: "form-control", data: { value: @game.date }  %>
     </div>
   </div>
-  <%= f.button :submit, "Submit", :class => "btn btn-primary" %>
+  <div class="form-group">
+    <%= label_tag :time, "Time", class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= text_field_tag "game[time]", "", class: "form-control", data: { value: @game.time }  %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.fields_for :team_stats1 do |stats| %>
+      <%= stats.label :team_id, "Team 1", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= stats.select :team_id, Team.active.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.fields_for :team_stats2 do |stats| %>
+      <%= stats.label :team_id, "Team 2", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= stats.select :team_id, Team.active.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :field_id, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :field_id, Field.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :name, placeholder: "Only need 1 name per date", class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :name, { class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

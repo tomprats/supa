@@ -1,13 +1,15 @@
-<div id="sign_up_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">Sign In</h3>
-    </div>
-    <div class="modal-body">
-      <%= render :partial => "shared/sessions_form" %>
+<div id="sign_up_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Sign In</h3>
+      </div>
+      <div class="modal-body">
+        <%= render partial: "shared/sessions_form" %>
 
-      <%= render "devise/shared/links" %>
+        <%= render "devise/shared/links" %>
+      </div>
     </div>
   </div>
 </div>
-

@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20140326031111) do
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color"
   end
 
   create_table "teams_users", force: true do |t|

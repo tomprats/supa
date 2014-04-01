@@ -1,17 +1,15 @@
-<%= simple_form_for(@field) do |f| %>
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="row-fluid">
-        <div class="span6">
-          <%= f.label :name %>
-          <%= f.text_field :name %>
-        </div>
-        <div class="span6">
-          <%= f.label :location %>
-          <%= f.text_field :location, placeholder: "Optional" %>
-        </div>
-      </div>
+<%= form_for(@field, html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :name, { class: "form-control" } %>
     </div>
   </div>
-  <%= f.button :submit, "Submit", :class => "btn btn-primary" %>
+  <div class="form-group">
+    <%= f.label :location, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :location, { placeholder: "Optional", class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

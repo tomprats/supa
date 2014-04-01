@@ -25,7 +25,7 @@
           <% if user.questionnaire %>
             <%= link_to "View", user_questionnaire_path(user.id), class: "btn btn-primary" %>
           <% else %>
-            <%= link_to "None", "#", class: "btn" %>
+            <%= link_to "None", "#", class: "btn btn-default" %>
           <% end %>
         </td>
       </tr>

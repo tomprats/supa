@@ -1,23 +1,21 @@
-<%= simple_form_for(@announcement) do |f| %>
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="row-fluid">
-        <div class="span6">
-          <%= f.label :heading %>
-          <%= f.text_field :heading %>
-        </div>
-        <div class="span6">
-          <%= f.label :importance %>
-          <%= f.number_field :importance %>
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span12">
-          <%= f.label :text %>
-          <%= f.text_area :text %>
-        </div>
-      </div>
+<%= form_for(@announcement, html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= f.label :heading, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :heading, { class: "form-control" } %>
     </div>
   </div>
-  <%= f.button :submit, "Submit", :class => "btn btn-primary" %>
+  <div class="form-group">
+    <%= f.label :importance, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.number_field :importance, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :text, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_area :text, { class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

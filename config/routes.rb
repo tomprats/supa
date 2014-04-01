@@ -46,8 +46,8 @@ Supa::Application.routes.draw do
       get    'admin',            :to => 'admins#standard'
       get    'captain',          :to => 'admins#captain'
 
-      post   'update/user/:id',  :to => 'admins#update_user',
-                                 :as => 'admin_update_user'
+      put    'update/admin/:id', :to => 'admins#update_admin',
+                                 :as => 'update_admin'
 
       put    'drafted_player/:id', :to => 'drafted_players#create',
                                    :as => 'drafted_player'

@@ -3,13 +3,13 @@
   <%= render "layouts/head" %>
   <body>
     <%= render "layouts/header" %>
-    <div class="row-fluid">
-      <div class="span10 offset1">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
         <% unless devise_error_messages!.empty? %>
           <% devise_error_messages!.each do |key, value| %>
-            <div class="row-fluid">
-              <div class="span12">
-                <div class="alert alert-error">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-danger">
                   <a class="close" data-dismiss="alert">×</a>
                   <%= key %> <%= value %>
                 </div>
@@ -19,9 +19,9 @@
         <% end %>
         <% unless flash.empty? %>
           <% flash.each do |name, msg| %>
-            <div class="row-fluid">
-              <div class="span12">
-                <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
                   <a class="close" data-dismiss="alert">×</a>
                   <%= msg.html_safe %>
                 </div>

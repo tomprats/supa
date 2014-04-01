@@ -7,7 +7,7 @@ class DraftsController < ApplicationController
 
   def create
     @draft = Draft.create(draft_params)
-    redirect_to :back, :notice => "Draft successfully created."
+    redirect_to :back, notice: "Draft successfully created."
   end
 
   def feed
@@ -22,18 +22,17 @@ class DraftsController < ApplicationController
     if @draft.players_undrafted?
       if @draft.order
         @groups = @draft.groups(current_user.id).order("created_at")
-        @group = DraftGroup.new(:draft_id => @draft.id,
-                                :captain_id => current_user.id)
+        @group = DraftGroup.new(draft_id: @draft.id, captain_id: current_user.id)
         @group.draft_players.build
 
         if @draft.drafted_players.last
           flash[:notice] = "#{@draft.drafted_players.last.name} has been drafted by #{@draft.drafted_players.last.team.name}: <a target=\"_blank\" href=\"#{feed_path(@draft.id)}\">View Feed</a>"
         end
       else
-        redirect_to :back, :notice => "Draft does not have a picking order yet"
+        redirect_to :back, notice: "Draft does not have a picking order yet"
       end
     else
-      redirect_to captain_path, :notice => "All the registered players have been drafted"
+      redirect_to captain_path, notice: "All the registered players have been drafted"
     end
   end
 
@@ -41,18 +40,18 @@ class DraftsController < ApplicationController
     draft = Draft.find(params[:id])
     draft.setup_players
     if draft.update_attributes(active: params[:active])
-      redirect_to :back, :notice => "Draft has been updated"
+      redirect_to :back, notice: "Draft has been updated"
     else
-      redirect_to :back, :alert => "Draft cannot be updated"
+      redirect_to :back, alert: "Draft cannot be updated"
     end
   end
 
   def snake
     draft = Draft.find(params[:id])
     if draft.update_attributes(snake: params[:snake])
-      redirect_to :back, :notice => "Draft has been updated"
+      redirect_to :back, notice: "Draft has been updated"
     else
-      redirect_to :back, :alert => "Draft cannot be updated"
+      redirect_to :back, alert: "Draft cannot be updated"
     end
   end
 
@@ -67,50 +66,48 @@ class DraftsController < ApplicationController
 
   def update
     @draft.update(draft_params)
-    redirect_to :back, :notice => "Draft successfully updated."
+    redirect_to :back, notice: "Draft successfully updated."
   end
 
   def destroy
     @draft = Draft.find(params[:id]).destroy
-    redirect_to :back, :notice => "Draft successfully destroyed."
+    redirect_to :back, notice: "Draft successfully destroyed."
   end
 
   def order
     draft = Draft.find(params[:id])
     order = params[:order].collect { |o| o.last.to_i }
     if order.length == order.uniq.length
-      draft.update_attributes(:order => order)
-      redirect_to :back, :notice => "Draft order successfully updated."
+      draft.update_attributes(order: order)
+      redirect_to :back, notice: "Draft order successfully updated."
     else
-      redirect_to :back, :alert => "Draft order could not be updated."
+      redirect_to :back, alert: "Draft order could not be updated."
     end
   end
 
   def turn
     draft = Draft.find(params[:id])
-    render :json => { :turn => draft.turn }
+    render json: { turn: draft.turn }
   end
 
   private
   def draft_params
-    params.require(:draft).permit(:season,
-                                  :year,
-                                  :active)
+    params.require(:draft).permit(:season, :year, :active)
   end
 
   def check_admin_level
     case action_name
     when "new", "create", "edit", "update", "destroy"
       if current_user.admin != "super"
-        redirect_to profile_path, :notice => "You are not authorized to be there!"
+        redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     when "feed"
       if !current_user.is_captain? && !current_user.is_real_admin?
-        redirect_to profile_path, :notice => "You are not authorized to be there!"
+        redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     when "show", "index"
       if !current_user.is_captain?
-        redirect_to profile_path, :notice => "You are not authorized to be there!"
+        redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     end
   end

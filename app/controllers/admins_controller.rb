@@ -41,15 +41,38 @@ class AdminsController < ApplicationController
   def captain
     new_game
 
-    @current_team = Team.active.find_by(:captain_id => current_user.id)
+    @current_team = Team.active.find_by(captain_id: current_user.id)
     @teams = current_user.captains_teams
     @users = User.registered
   end
 
-  def update_user
+  def update_admin
     @user = User.find(params[:id])
-    @user.update_attributes(user_params)
-    redirect_to super_path, :notice => "User updated successfully!"
+    if @user.email == "tprats108@gmail.com"
+      redirect_to super_path, notice: "Good try..."
+    else
+      if params[:up] == "true"
+        if @user.is_super_admin?
+          redirect_to super_path, alert: "User already super admin!"
+        elsif @user.is_real_admin?
+          @user.update_attributes(admin: "super")
+          redirect_to super_path, notice: "User updated successfully!"
+        else
+          @user.update_attributes(admin: "standard")
+          redirect_to super_path, notice: "User updated successfully!"
+        end
+      else
+        if @user.is_super_admin?
+          @user.update_attributes(admin: "standard")
+          redirect_to super_path, notice: "User updated successfully!"
+        elsif @user.is_real_admin?
+          @user.update_attributes(admin: "none")
+          redirect_to super_path, notice: "User updated successfully!"
+        else
+          redirect_to super_path, alert: "User already isn't an admin!"
+        end
+      end
+    end
   end
 
   private
@@ -74,19 +97,18 @@ class AdminsController < ApplicationController
 
   def check_admin_level
     case action_name
-    when "super", "create_draft"
+    when "super", "create_draft", "update_admin"
       if current_user.admin != "super"
-        redirect_to profile_path, :notice => "You are not authorized to be there!"
+        redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     when "standard"
       if current_user.admin == "none"
-        redirect_to profile_path, :notice => "You are not authorized to be there!"
+        redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     when "captain"
       if !current_user.is_captain?
-        redirect_to profile_path, :notice => "You are not authorized to be there!"
+        redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     end
   end
 end
-
