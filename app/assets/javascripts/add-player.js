@@ -1,19 +1,15 @@
 $(document).ready(function() {
-  $(".add-player1.fa-plus-circle").click(function() {
+  $("body").on('click', ".fa-plus-circle.add-player1", function() {
     addPlayer(1);
   });
-  $(".add-player2.fa-plus-circle").click(function() {
+  $("body").on('click', ".fa-plus-circle.add-player2", function() {
     addPlayer(2);
-  });
-  $("#team1 .delete, #team2 .delete").click(function(e) {
-    $(this).closest(".row-fluid").remove();
-    e.preventDefault();
   });
 });
 
 function addPlayer(type) {
   var selector = "#team" + type;
-  var player = $(selector + " select:last").closest(".row-fluid").clone();
+  var player = $(selector + " select:last").closest(".row").clone();
   player = updatePlayer(player);
   player.appendTo(selector + " .players");
 }

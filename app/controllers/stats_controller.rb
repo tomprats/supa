@@ -1,8 +1,11 @@
 class StatsController < ApplicationController
- before_filter :check_admin_level, except: [:index, :show]
+  skip_before_filter :authenticate_user!, only: [:index, :show]
+  skip_before_filter :check_attr, only: [:index, :show]
+  before_filter :check_admin_level, except: [:index, :show]
 
   def index
     @players = User.registered.current
+    @games = Game.all.select { |g| !g.team_stats1.player_stats.empty? }
   end
 
   def show

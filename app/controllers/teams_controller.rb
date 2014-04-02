@@ -38,6 +38,7 @@ class TeamsController < ApplicationController
                                  :captain_id,
                                  :season,
                                  :year,
+                                 :color,
                                  :active,
                                  :image,
                                  player_ids: []

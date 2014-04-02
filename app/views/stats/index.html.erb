@@ -1,29 +1,49 @@
 <h3 class="center">Spring Stats</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Team</th>
-      <th>Games Played</th>
-      <th>Assists</th>
-      <th>Goals</th>
-      <th>Points</th>
-      <th>Points Per Game</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @players.each do |player| %>
-      <tr class="<%= player.team.color %>">
-        <td><%= player.team.name %></td>
-        <td><%= player.first_name %></td>
-        <td><%= player.last_name %></td>
-        <td><%= player.games_played %></td>
-        <td><%= player.assists %></td>
-        <td><%= player.goals %></td>
-        <td><%= player.points %></td>
-        <td><%= number_with_precision(player.points_per_game, strip_insignificant_zeros: true, precision: 2) %></td>
-      </tr>
+<ul class="nav nav-pills nav-center">
+  <li class="active"><a href="#all" data-toggle="tab">All Stats</a></li>
+  <li><a href="#games" data-toggle="tab">Game Stats</a></li>
+</ul>
+<div id="content" class="tab-content">
+  <div class="tab-pane active" id="all">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Team</th>
+          <th>Games Played</th>
+          <th>Assists</th>
+          <th>Goals</th>
+          <th>Points</th>
+          <th>Points Per Game</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @players.each do |player| %>
+          <tr class="team">
+            <td><%= player.first_name %></td>
+            <td><%= player.last_name %></td>
+            <td><%= player.team.name %></td>
+            <td><%= player.games_played %></td>
+            <td><%= player.assists %></td>
+            <td><%= player.goals %></td>
+            <td><%= player.points %></td>
+            <td><%= number_with_precision(player.points_per_game, strip_insignificant_zeros: true, precision: 2) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="games">
+    <% @games.each do |game| %>
+      <div class="row">
+        <div class="btn-group btn-group-justified">
+          <%= link_to game.team1.name, team_path(game.team1), class: "btn btn-success" %>
+          <%= link_to "#{game.date} @ #{game.time}", game_stats_path(game.id), class: "btn btn-primary" %>
+          <%= link_to game.team2.name, team_path(game.team2), class: "btn btn-success" %>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
+

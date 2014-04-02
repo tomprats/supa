@@ -3,6 +3,7 @@ class PlayerStat < ActiveRecord::Base
   belongs_to :team_stats, class_name: "TeamStat"
 
   validates_presence_of :player
+  validates :player_id, uniqueness: { scope: :team_stats_id }
 
   around_save :update_points
 

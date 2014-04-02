@@ -1,6 +1,6 @@
 <div class="modal-dialog">
   <div class="modal-content">
-    <%= form_for(@game, url: game_stats_path(@game.id)) do |f| %>
+    <%= form_for(@game, url: game_stats_path(@game.id), class: "form-horizontal") do |f| %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">
@@ -11,36 +11,52 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-5">
-            <%= f.input_field :winner_id, as: :select, include_blank: false, collection: @game.teams %>
+            <div class="form-group">
+              <%= f.label :winner_id, class: "control-label" %>
+              <%= f.select :winner_id, @game.teams.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+            </div>
           </div>
-          <div class="col-md-5 col-md-offset-1">
-            <%= f.input_field :loser_id, as: :select, include_blank: false, collection: @game.teams %>
+          <div class="col-md-5 col-md-offset-2">
+            <div class="form-group">
+              <%= f.label :loser_id, class: "control-label" %>
+              <%= f.select :loser_id, @game.teams.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+            </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-12">
             <ul class="nav nav-pills">
-              <li class="active"><a href="#team1" data-toggle="tab">Team 1</a></li>
-              <li><a href="#team2" data-toggle="tab">Team 2</a></li>
+              <li class="active"><a href="#team1" data-toggle="tab"><%= @game.team1.name %></a></li>
+              <li><a href="#team2" data-toggle="tab"><%= @game.team2.name %></a></li>
             </ul>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col-md-12">
             <div id="my-tab-content" class="tab-content">
               <div class="tab-pane active" id="team1">
                 <%= f.fields_for :team_stats1 do |stats| %>
                   <div class="row">
                     <div class="col-md-12">
-                      <span>Player's Assists/Goals</span> <%= fa_icon "plus-circle", class: "add-player1" %></i>
+                      <span>Player's Assists/Goals</span> <%= fa_icon "plus-circle", class: "add-player1" %>
                     </div>
                   </div>
                   <div class="players">
-                    <%= stats.fields_for :player_stats, html: { class: 'form-horizontal' } do |player| %>
+                    <%= stats.fields_for :player_stats do |player| %>
                       <div class="row">
-                        <div class="col-md-12">
-                          <%= player.input_field :player_id, as: :select, collection: @game.team1.players %>
-                          <%= player.input_field :assists, placeholder: "Assists", class: "width-60" %>
-                          <%= player.input_field :goals, placeholder: "Goals", class: "width-60" %>
-                          <%= player.input_field :_destroy, class: "auto-width", as: :select, include_blank: false, collection: [["Present", false], ["Absent", true]] %>
+                        <div class="col-md-3">
+                          <%= player.select :player_id, @game.team1.players.collect  {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+                        </div>
+                        <div class="col-md-3">
+                          <%= player.number_field :assists, placeholder: "Assists", class: "form-control" %>
+                        </div>
+                        <div class="col-md-3">
+                          <%= player.number_field :goals, placeholder: "Goals", class: "form-control" %>
+                        </div>
+                        <div class="col-md-3">
+                          <%= player.select :_destroy, [["Present", false], ["Absent", true]], {}, { class: "form-control" } %>
                         </div>
                       </div>
                     <% end %>
@@ -52,17 +68,23 @@
                 <%= f.fields_for :team_stats2 do |stats| %>
                   <div class="row">
                     <div class="col-md-12">
-                      <span>Player's Assists/Goals</span> <%= fa_icon "plus-circle", class: "add-player2" %></i>
+                      <span>Player's Assists/Goals</span> <%= fa_icon "plus-circle", class: "add-player2" %>
                     </div>
                   </div>
                   <div class="players">
-                    <%= stats.fields_for :player_stats, html: { class: 'form-horizontal' } do |player| %>
+                    <%= stats.fields_for :player_stats do |player| %>
                       <div class="row">
-                        <div class="col-md-12">
-                          <%= player.input_field :player_id, as: :select, collection: @game.team2.players %>
-                          <%= player.input_field :assists, placeholder: "Assists", class: "width-60" %>
-                          <%= player.input_field :goals, placeholder: "Goals", class: "width-60" %>
-                          <%= player.input_field :_destroy, class: "auto-width", as: :select, include_blank: false, collection: [["Present", false], ["Absent", true]] %>
+                        <div class="col-md-3">
+                          <%= player.select :player_id, @game.team2.players.collect  {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+                        </div>
+                        <div class="col-md-3">
+                          <%= player.number_field :assists, placeholder: "Assists", class: "form-control" %>
+                        </div>
+                        <div class="col-md-3">
+                          <%= player.number_field :goals, placeholder: "Goals", class: "form-control" %>
+                        </div>
+                        <div class="col-md-3">
+                          <%= player.select :_destroy, [["Present", false], ["Absent", true]], {}, { class: "form-control" } %>
                         </div>
                       </div>
                     <% end %>
