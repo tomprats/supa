@@ -8,6 +8,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'activemerchant'
 
 # Testing
 group :development, :test do

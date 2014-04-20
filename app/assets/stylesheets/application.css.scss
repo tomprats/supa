@@ -20,7 +20,7 @@
 @import "variables";
 @import "bootstrap";
 body {
-  padding-top: 90px;
+  padding-top: 70px;
 }
 
 form {
@@ -52,4 +52,8 @@ form {
 
 .red {
   color: red;
+}
+
+.padding-20 {
+  padding: 20px;
 }

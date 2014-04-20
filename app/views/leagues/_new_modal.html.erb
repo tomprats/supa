@@ -1,22 +1,28 @@
-<div id="drafts_new_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="leagues_new_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Add Draft</h3>
+        <h3 id="myModalLabel">Add League</h3>
       </div>
       <div class="modal-body">
-        <%= form_for(@draft, html: { class: "form-horizontal" }) do |f| %>
+        <%= form_for(@league || League.new, html: { class: "form-horizontal" }) do |f| %>
           <div class="form-group">
             <%= f.label :season, class: "col-md-4 control-label" %>
             <div class="col-md-8">
-              <%= f.select :season, options_for_select(@team.season_collection), {}, { class: "form-control" } %>
+              <%= f.select :season, options_for_select(League.season_collection), {}, { class: "form-control" } %>
             </div>
           </div>
           <div class="form-group">
             <%= f.label :year, class: "col-md-4 control-label" %>
             <div class="col-md-8">
-              <%= f.select :year, options_for_select(@team.year_collection), {}, { class: "form-control" } %>
+              <%= f.select :year, options_for_select(League.year_collection), {}, { class: "form-control" } %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :price, class: "col-md-4 control-label" %>
+            <div class="col-md-8">
+              <%= f.select :price, options_for_select((0..30).step(5)), {}, { class: "form-control" } %>
             </div>
           </div>
           <div class="form-group">

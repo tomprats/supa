@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   before_filter :check_attr
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  helper_method :paypal_url
+
   def signed_in_root_path(resource_or_scope)
     profile_path
   end
@@ -21,28 +23,30 @@ class ApplicationController < ActionController::Base
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:birthday,
-                                                                   :gender,
-                                                                   :phone_number,
-                                                                   :shirt_size,
-                                                                   :experience,
-                                                                   :first_name,
-                                                                   :last_name,
-                                                                   :email,
-                                                                   :password,
-                                                                   :password_confirmation,
-                                                                   :current_password
-                                                                  ) }
-    devise_parameter_sanitizer.for(:sign_up)        { |u| u.permit(:birthday,
-                                                                   :gender,
-                                                                   :phone_number,
-                                                                   :shirt_size,
-                                                                   :experience,
-                                                                   :first_name,
-                                                                   :last_name,
-                                                                   :email,
-                                                                   :password,
-                                                                   :password_confirmation
-                                                                  ) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(
+      :birthday,
+      :gender,
+      :phone_number,
+      :shirt_size,
+      :experience,
+      :first_name,
+      :last_name,
+      :email,
+      :password,
+      :password_confirmation,
+      :current_password
+    ) }
+    devise_parameter_sanitizer.for(:sign_up)        { |u| u.permit(
+      :birthday,
+      :gender,
+      :phone_number,
+      :shirt_size,
+      :experience,
+      :first_name,
+      :last_name,
+      :email,
+      :password,
+      :password_confirmation
+    ) }
   end
 end

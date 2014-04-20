@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+  belongs_to :league
   belongs_to :field
   belongs_to :winner,   class_name: "Team"
   belongs_to :loser,    class_name: "Team"
@@ -8,11 +9,8 @@ class Game < ActiveRecord::Base
   accepts_nested_attributes_for :team_stats1
   accepts_nested_attributes_for :team_stats2
 
-  validates_presence_of :datetime, :field
-  validate :team1_exists, :team2_exists, :teams_differ, :winners_losers
-
-  scope :active,   -> { includes(:winner).where(teams: { active: true }) }
-  scope :inactive, -> { includes(:winner).where(teams: { active: false }) }
+  validates_presence_of :datetime, :field, :league_id
+  validate :team1_exists, :team2_exists, :teams_differ, :winners_losers, :same_league
 
   def self.default_scope
     order("datetime ASC")
@@ -48,6 +46,12 @@ class Game < ActiveRecord::Base
   def team2_exists
     unless team2
       errors.add(:team_stats2, "team must exist")
+    end
+  end
+
+  def same_league
+    if team1 && team2 && (team1.league != team2.league || team1.league != league)
+      errors.add(:league, "must be the same")
     end
   end
 

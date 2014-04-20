@@ -11,7 +11,6 @@
             <%= link_to "Draft #{draft.id}", "#", class: "btn btn-default" %>
             <%= link_to "View", draft_path(draft.id), class: "btn btn-primary" %>
             <%= link_to "Feed", feed_path(draft.id), class: "btn btn-warning" %>
-            <%= link_to "Team: #{@teams[index].name}", team_path(@teams[index].id), :class => "btn btn-success" %>
           </div>
         </div>
       </div>

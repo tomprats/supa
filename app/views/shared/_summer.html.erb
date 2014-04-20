@@ -1,16 +1,20 @@
 <div class="row">
   <div class="col-md-12">
-    <h3>Spring 2014 Sign Ups</h3>
+    <h3>Register for <%= League.summer.name %></h3>
     <% if current_user %>
-      <% if current_user.spring_registered? %>
+      <% if current_user.registered? %>
         <%= link_to "Unregister", unregister_path, class: "btn btn-danger" %>
         <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
       <% else %>
         <% if current_user.questionnaire %>
-          <%= link_to "Register", register_path, class: "btn btn-success" %>
+          <% if current_user.paid? %>
+            <%= link_to "Register", register_path, class: "btn btn-success" %>
+          <% else %>
+            <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), payments_checkout_path(league_id: League.summer.id) %>
+          <% end %>
           <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
         <% else %>
-          <%= link_to "Register", "#", data: { confirm: 'You must take the questionnaire first!' }, class: "btn btn-success" %>
+          <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), "#", data: { confirm: 'You must take the questionnaire first!' } %>
           <%= link_to "Questionnaire", "#", class: "btn btn-primary question" %>
         <% end %>
       <% end %>

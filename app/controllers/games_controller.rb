@@ -3,9 +3,11 @@ class GamesController < ApplicationController
 
   def create
     params[:game][:datetime] = convert_to_datetime(params[:game][:date], params[:game][:time])
-    if Game.create(game_params.merge!(creator_id: current_user.id)).valid?
+    @game = Game.create(game_params.merge!(creator_id: current_user.id))
+    if @game.valid?
       redirect_to :back, notice: "Game was successfully created"
     else
+      puts @game.errors.inspect
       redirect_to :back, alert: "Game could not be created"
     end
   end
@@ -37,7 +39,7 @@ class GamesController < ApplicationController
 
   private
   def game_params
-    params.require(:game).permit(:datetime, :field_id, :name,
+    params.require(:game).permit(:datetime, :field_id, :name, :league_id,
       team_stats1_attributes: [:id, :team_id],
       team_stats2_attributes: [:id, :team_id]
     )

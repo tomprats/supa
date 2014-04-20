@@ -36,8 +36,7 @@ class TeamsController < ApplicationController
   def team_params
     params.require(:team).permit(:name,
                                  :captain_id,
-                                 :season,
-                                 :year,
+                                 :league_id,
                                  :color,
                                  :active,
                                  :image,

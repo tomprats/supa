@@ -7,7 +7,6 @@
       <th>Experience</th>
       <th>Gender</th>
       <th>Shirt Size</th>
-      <th>Registered</th>
       <th>Questionnaire</th>
     </tr>
   </thead>
@@ -20,7 +19,6 @@
         <td><%= user.experience %></td>
         <td><%= user.gender %></td>
         <td><%= user.shirt_size %></td>
-        <td><%= user.spring_registered %></td>
         <td>
           <% if user.questionnaire %>
             <%= link_to "View", user_questionnaire_path(user.id), class: "btn btn-primary" %>

@@ -1,6 +1,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>League</th>
       <th>Date</th>
       <th>Time</th>
       <th>Field</th>
@@ -11,6 +12,7 @@
   <tbody>
     <% games.each do |game| %>
       <tr>
+        <td><%= game.league.name %></td>
         <td><%= game.date %></td>
         <td><%= game.time %></td>
         <td><%= game.field.name %></td>

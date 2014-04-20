@@ -15,9 +15,9 @@
         <div class="col-md-12">
           <h3>Current Team</h3>
           <% if !@current_team %>
-            <p>You don't have a team this season yet!</p>
+            <p>You don't have team for the current league yet!</p>
           <% else %>
-            <%= render partial: "shared/users", locals: { users: @current_team.players } %>
+            <%= render partial: "users/table", locals: { users: @current_team.players } %>
           <% end %>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <% if @teams.empty? %>
             <p>You don't have any teams!</p>
           <% else %>
-            <%= render partial: "shared/teams", locals: { teams: @teams } %>
+            <%= render partial: "teams/table", locals: { teams: @teams } %>
           <% end %>
         </div>
       </div>
@@ -43,12 +43,10 @@
           <% if @users.empty? %>
             <p>There aren't any players!</p>
           <% else %>
-            <%= render partial: "shared/users", locals: { users: @users } %>
+            <%= render partial: "users/table", locals: { users: @users } %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<%= render partial: "shared/modals/games_new_modal" %>

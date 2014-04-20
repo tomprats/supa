@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326031111) do
+ActiveRecord::Schema.define(version: 20140420012442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,14 +65,13 @@ ActiveRecord::Schema.define(version: 20140326031111) do
   end
 
   create_table "drafts", force: true do |t|
-    t.string   "season"
-    t.integer  "year"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "turn",       default: 1
     t.text     "order"
     t.boolean  "snake"
+    t.integer  "league_id"
   end
 
   create_table "fields", force: true do |t|
@@ -91,6 +90,29 @@ ActiveRecord::Schema.define(version: 20140326031111) do
     t.datetime "datetime"
     t.integer  "field_id"
     t.string   "name"
+    t.integer  "league_id"
+  end
+
+  create_table "leagues", force: true do |t|
+    t.string   "season"
+    t.integer  "year"
+    t.decimal  "price",      default: 0.0
+    t.boolean  "active",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.boolean  "paid",              default: false
+    t.integer  "registration_id"
+    t.string   "payer_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "setup_response"
+    t.text     "purchase_response"
+    t.text     "notify_response"
+    t.string   "transaction_id"
   end
 
   create_table "player_stats", force: true do |t|
@@ -118,6 +140,14 @@ ActiveRecord::Schema.define(version: 20140326031111) do
     t.string   "comments"
   end
 
+  create_table "registrations", force: true do |t|
+    t.boolean  "registered", default: false
+    t.integer  "user_id"
+    t.integer  "league_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "team_stats", force: true do |t|
     t.integer "team_id"
     t.integer "goals"
@@ -126,13 +156,11 @@ ActiveRecord::Schema.define(version: 20140326031111) do
   create_table "teams", force: true do |t|
     t.string   "name"
     t.integer  "captain_id"
-    t.string   "season"
-    t.integer  "year"
-    t.boolean  "active",     default: true
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "color"
+    t.integer  "league_id"
   end
 
   create_table "teams_users", force: true do |t|
@@ -163,8 +191,6 @@ ActiveRecord::Schema.define(version: 20140326031111) do
     t.string   "gender"
     t.string   "shirt_size"
     t.string   "admin",                  default: "none"
-    t.boolean  "active",                 default: true
-    t.boolean  "spring_registered"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

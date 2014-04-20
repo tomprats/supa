@@ -6,14 +6,14 @@
         <%= link_to "Logout", sign_out_path, method: :delete %>
       </div>
     </div>
-    <%= render partial: "shared/spring" %>
+    <%= render partial: "shared/summer" %>
     <div class="row">
       <div class="col-md-12">
         <h3>Teams</h3>
         <% if @user.teams.empty? %>
           <p>You aren't signed up for any teams yet, sorry!</p>
         <% else %>
-          <%= render partial: "shared/teams", locals: { teams: @user.teams } %>
+          <%= render partial: "teams/table", locals: { teams: @user.teams } %>
         <% end %>
       </div>
     </div>

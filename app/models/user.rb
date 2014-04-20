@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :draft_groups, foreign_key: :captain_id, dependent: :destroy
   has_one :questionnaire, dependent: :destroy
   has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
+  has_many :registrations
+  has_many :payments, through: :registrations
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -19,19 +21,39 @@ class User < ActiveRecord::Base
   scope :standard, -> { where(admin: "standard") }
   scope :captain,  -> { where(admin: "captain") }
   scope :none,     -> { where(admin: "none") }
-  scope :registered, -> { where(spring_registered: true) }
-  scope :unregistered, -> { where(spring_registered: false) }
-  scope :current, -> { includes(:teams).where.not(teams: { id: nil }) }
 
   def self.default_scope
     order("last_name ASC")
   end
 
+  def self.registered
+    league_id = League.next.id
+    joins(:registrations).where("registrations.league_id = ? AND registrations.registered = ?", league_id, true)
+  end
+
+  def self.not_registered
+    where.not(id: registered.select(&:id))
+  end
+
+  def registration
+    registrations.where(league_id: League.next.id).first
+  end
+
+  def not_registered?
+    !registered?
+  end
+
+  def registered?
+    registration && registration.registered?
+  end
+
   def apply_omniauth(omni)
-    authentications.build(provider: omni['provider'],
-                          uid: omni['uid'],
-                          token: omni['credentials'].token,
-                          token_secret: omni['credentials'].secret)
+    authentications.build(
+      provider:     omni['provider'],
+      uid:          omni['uid'],
+      token:        omni['credentials'].token,
+      token_secret: omni['credentials'].secret
+    )
   end
 
   def password_required?
@@ -66,10 +88,6 @@ class User < ActiveRecord::Base
     name?
   end
 
-  def spring_registered?
-    spring_registered
-  end
-
   def drafted?(draft_id)
     !DraftedPlayer.where(player_id: id, draft_id: draft_id).empty?
   end
@@ -89,7 +107,7 @@ class User < ActiveRecord::Base
   def drafts
     drafts = []
     captains_teams.each do |dteam|
-      drafts += Draft.where("season = ? AND year = ?", dteam.season, dteam.year)
+      drafts += Draft.where(league_id: dteam.league_id)
     end
     drafts
   end
@@ -103,7 +121,16 @@ class User < ActiveRecord::Base
   end
 
   def paid?
-    paid
+    league = League.next
+    if registration
+      payment = registration.payment
+    else
+      registrations.create(league_id: league.id)
+    end
+    payment ||= registration.create_payment
+    return true if payment.paid?
+    return false unless league.price.zero?
+    payment.update_attributes(paid: true)
   end
 
   def games_played

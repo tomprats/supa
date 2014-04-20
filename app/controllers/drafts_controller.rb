@@ -12,7 +12,11 @@ class DraftsController < ApplicationController
 
   def feed
     @draft = Draft.find(params[:id])
-    @drafted_players = @draft.drafted_players
+    if !@draft.order.empty?
+      @drafted_players = @draft.drafted_players
+    else
+      redirect_to :back, notice: "Draft does not have a picking order yet"
+    end
   end
 
   def show
@@ -20,7 +24,7 @@ class DraftsController < ApplicationController
     @users = User.registered.select { |u| !u.drafted?(@draft.id) }
 
     if @draft.players_undrafted?
-      if @draft.order
+      if !@draft.order.empty?
         @groups = @draft.groups(current_user.id).order("created_at")
         @group = DraftGroup.new(draft_id: @draft.id, captain_id: current_user.id)
         @group.draft_players.build
@@ -92,7 +96,7 @@ class DraftsController < ApplicationController
 
   private
   def draft_params
-    params.require(:draft).permit(:season, :year, :active)
+    params.require(:draft).permit(:league_id, :active)
   end
 
   def check_admin_level

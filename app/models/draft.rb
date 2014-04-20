@@ -1,6 +1,9 @@
 class Draft < ActiveRecord::Base
   has_many :draft_groups, dependent: :destroy
   has_many :drafted_players, dependent: :destroy
+  belongs_to :league
+
+  delegate :teams, to: :league
 
   serialize :order, Array
 
@@ -14,10 +17,6 @@ class Draft < ActiveRecord::Base
 
   def players(captain)
     groups(captain).collect(&:draft_players).flatten
-  end
-
-  def teams
-    Team.where("season = ? AND year = ?", season, year)
   end
 
   def captains

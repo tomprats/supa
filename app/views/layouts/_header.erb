@@ -4,11 +4,17 @@
       <%= fa_icon "bars" %>
     </a>
 
-    <%= link_to "SUPA", spring_path, class: "navbar-brand" %>
+    <%= link_to "SUPA", summer_path, class: "navbar-brand" %>
   </div>
 
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
+      <li>
+        <%= link_to(summer_path)  do %>
+          <%= fa_icon "sun-o" %>
+          Summer
+        <% end %>
+      </li>
       <li>
         <%= link_to(spring_path)  do %>
           <%= fa_icon "home" %>
@@ -62,7 +68,7 @@
         <li>
         <%= link_to(new_user_session_path)  do %>
           <%= fa_icon "sign-in" %>
-          Sign In
+          Sign In/Up
         <% end %>
         </li>
       <% end %>

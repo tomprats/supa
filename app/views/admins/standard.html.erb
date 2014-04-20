@@ -19,7 +19,7 @@
       <ul class="nav nav-pills">
         <li class="active"><a href="#all-teams" data-toggle="tab">Teams</a></li>
         <li><a href="#current-teams" data-toggle="tab">Current Teams</a></li>
-        <li><a href="#inactive-teams" data-toggle="tab">Inactive Teams</a></li>
+        <li><a href="#past-teams" data-toggle="tab">Past Teams</a></li>
       </ul>
       <div id="teams-content" class="tab-content">
         <div class="tab-pane active" id="all-teams">
@@ -29,7 +29,7 @@
               <% if @teams.empty? %>
                 <p>There aren't any teams yet!</p>
               <% else %>
-                <%= render partial: "shared/teams", locals: { teams: @teams } %>
+                <%= render partial: "teams/table", locals: { teams: @teams } %>
               <% end %>
             </div>
           </div>
@@ -39,21 +39,21 @@
             <div class="col-md-12">
               <h3>Current Teams</h3>
               <% if @current_teams.empty? %>
-                <p>There aren't any current teams!</p>
+                <p>There aren't any teams for the current league yet!</p>
               <% else %>
-                <%= render partial: "shared/teams", locals: { teams: @current_teams } %>
+                <%= render partial: "teams/table", locals: { teams: @current_teams } %>
               <% end %>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="inactive-teams">
+        <div class="tab-pane" id="past-teams">
           <div class="row">
             <div class="col-md-12">
-              <h3>Inactive Teams</h3>
-              <% if @inactive_teams.empty? %>
-                <p>There aren't any inactive teams!</p>
+              <h3>Past Teams</h3>
+              <% if @past_teams.empty? %>
+                <p>There aren't any past teams!</p>
               <% else %>
-                <%= render partial: "shared/teams", locals:  { teams:  @inactive_teams } %>
+                <%= render partial: "teams/table", locals:  { teams:  @past_teams } %>
               <% end %>
             </div>
           </div>
@@ -65,7 +65,7 @@
       <ul class="nav nav-pills">
         <li class="active"><a href="#all-captains" data-toggle="tab">Captains</a></li>
         <li><a href="#current-captains" data-toggle="tab">Current Captains</a></li>
-        <li><a href="#inactive-captains" data-toggle="tab">Inactive Captains</a></li>
+        <li><a href="#past-captains" data-toggle="tab">Past Captains</a></li>
       </ul>
       <div id="captains-content" class="tab-content">
         <div class="tab-pane active" id="all-captains">
@@ -75,7 +75,7 @@
               <% if @captains.empty? %>
                 <p>There aren't any captains yet!</p>
               <% else %>
-                <%= render partial: "shared/users", locals: { users: @captains } %>
+                <%= render partial: "users/table", locals: { users: @captains } %>
               <% end %>
             </div>
           </div>
@@ -85,21 +85,21 @@
             <div class="col-md-12">
               <h3>Current Captains</h3>
               <% if @current_captains.empty? %>
-                <p>There aren't any current captains!</p>
+                <p>There aren't any captains for the current league yet!</p>
               <% else %>
-                <%= render partial: "shared/users", locals: { users: @current_captains } %>
+                <%= render partial: "users/table", locals: { users: @current_captains } %>
               <% end %>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="inactive-captains">
+        <div class="tab-pane" id="past-captains">
           <div class="row">
             <div class="col-md-12">
-              <h3>Inactive Captains</h3>
-              <% if @inactive_captains.empty? %>
-                <p>There aren't any inactive captains!</p>
+              <h3>Past Captains</h3>
+              <% if @past_captains.empty? %>
+                <p>There aren't any past captains!</p>
               <% else %>
-                <%= render partial: "shared/users", locals: { users: @inactive_captains } %>
+                <%= render partial: "users/table", locals: { users: @past_captains } %>
               <% end %>
             </div>
           </div>
@@ -111,7 +111,7 @@
       <ul class="nav nav-pills">
         <li class="active"><a href="#all-users" data-toggle="tab">Users</a></li>
         <li><a href="#registered" data-toggle="tab">Registered Users</a></li>
-        <li><a href="#unregistered" data-toggle="tab">Unregistered Users</a></li>
+        <li><a href="#not-registered" data-toggle="tab">Not Registered Users</a></li>
       </ul>
       <div id="users-content" class="tab-content">
         <div class="tab-pane active" id="all-users">
@@ -121,7 +121,7 @@
               <% if @users.empty? %>
                 <p>There aren't any users yet!</p>
               <% else %>
-                <%= render partial: "shared/users", locals: { users: @users } %>
+                <%= render partial: "users/table", locals: { users: @users } %>
               <% end %>
             </div>
           </div>
@@ -133,19 +133,19 @@
               <% if @registered_users.empty? %>
                 <p>There aren't any registered users yet!</p>
               <% else %>
-                <%= render partial: "shared/users", locals: { users: @registered_users } %>
+                <%= render partial: "users/table", locals: { users: @registered_users } %>
               <% end %>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="unregistered">
+        <div class="tab-pane" id="not-registered">
           <div class="row">
             <div class="col-md-12">
-              <h3>Unregistered</h3>
-              <% if @unregistered_users.empty? %>
-                <p>There aren't any unregistered users!</p>
+              <h3>Not Registered</h3>
+              <% if @not_registered_users.empty? %>
+                <p>There aren't any users that haven't registered!</p>
               <% else %>
-                <%= render partial: "shared/users", locals: { users: @unregistered_users } %>
+                <%= render partial: "users/table", locals: { users: @not_registered_users } %>
               <% end %>
             </div>
           </div>
@@ -157,7 +157,7 @@
       <ul class="nav nav-pills">
         <li class="active"><a href="#all-games" data-toggle="tab">Games</a></li>
         <li><a href="#current-games" data-toggle="tab">Current games</a></li>
-        <li><a href="#inactive-games" data-toggle="tab">Inactive games</a></li>
+        <li><a href="#past-games" data-toggle="tab">Past games</a></li>
       </ul>
       <div id="games-content" class="tab-content">
         <div class="tab-pane active" id="all-games">
@@ -167,7 +167,7 @@
               <% if @games.empty? %>
                 <p>There aren't any games yet!</p>
               <% else %>
-                <%= render partial: "games/index", locals: { games: @games } %>
+                <%= render partial: "games/table", locals: { games: @games } %>
               <% end %>
             </div>
           </div>
@@ -177,21 +177,21 @@
             <div class="col-md-12">
               <h3>Current Games</h3>
               <% if @current_games.empty? %>
-                <p>There aren't any current games!</p>
+                <p>There aren't any games for the current league yet!</p>
               <% else %>
-                <%= render partial: "games/index", locals: { games: @current_games } %>
+                <%= render partial: "games/table", locals: { games: @current_games } %>
               <% end %>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="inactive-games">
+        <div class="tab-pane" id="past-games">
           <div class="row">
             <div class="col-md-12">
-              <h3>Inactive Games</h3>
-              <% if @inactive_games.empty? %>
-                <p>There aren't any inactive games!</p>
+              <h3>Past Games</h3>
+              <% if @past_games.empty? %>
+                <p>There aren't any past games!</p>
               <% else %>
-                <%= render partial: "games/index", locals: { games: @inactive_games } %>
+                <%= render partial: "games/table", locals: { games: @past_games } %>
               <% end %>
             </div>
           </div>
@@ -201,5 +201,5 @@
   </div>
 </div>
 
-<%= render partial: "shared/modals/teams_new_modal" %>
-<%= render partial: "shared/modals/games_new_modal" %>
+<%= render partial: "teams/new_modal" %>
+<%= render partial: "games/new_modal" %>

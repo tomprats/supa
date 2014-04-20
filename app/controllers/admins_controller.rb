@@ -2,46 +2,39 @@ class AdminsController < ApplicationController
  before_filter :check_admin_level
 
   def super
-    @announcement = Announcement.new
-    @field = Field.new
-    @draft = Draft.new
-    @drafts = Draft.all
-    @team = Team.new
-
-    key = params[:key] || "last_name"
     @announcements = Announcement.all
+    @leagues = League.all
+    @drafts = Draft.all
     @fields = Field.all
+    key = params[:key] || "last_name"
     @supers = User.super.order("#{key} ASC")
     @standards = User.standard.order("#{key} ASC")
     @none = User.none.order("#{key} ASC")
   end
 
   def standard
-    @team = Team.new
     new_game
 
     @teams = Team.all
-    @current_teams = Team.active
-    @inactive_teams = Team.inactive
+    @current_teams = League.most_recent.teams
+    @past_teams = Team.where.not(id: @current_teams.collect(&:id))
 
     @captains = @teams.collect { |t| t.captain }
     @current_captains = @current_teams.collect { |t| t.captain }
-    @inactive_captains = @inactive_teams.collect { |t| t.captain }
+    @past_captains = @past_teams.collect { |t| t.captain }
 
     key = params[:key] || "last_name"
     @users = User.all.order("#{key} ASC")
-    @registered_users = User.registered.order("#{key} ASC")
-    @unregistered_users = User.unregistered.order("#{key} ASC")
+    @registered_users = User.registered
+    @not_registered_users = User.not_registered
 
     @games = Game.all
-    @current_games = Game.active
-    @inactive_games = Game.inactive
+    @current_games = League.most_recent.games
+    @past_games = Game.where.not(id: @current_games.collect(&:id))
   end
 
   def captain
-    new_game
-
-    @current_team = Team.active.find_by(captain_id: current_user.id)
+    @current_team = League.most_recent.teams.find_by(captain_id: current_user.id)
     @teams = current_user.captains_teams
     @users = User.registered
   end
@@ -84,17 +77,6 @@ class AdminsController < ApplicationController
                                   :admin)
   end
 
-  def new_game
-    @game = Game.new
-    @game.build_team_stats1
-    @game.build_team_stats2
-    team = current_user.teams.active.first.try(:id)
-    @game.winner_id = team
-    @game.loser_id = team
-    @game.team_stats1.player_stats.build
-    @game.team_stats2.player_stats.build
-  end
-
   def check_admin_level
     case action_name
     when "super", "create_draft", "update_admin"
@@ -110,5 +92,13 @@ class AdminsController < ApplicationController
         redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     end
+  end
+
+  def new_game
+    @game = Game.new
+    @game.build_team_stats1
+    @game.build_team_stats2
+    @game.team_stats1.player_stats.build
+    @game.team_stats2.player_stats.build
   end
 end

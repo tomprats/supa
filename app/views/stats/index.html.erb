@@ -23,7 +23,7 @@
           <tr class="team">
             <td><%= player.first_name %></td>
             <td><%= player.last_name %></td>
-            <td><%= player.team.name %></td>
+            <td><%= player.team.try(:name) %></td>
             <td><%= player.games_played %></td>
             <td><%= player.assists %></td>
             <td><%= player.goals %></td>
@@ -46,4 +46,3 @@
     <% end %>
   </div>
 </div>
-

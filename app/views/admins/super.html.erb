@@ -1,15 +1,16 @@
 <div class="admins super">
   <ul class="nav nav-pills">
     <li class="active"><a href="#announcements" data-toggle="tab">Announcements</a></li>
+    <li><a href="#leagues" data-toggle="tab">Leagues</a></li>
     <li><a href="#drafts" data-toggle="tab">Drafts</a></li>
     <li><a href="#fields" data-toggle="tab">Fields</a></li>
-    <li><a href="#none" data-toggle="tab">None</a></li>
-    <li><a href="#standards" data-toggle="tab">Standards</a></li>
-    <li><a href="#supers" data-toggle="tab">Supers</a></li>
-    <div class="pull-right">
-      <%= link_to "Add Announcement", "#announcements_new_modal", class: "admin_modal btn btn-warning", role: "button", data: { toggle: "modal" } %>
-      <%= link_to "Add Draft", "#drafts_new_modal", class: "admin_modal btn btn-success", role: "button", data: { toggle: "modal" } %>
-      <%= link_to "Add Field", "#fields_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
+    <li><a href="#users" data-toggle="tab">Users</a></li>
+    <div class="btn-group pull-right">
+      <%= link_to "Add", "#", class: "btn btn-default" %>
+      <%= link_to "League", "#leagues_new_modal", class: "admin_modal btn btn-info", role: "button", data: { toggle: "modal" } %>
+      <%= link_to "Announcement", "#announcements_new_modal", class: "admin_modal btn btn-warning", role: "button", data: { toggle: "modal" } %>
+      <%= link_to "Draft", "#drafts_new_modal", class: "admin_modal btn btn-success", role: "button", data: { toggle: "modal" } %>
+      <%= link_to "Field", "#fields_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
     </div>
   </ul>
   <div id="content" class="tab-content">
@@ -20,7 +21,19 @@
           <% if @announcements.empty? %>
             <p>There aren't any yet!</p>
           <% else %>
-            <%= render partial: "announcements/index", locals: { announcements: @announcements } %>
+            <%= render partial: "announcements/table", locals: { announcements: @announcements } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="leagues">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Leagues</h3>
+          <% if @leagues.empty? %>
+            <p>There aren't any yet!</p>
+          <% else %>
+            <%= render partial: "leagues/table", locals: { leagues: @leagues } %>
           <% end %>
         </div>
       </div>
@@ -32,7 +45,7 @@
           <% if @drafts.empty? %>
             <p>There aren't any yet!</p>
           <% else %>
-            <%= render partial: "shared/drafts", locals: { drafts: @drafts } %>
+            <%= render partial: "drafts/table", locals: { drafts: @drafts } %>
           <% end %>
         </div>
       </div>
@@ -44,50 +57,60 @@
           <% if @fields.empty? %>
             <p>There aren't any yet!</p>
           <% else %>
-            <%= render partial: "fields/index", locals: { fields: @fields } %>
+            <%= render partial: "fields/table", locals: { fields: @fields } %>
           <% end %>
         </div>
       </div>
     </div>
-    <div class="tab-pane" id="none">
-      <div class="row">
-        <div class="col-md-12">
-          <h3>None</h3>
-          <% if @none.empty? %>
-            <p>There aren't any yet!</p>
-          <% else %>
-            <%= render partial: "shared/admin_users", locals: { users: @none } %>
-          <% end %>
+    <div class="tab-pane" id="users">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#none" data-toggle="tab">None</a></li>
+        <li><a href="#standard" data-toggle="tab">Standard</a></li>
+        <li><a href="#super" data-toggle="tab">Super</a></li>
+      </ul>
+      <div id="users-content" class="tab-content">
+        <div class="tab-pane active" id="none">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>None</h3>
+              <% if @none.empty? %>
+                <p>There aren't any yet!</p>
+              <% else %>
+                <%= render partial: "users/admin_table", locals: { users: @none } %>
+              <% end %>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="tab-pane" id="standards">
-      <div class="row">
-        <div class="col-md-12">
-          <h3>Standards</h3>
-          <% if @standards.empty? %>
-            <p>There aren't any yet!</p>
-          <% else %>
-            <%= render partial: "shared/admin_users", locals: { users: @standards } %>
-          <% end %>
+        <div class="tab-pane" id="standard">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Standards</h3>
+              <% if @standards.empty? %>
+                <p>There aren't any yet!</p>
+              <% else %>
+                <%= render partial: "users/admin_table", locals: { users: @standards } %>
+              <% end %>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="tab-pane" id="supers">
-      <div class="row">
-        <div class="col-md-12">
-          <h3>Supers</h3>
-          <% if @supers.empty? %>
-            <p>There aren't any yet!</p>
-          <% else %>
-            <%= render partial: "shared/admin_users", locals: { users: @supers } %>
-          <% end %>
+        <div class="tab-pane" id="super">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Supers</h3>
+              <% if @supers.empty? %>
+                <p>There aren't any yet!</p>
+              <% else %>
+                <%= render partial: "users/admin_table", locals: { users: @supers } %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<%= render partial: "leagues/new_modal" %>
 <%= render partial: "announcements/new_modal" %>
-<%= render partial: "shared/modals/drafts_new_modal" %>
+<%= render partial: "drafts/new_modal" %>
 <%= render partial: "fields/new_modal" %>

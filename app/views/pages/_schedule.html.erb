@@ -1,28 +1,3 @@
-<%= image_tag "spring.jpg", class: "img-responsive center-block" %>
-<br>
-<div class="center">
-  <h3>Check out this years teams!</h3>
-  <div>
-    <% @teams.each do |team| %>
-      <%= link_to team.name, team_path(team.id), class: "btn btn-primary" %>
-    <% end %>
-  </div>
-</div>
-<div class="center">
-  <h3>Announcements</h3>
-  <% if !@announcements.empty? %>
-    <% @announcements.each do |announcement| %>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <h4><%= announcement.heading %></h4>
-          <p class="text-left"><%=raw announcement.text.gsub("\n", "<br>") %></p>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <p>There aren't any announcements at this time</p>
-  <% end %>
-</div>
 <% if !@games.empty? %>
   <br>
   <div class="center schedule">

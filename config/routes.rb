@@ -1,5 +1,5 @@
 Supa::Application.routes.draw do
-  root to: "pages#spring2014"
+  root to: "pages#summer"
 
   devise_for :users, :controllers => {
     :omniauth_callbacks => "authentications",
@@ -7,13 +7,22 @@ Supa::Application.routes.draw do
   }
 
   get      'home',             :to => 'pages#home'
-  get      'spring',           :to => 'pages#spring2014'
+  get      'spring',           :to => 'pages#spring'
+  get      'summer',           :to => 'pages#summer'
   get      'stats',            :to => 'stats#index'
 
   resources :teams
   resources :games do
     resource :stats, only: [:show, :edit, :update]
   end
+  resources :leagues do
+    get 'activate', on: :member
+  end
+
+  get  "payments/checkout"
+  get  "payments/success"
+  post "payments/notify"
+  get  "payments/cancel"
 
   authenticated :user do
     devise_scope :user do

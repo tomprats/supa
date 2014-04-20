@@ -1,4 +1,4 @@
-<%= form_for(@team, html: { class: "form-horizontal" }) do |f| %>
+<%= form_for(@team || Team.new, html: { class: "form-horizontal" }) do |f| %>
   <div class="form-group">
     <%= f.label :name, class: "col-md-4 control-label" %>
     <div class="col-md-8">
@@ -8,19 +8,13 @@
   <div class="form-group">
     <%= f.label :captain_id, class: "col-md-4 control-label" %>
     <div class="col-md-8">
-      <%= f.select :captain_id, options_for_select(@team.captain_collection), {}, { class: "form-control" } %>
+      <%= f.select :captain_id, User.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :season, class: "col-md-4 control-label" %>
+    <%= f.label :league_id, class: "col-md-4 control-label" %>
     <div class="col-md-8">
-      <%= f.select :season, options_for_select(@team.season_collection), {}, { class: "form-control" } %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :year, class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= f.select :year, options_for_select(@team.year_collection), {}, { class: "form-control" } %>
+      <%= f.select :league_id, League.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
     </div>
   </div>
   <div class="form-group">
