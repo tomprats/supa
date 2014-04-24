@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :check_attr
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :paypal_url
+  helper_method :paypal_url, :mobile_device?
 
   def signed_in_root_path(resource_or_scope)
     profile_path
@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
         redirect_to edit_user_registration_path, alert: "Please fill in your registration information below."
       end
     end
+  end
+
+  def mobile_device?
+    !!(request.user_agent =~ /android|blackberry|iphone|ipad|ipod|iemobile|mobile|webos/i)
   end
 
   protected

@@ -6,6 +6,20 @@ GIT
       jquery-rails
       sass-rails
 
+GIT
+  remote: git://github.com/tomprats/active_merchant.git
+  revision: c7a8e04a402b5c5f8bbb4fb4aa7be082e16b08fc
+  branch: fix-paypal-digital-goods-gateway
+  specs:
+    activemerchant (1.42.9)
+      active_utils (~> 2.0, >= 2.0.1)
+      activesupport (>= 2.3.14, < 5.0.0)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (~> 0.5)
+      json (~> 1.7)
+      money (< 7.0.0)
+      nokogiri (~> 1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -21,14 +35,6 @@ GEM
     active_utils (2.0.2)
       activesupport (>= 2.3.11)
       i18n
-    activemerchant (1.42.8)
-      active_utils (~> 2.0, >= 2.0.1)
-      activesupport (>= 2.3.14, < 5.0.0)
-      builder (>= 2.1.2, < 4.0.0)
-      i18n (~> 0.5)
-      json (~> 1.7)
-      money (< 7.0.0)
-      nokogiri (~> 1.4)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -45,7 +51,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
-    atomic (1.1.16)
     bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -198,8 +203,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     thor (0.19.1)
-    thread_safe (0.3.1)
-      atomic (>= 1.1.7, < 2)
+    thread_safe (0.3.3)
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
@@ -217,7 +221,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activemerchant
+  activemerchant!
   better_errors
   binding_of_caller
   bootstrap-sass

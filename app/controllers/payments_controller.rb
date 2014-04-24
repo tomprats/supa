@@ -28,7 +28,7 @@ class PaymentsController < ApplicationController
       )
       setup_response = @gateway.setup_purchase(price, setup_purchase_params)
       @payment.update_attributes(token: setup_response.token, setup_response: setup_response.params.to_s)
-      redirect_to @gateway.redirect_url_for(setup_response.token)
+      redirect_to @gateway.redirect_url_for(setup_response.token, mobile: mobile_device?)
     end
   end
 
