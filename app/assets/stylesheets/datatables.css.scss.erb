@@ -1,0 +1,92 @@
+// Custom
+.dataTables_wrapper table.table .DTTT_selected td {
+  color: white;
+  background-color: #069DD7;
+}
+
+// Default
+.dataTables_filter {
+  font-size: 14px;
+  float: right;
+}
+
+.dataTables_paginate {
+  margin: 0;
+}
+
+.table-footer {
+  .dataTables_info,
+  .dataTables_length {
+    float: left;
+    padding: 20px;
+  }
+}
+.dataTables_info, dataTables_length {
+  font-size: 14px;
+  font-weight: 200;
+  list-style-type: disc;
+}
+.dataTables_length label {
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-weight: none;
+  list-style-type: disc;
+}
+.dataTables_length {
+  padding-left: 30px;
+}
+
+.tbl_active {
+  color:blue;
+  text-align: center;
+  width: 5%;
+}
+.tbl_active_dim {
+  color:#c4c4c4;
+}
+.tbl_id {
+  width: 10%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tbl_actions {
+  text-align: center;
+  white-space: nowrap;
+  width: 5%;
+}
+.toolbar {
+	float: left;
+}
+.badge-info {
+  background-color: #3a87ad;
+}
+.badge-info:hover {
+  background-color: #4500ff;
+}
+
+h3.panel-title {
+  font-size: 20px;
+}
+
+.type-traits {
+	border: 1px solid #f8f8f8;
+  overflow-y:auto;
+  overflow-x:hidden;
+  height:400px;
+  padding: 5px 5px 5px 10px;
+}
+
+/*
+ * Sorting
+ */
+.sorting { background: url(<%= image_path("sort_both.png") %>) no-repeat center right; }
+.sorting_asc { background: url(<%= image_path("sort_asc.png") %>) no-repeat center right; }
+.sorting_desc { background: url(<%= image_path("sort_desc.png") %>) no-repeat center right; }
+
+.sorting_asc_disabled { background: url(<%= image_path("sort_asc_disabled.png") %>) no-repeat center right; }
+.sorting_desc_disabled { background: url(<%= image_path("sort_desc_disabled.png") %>) no-repeat center right; }
+
+table.dataTable thead th:active,
+table.dataTable thead td:active {
+  outline: none;
+}
