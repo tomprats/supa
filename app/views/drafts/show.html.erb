@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <h3 class="center">
         <span>Draft: <%= @draft.id %></span>
-        <span><%= @draft.season %> <%= @draft.year %></span>
+        <span><%= @draft.league.season %> <%= @draft.league.year %></span>
       </h3>
       <h4 class="center">
         <% if !@draft.active? %>
@@ -69,7 +69,7 @@
           <h5 class="col-md-3">Info</h5>
         </div>
         <%= f.fields_for :draft_players do |player| %>
-          <div class="form-group">
+          <div class="form-group add-here">
             <div class="col-md-3">
               <%= player.select :player_id, @users.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
             </div>
