@@ -1,0 +1,59 @@
+<div id="credit-card-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_for(:credit_card, url: credit_card_path(league_id: League.summer.id), class: "form-horizontal") do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">Credit Card Payment</h3>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="row">
+              <%= f.label :first_name, "Name", class: "col-md-4 control-label" %>
+              <div class="col-md-4">
+                <%= f.text_field :first_name, { placeholder: "First", class: "form-control" } %>
+              </div>
+              <div class="col-md-4">
+                <%= f.text_field :last_name, { placeholder: "Last", class: "form-control" } %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <%= f.label :type, "Card Type", class: "col-md-4 control-label" %>
+              <div class="col-md-8">
+                <%= f.select :type, Payment.type_collection, {}, { class: "form-control" } %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <%= f.label :number, class: "col-md-4 control-label" %>
+              <div class="col-md-6">
+                <%= f.number_field :number, { placeholder: "Without dashes or spaces", class: "form-control" } %>
+              </div>
+              <div class="col-md-2">
+                <%= f.number_field :cvv2, { placeholder: "CVV", class: "form-control" } %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <%= f.label "Expiration", class: "col-md-4 control-label" %>
+              <div class="col-md-4">
+                <%= select_month nil, { use_month_numbers: true }, { name: "credit_card[expire_month]", id: "expiration_month", class: "form-control" } %>
+              </div>
+              <div class="col-md-4">
+                <%= select_year nil, { start_year: Date.today.year, end_year: Date.today.year+15 }, { name: "credit_card[expire_year]", id: "expiration_year", class: "form-control" } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Save", class: "btn btn-primary" %>
+          <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

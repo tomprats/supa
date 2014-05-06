@@ -43,10 +43,10 @@ class PaymentsController < ApplicationController
         redirect_to profile_path, notice: "Paypal payment successful. You are still unregistered until you click register"
       else
         @payment.update_attributes(purchase_response: purchase_response)
-        redirect_to profile_path, alert: "Paypal payment was unsuccessful. Try again or email supa@tomprats.com to trouble shoot with you"
+        redirect_to profile_path, alert: "Paypal payment was unsuccessful. Try again or email tom@stewartstownupa.com to troubleshoot with you"
       end
     else
-      redirect_to profile_path, alert: "Paypal payment was unsuccessful. Try again or email supa@tomprats.com to trouble shoot with you"
+      redirect_to profile_path, alert: "Paypal payment was unsuccessful. Try again or email tom@stewartstownupa.com to troubleshoot with you"
     end
   end
 
@@ -61,7 +61,40 @@ class PaymentsController < ApplicationController
     if @payment && notify.params["payment_status"] == "Completed"
       @payment.update_attributes(paid: true, notify_response: notify.params.to_s)
     elsif @payment
-      @payment.update_attributes(paid: false, notify_response: notify.params.to_s)
+      @payment.update_attributes(notify_response: notify.params.to_s)
+    end
+  end
+
+  # Through API
+  def credit_card
+    @league = League.find(params[:league_id])
+    @registration = current_user.registrations.where(league_id: @league.id).first
+    @registration ||= current_user.registrations.create(league_id: @league.id)
+    @payment = @registration.payment || @registration.create_payment
+    if @payment.paid?
+      redirect_to :back, alert: "You have already paid"
+    elsif @league.price.zero?
+      @payment.update_attributes(paid: true)
+      redirect_to :back, notice: "This league is free!"
+    else
+      @paypal = setup_sdk_purchase(
+        @league.price,
+        "#{@league.name} Registration",
+        "Stewartstown Ultimate Players Association registration for #{@league.name}.",
+        credit_card_params
+      )
+      if @paypal.create
+        @payment.update_attributes(
+          paid: true,
+          token: @paypal.id,
+          transaction_id: @paypal.transactions.first.related_resources.first.sale.id,
+          purchase_response: @paypal.to_hash.to_s
+        )
+        redirect_to profile_path, notice: "Credit card payment successful. You are still unregistered until you click register"
+      else
+        @payment.update_attributes(purchase_response: @paypal.to_hash.to_s, notify_response: @paypal.error.to_s)
+        redirect_to profile_path, alert: "Credit card payment was unsuccessful. Try again or email tom@stewartstownupa.com to troubleshoot with you"
+      end
     end
   end
 
@@ -71,6 +104,25 @@ class PaymentsController < ApplicationController
       login:     ENV["PAYPAL_USERNAME"],
       password:  ENV["PAYPAL_PASSWORD"],
       signature: ENV["PAYPAL_SIGNATURE"]
+    )
+  end
+
+  def credit_card_params
+    params.require(:credit_card).permit(
+      :type,
+      :number,
+      :expire_month,
+      :expire_year,
+      :cvv2,
+      :first_name,
+      :last_name,
+      billing_address: [
+        :line1,
+        :city,
+        :state,
+        :postal_code,
+        :country_code
+      ]
     )
   end
 end

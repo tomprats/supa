@@ -7,4 +7,13 @@ class Payment < ActiveRecord::Base
   def paid?
     paid
   end
+
+  def self.type_collection
+    [
+      ["Visa", :visa],
+      ["MasterCard", :mastercard],
+      ["Discover", :discover],
+      ["AmericanExpress", :amex]
+    ]
+  end
 end

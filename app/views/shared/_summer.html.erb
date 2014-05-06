@@ -11,10 +11,14 @@
             <%= link_to "Register", register_path, class: "btn btn-success" %>
           <% else %>
             <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), payments_checkout_path(league_id: League.summer.id) %>
+            <span> or by </span>
+            <%= link_to "Credit Card", "#", data: { toggle: "modal", target: "#credit-card-modal" }, class: "btn btn-success" %>
           <% end %>
           <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
         <% else %>
           <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), "#", data: { confirm: 'You must take the questionnaire first!' } %>
+          <span> or by </span>
+          <%= link_to "Credit Card", "#", class: "btn btn-success" %>
           <%= link_to "Questionnaire", "#", class: "btn btn-primary question" %>
         <% end %>
       <% end %>
@@ -23,3 +27,5 @@
     <% end %>
   </div>
 </div>
+
+<%= render partial: "shared/credit_card_modal" %>

@@ -9,6 +9,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'activemerchant', github: 'tomprats/active_merchant', branch: 'fix-paypal-digital-goods-gateway'
+gem 'paypal-sdk-rest'
 
 # Testing
 group :development, :test do

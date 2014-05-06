@@ -27,4 +27,39 @@ module PaypalPaymentsHelper
   def to_cents(money)
     (money*100).round
   end
+
+  def setup_sdk_purchase(price, name, description, credit_card)
+    PayPal::SDK::REST.set_config(
+      mode: ENV["PAYPAL_SDK_MODE"],
+      client_id: ENV["PAYPAL_SDK_ID"],
+      client_secret: ENV["PAYPAL_SDK_SECRET"]
+    )
+
+    # Build Payment object
+    PayPal::SDK::REST::Payment.new({
+      intent: "sale",
+      payer: {
+        payment_method: "credit_card",
+        funding_instruments: [{
+          credit_card: credit_card
+        }]
+      },
+      transactions: [{
+        item_list: {
+          items: [{
+            name: name,
+            sku: name,
+            price: price.to_i,
+            currency: "USD",
+            quantity: 1
+          }]
+        },
+        amount: {
+          total: price.to_i,
+          currency: "USD"
+        },
+        description: description
+      }]
+    })
+  end
 end
