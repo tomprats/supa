@@ -16,9 +16,13 @@
           <% end %>
           <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
         <% else %>
-          <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), "#", data: { confirm: 'You must take the questionnaire first!' } %>
-          <span> or by </span>
-          <%= link_to "Credit Card", "#", class: "btn btn-success" %>
+          <% if current_user.paid? %>
+            <%= link_to "Register", "#", class: "btn btn-success", data: { confirm: 'You must take the questionnaire first!' } %>
+          <% else %>
+            <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), "#", data: { confirm: 'You must take the questionnaire first!' } %>
+            <span> or by </span>
+            <%= link_to "Credit Card", "#", class: "btn btn-success", data: { confirm: 'You must take the questionnaire first!' } %>
+          <% end %>
           <%= link_to "Questionnaire", "#", class: "btn btn-primary question" %>
         <% end %>
       <% end %>

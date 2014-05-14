@@ -65,6 +65,28 @@ class PaymentsController < ApplicationController
     end
   end
 
+  # Through Admin
+  def cash
+    @user = User.find(params[:user_id])
+    @league = League.find(params[:league_id])
+    @registration = @user.registrations.where(league_id: @league.id).first
+    @registration ||= @user.registrations.create(league_id: @league.id)
+    @payment = @registration.payment || @registration.create_payment
+    if @payment.paid?
+      redirect_to :back, alert: "They have already paid"
+    elsif @league.price.zero?
+      @payment.update_attributes(paid: true)
+      redirect_to :back, notice: "This league is free!"
+    else
+      @payment.update_attributes(
+        paid: true,
+        purchase_response: "Cash",
+        notify_response: current_user.id
+      )
+      redirect_to :back, notice: "Cash payment successful. They are still unregistered until they click register"
+    end
+  end
+
   # Through API
   def credit_card
     @league = League.find(params[:league_id])

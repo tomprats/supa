@@ -24,6 +24,7 @@ Supa::Application.routes.draw do
   post "payments/notify"
   get  "payments/cancel"
   post "payments/credit_card", as: :credit_card
+  post "payments/cash",        as: :cash
 
   devise_scope :user do
     resources :authentications
