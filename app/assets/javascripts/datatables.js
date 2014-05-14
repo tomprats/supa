@@ -6,7 +6,7 @@ $(document).ready( function () {
     $table.DataTable({
       "bSort": true,
       "bSortClasses": false,
-      "sDom": '<"panel-body"rt>'
+      "sDom": '<"dt-content"rt>'
     });
   });
 
@@ -42,15 +42,18 @@ $(document).ready( function () {
       "bSortClasses": false,
       "aaSorting": defaultSort,
       "aoColumnDefs": [{ "asSorting": [], "bSearchable": false, "aTargets": dontSort }],
-      "sDom": '<"search">f<"panel-body"rt>ilp<"clearfix">',
+      "sDom": '<"search">f<"dt-content"rt>ilp<"clearfix">',
       "sPaginationType": "bootstrap"
     });
   });
 
-  $(".dataTables_filter").prepend();
-  $(".panel-body .table-footer").append($(".panel-body #table_id_info"));
-  $(".panel-body #table_id_info").addClass("pagination");
-  $(".panel-body .table-footer").append($(".panel-body #table_id_length"));
-  $(".panel-body #table_id_length").addClass("pagination");
-  $(".panel-body .table-footer").append($(".panel-body #table_id_paginate"));
+  $(".dataTables_filter").each(function(){
+    var $this = $(this);
+    $this.closest(".dataTables_wrapper").siblings("h3").append($this);
+  })
+  $(".dt-content .table-footer").append($(".dt-content #table_id_info"));
+  $(".dt-content #table_id_info").addClass("pagination");
+  $(".dt-content .table-footer").append($(".dt-content #table_id_length"));
+  $(".dt-content #table_id_length").addClass("pagination");
+  $(".dt-content .table-footer").append($(".dt-content #table_id_paginate"));
 });
