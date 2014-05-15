@@ -9,6 +9,23 @@
         <div class="modal-body">
           <div class="form-group">
             <div class="row">
+              <div class="col-md-12 text-center">
+                Credit Card information will not be stored. It will be verified and processed through Paypal.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4">
+                <b><%= League.summer.name %></b>
+              </div>
+              <div class="col-md-8">
+                $<%= number_with_precision(League.summer.price, precision: 2) %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
               <%= f.label :first_name, "Name", class: "col-md-4 control-label" %>
               <div class="col-md-4">
                 <%= f.text_field :first_name, { placeholder: "First", class: "form-control" } %>

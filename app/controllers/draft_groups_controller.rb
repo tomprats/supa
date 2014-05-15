@@ -25,19 +25,19 @@ class DraftGroupsController < ApplicationController
 
   private
   def draft_group_params
-    params.require(:draft_group).permit(:name,
-                                        :draft_id,
-                                        :captain_id,
-                                        draft_players_attributes:
-                                          [
-                                            :_destroy,
-                                            :id,
-                                            :player_id,
-                                            :position,
-                                            :rating,
-                                            :info
-                                          ]
-                                       )
+    params.require(:draft_group).permit(
+      :name,
+      :draft_id,
+      :captain_id,
+      draft_players_attributes: [
+        :_destroy,
+        :id,
+        :player_id,
+        :position,
+        :rating,
+        :info
+      ]
+    )
   end
 
   def check_admin_level
