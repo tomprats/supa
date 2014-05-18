@@ -1,5 +1,6 @@
 class DraftsController < ApplicationController
   before_filter :check_admin_level
+  skip_before_filter :authenticate_user!, :check_attr, only: [:feed]
 
   def new
     @draft = Draft.new
