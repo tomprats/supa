@@ -11,7 +11,12 @@ class DraftsController < ApplicationController
   end
 
   def feed
-    @draft = Draft.find(params[:id])
+    if params[:id]
+      @draft = Draft.find(params[:id])
+    else
+      @draft = League.summer.draft
+    end
+
     if !@draft.order.empty?
       @drafted_players = @draft.drafted_players
     else
@@ -99,14 +104,11 @@ class DraftsController < ApplicationController
     params.require(:draft).permit(:league_id, :active)
   end
 
+  # Not used for turn or feed
   def check_admin_level
     case action_name
     when "new", "create", "edit", "update", "destroy"
       if current_user.admin != "super"
-        redirect_to profile_path, notice: "You are not authorized to be there!"
-      end
-    when "feed"
-      if !current_user.is_captain? && !current_user.is_real_admin?
         redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     when "show", "index"

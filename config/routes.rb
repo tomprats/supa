@@ -40,6 +40,8 @@ Supa::Application.routes.draw do
     get    'drafts/:id/turn',  :to => 'drafts#turn'
     get    'drafts/:id/feed',  :to => 'drafts#feed',
                                :as => 'feed'
+    get    'summer/draft',     :to => 'drafts#feed',
+                               :as => 'summer_draft'
 
     resources :draft_groups
     resources :draft_players

@@ -49,7 +49,7 @@ $(document).ready(function() {
     }
     var empty = $(".draft .group#" + groupID + " .add-here:last").clone();
 
-    empty.find(".span3 select").each(function() {
+    empty.find(".col-md-3 select").each(function() {
       var name = $(this).attr("name");
       var result = /\[[\d]+\]/.exec(name).toString();
       var old_index = result.slice(1, -1);
@@ -58,7 +58,7 @@ $(document).ready(function() {
       $(this).attr("name", name);
     });
 
-    empty.find(".span3 input").each(function() {
+    empty.find(".col-md-3 input").each(function() {
       var name = $(this).attr("name");
       var result = /\[[\d]+\]/.exec(name).toString();
       var old_index = result.slice(1, -1);
