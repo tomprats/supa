@@ -96,8 +96,8 @@ class User < ActiveRecord::Base
     teams.last
   end
 
-  def captains_team
-    captains_teams.last
+  def captains_team(league_id)
+    Team.where(captain_id: id, league_id: league_id).first
   end
 
   def captains_teams

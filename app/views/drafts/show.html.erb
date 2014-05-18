@@ -34,16 +34,16 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <% if current_user.captains_team.drafted_players.empty? %>
+          <% if current_user.captains_team(@draft.league_id).drafted_players.empty? %>
             <div>There are no players yet!</div>
             <br>
           <% else %>
-            <% current_user.captains_team.drafted_players.each do |dp| %>
+            <% current_user.captains_team(@draft.league_id).drafted_players.each do |dp| %>
               <div class="row">
                 <div class="col-md-3"><%= dp.player.name %></div>
-                <div class="col-md-3"><%= dp.round %></div>
+                <div class="col-md-2"><%= dp.round %></div>
                 <div class="col-md-3"><%= dp.player.phone_number %></div>
-                <div class="col-md-3"><%= dp.player.email %></div>
+                <div class="col-md-4"><%= dp.player.email %></div>
               </div>
             <% end %>
           <% end %>
@@ -161,7 +161,11 @@
             <%= f.fields_for :draft_players do |player| %>
               <div class="form-group add-here">
                 <div class="col-md-3">
-                  <%= player.select :player_id, @users.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+                  <% if player.object.player %>
+                    <%= player.select :player_id, (@users | [player.object.player]).collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+                  <% else %>
+                    <%= player.select :player_id, @users.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+                  <% end %>
                 </div>
                 <div class="col-md-3">
                   <%= player.text_field :position, { class: "form-control" } %>

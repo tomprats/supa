@@ -13,7 +13,7 @@ class DraftedPlayersController < ApplicationController
         redirect_to :back, alert: "Player already drafted."
       else
         @drafted_player = DraftedPlayer.create(
-          team_id: current_user.captains_team.id,
+          team_id: current_user.captains_team(draft.league_id).id,
           player_id: player.id,
           position: draft_player.position,
           round: draft.round,

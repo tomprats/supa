@@ -71,16 +71,16 @@ class Draft < ActiveRecord::Base
 
     captains.each do |captain|
       DraftedPlayer.create(
-        team_id: captain.captains_team.id,
+        team_id: captain.captains_team(league_id).id,
         player_id: captain.id,
         position: "Captain",
         round: 0,
         draft_id: id
       )
 
-      captain.captains_team.players.each do |player|
+      captain.captains_team(league_id).players.each do |player|
         DraftedPlayer.create(
-          team_id: captain.captains_team.id,
+          team_id: captain.captains_team(league_id).id,
           player_id: player.id,
           position: "Retainee",
           round: 0,
