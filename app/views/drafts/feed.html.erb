@@ -8,12 +8,14 @@
   <% end %>
   <% @drafted_players.each do |drafted_player| %>
     <div class="row">
-      <span class="draft-round"><%= "Round #{drafted_player.round}: " %></span>
-      <span class="draft-player"><%= "#{drafted_player.name}" %></span>
-      <span> drafted by </span>
-      <span class="draft-captain"><%= drafted_player.team.captain.name %></span>
-      <span> will play on </span>
-      <span class="draft-team"><%= drafted_player.team.name %></span>
+      <div class="col-md-12">
+        <span class="draft-round"><%= "Round #{drafted_player.round}: " %></span>
+        <span class="draft-player"><%= "#{drafted_player.name}" %></span>
+        <span> drafted by </span>
+        <span class="draft-captain"><%= drafted_player.team.captain.name %></span>
+        <span> will play on </span>
+        <span class="draft-team"><%= drafted_player.team.name %></span>
+      </div>
     </div>
     <br>
   <% end %>

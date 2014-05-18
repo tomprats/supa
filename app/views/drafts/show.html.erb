@@ -24,7 +24,7 @@
   </div>
   <hr>
   <div class="row">
-    <div class="col-md-8 col-md-offset-2 group">
+    <div class="col-md-8 col-md-offset-2 group border-3">
       <h4>Drafted Players</h4>
       <div class="row">
         <h5 class="col-md-3">Player</h5>
@@ -52,7 +52,7 @@
     </div>
   </div>
   <div class="row">
-    <div id="add" class="col-md-8 col-md-offset-2 group">
+    <div id="add" class="col-md-8 col-md-offset-2 group border-3">
       <h4>Add Group</h4>
       <%= form_for(@group, html: { class: "form-horizontal" } ) do |f| %>
         <div class="form-group">
@@ -95,7 +95,7 @@
   </div>
     <% @groups.each_with_index do |group, index| %>
       <div class="row">
-        <div id="readonly<%= group.id %>" class="col-md-8 col-md-offset-2 group readonly">
+        <div id="readonly<%= group.id %>" class="col-md-8 col-md-offset-2 group border-3 readonly">
           <h4><%= "#{group.name}" %></h4>
           <div class="row">
             <h5 class="col-md-3">Player</h5>
@@ -142,7 +142,7 @@
     <% @groups.each_with_index do |group, index| %>
       <% group.draft_players.build %>
       <div class="row">
-        <div id="editable<%= group.id %>" class="col-md-8 group col-md-offset-2 editable hide">
+        <div id="editable<%= group.id %>" class="col-md-8 group border-3 col-md-offset-2 editable hide">
           <h4>Edit Group</h4>
           <%= form_for(group, html: { class: "form-horizontal" } ) do |f| %>
             <div class="form-group">
