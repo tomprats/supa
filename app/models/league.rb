@@ -18,7 +18,7 @@ class League < ActiveRecord::Base
   end
 
   def self.most_recent
-    active.first
+    summer
   end
 
   def self.summer
