@@ -10,13 +10,14 @@ class AdminsController < ApplicationController
     @supers = User.super.order("#{key} ASC")
     @standards = User.standard.order("#{key} ASC")
     @none = User.none.order("#{key} ASC")
+    @late = User.not_on_a_team
   end
 
   def standard
     new_game
 
     @teams = Team.all
-    @current_teams = League.most_recent.teams
+    @current_teams = League.summer.teams
     @past_teams = Team.where.not(id: @current_teams.collect(&:id))
 
     @captains = @teams.collect { |t| t.captain }
@@ -29,12 +30,12 @@ class AdminsController < ApplicationController
     @not_registered_users = User.not_registered
 
     @games = Game.all
-    @current_games = League.most_recent.games
+    @current_games = League.summer.games
     @past_games = Game.where.not(id: @current_games.collect(&:id))
   end
 
   def captain
-    @current_team = League.most_recent.teams.find_by(captain_id: current_user.id)
+    @current_team = League.summer.teams.find_by(captain_id: current_user.id)
     @teams = current_user.captains_teams
     @users = User.registered
   end
@@ -68,13 +69,40 @@ class AdminsController < ApplicationController
     end
   end
 
+  def assign_player
+    league = League.current
+    draft = league.draft
+    player = User.find(params[:assign][:player_id])
+    team = Team.find(params[:assign][:team_id])
+    if !league.active?
+      redirect_to :back, alert: "The league has not begun."
+    elsif !draft.active?
+      redirect_to :back, alert: "The draft has not started yet."
+    elsif player.on_a_team?
+      redirect_to :back, alert: "Player already on a team."
+    else
+      DraftedPlayer.create(
+        team_id: team.id,
+        player_id: player.id,
+        position: "Late Register",
+        round: draft.round,
+        draft_id: draft.id
+      )
+      team.players << player
+
+      redirect_to :back, notice: "Player successfully assigned."
+    end
+  end
+
   private
   def user_params
-    params.required(:user).permit(:first_name,
-                                  :last_name,
-                                  :email,
-                                  :phone_number,
-                                  :admin)
+    params.required(:user).permit(
+      :first_name,
+      :last_name,
+      :email,
+      :phone_number,
+      :admin
+    )
   end
 
   def check_admin_level

@@ -1,0 +1,33 @@
+<%= form_for(@league || League.new, html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= f.label :season, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :season, options_for_select(League.season_collection, @league.try(:season)), {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :year, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :year, options_for_select(League.year_collection, @league.try(:year)), {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :price, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :price, options_for_select((0..30).step(5), @league.try(:price).to_i), {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :late_price, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :late_price, options_for_select((0..30).step(5), @league.try(:late_price).to_i), {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :active, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :active, options_for_select([["Yes", true], ["No", false]], @league.try(:active)), {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Submit", :class => "btn btn-primary" %>
+<% end %>

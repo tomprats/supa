@@ -63,6 +63,8 @@ Supa::Application.routes.draw do
 
     put    'drafted_player/:id', :to => 'drafted_players#create',
                                  :as => 'drafted_player'
+    put    'assign_player',      :to => 'admins#assign_player',
+                                 :as => 'assign_player'
 
     get    'questionnaire',     :to => 'registrations#create_questionnaire'
     get    'questionnaire/:id', :to => 'registrations#questionnaire',

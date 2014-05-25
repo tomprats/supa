@@ -16,12 +16,12 @@ class PaymentsController < ApplicationController
 
     if @payment.paid?
       redirect_to :back, alert: "You have already paid"
-    elsif @league.price.zero?
+    elsif @league.current_price.zero?
       @payment.update_attributes(paid: true)
       redirect_to :back, notice: "This league is free!"
     else
       price, setup_purchase_params = get_setup_purchase_params(
-        @league.price,
+        @league.current_price,
         "#{@league.name} Registration",
         "Stewartstown Ultimate Players Association registration for #{@league.name}.",
         request.remote_ip
@@ -74,7 +74,7 @@ class PaymentsController < ApplicationController
     @payment = @registration.payment || @registration.create_payment
     if @payment.paid?
       redirect_to :back, alert: "They have already paid"
-    elsif @league.price.zero?
+    elsif @league.current_price.zero?
       @payment.update_attributes(paid: true)
       redirect_to :back, notice: "This league is free!"
     else
@@ -95,12 +95,12 @@ class PaymentsController < ApplicationController
     @payment = @registration.payment || @registration.create_payment
     if @payment.paid?
       redirect_to :back, alert: "You have already paid"
-    elsif @league.price.zero?
+    elsif @league.current_price.zero?
       @payment.update_attributes(paid: true)
       redirect_to :back, notice: "This league is free!"
     else
       @paypal = setup_sdk_purchase(
-        @league.price,
+        @league.current_price,
         "#{@league.name} Registration",
         "Stewartstown Ultimate Players Association registration for #{@league.name}.",
         credit_card_params

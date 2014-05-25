@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def self.registered
-    league_id = League.next.id
+    league_id = League.current.id
     joins(:registrations).where("registrations.league_id = ? AND registrations.registered = ?", league_id, true)
   end
 
@@ -35,8 +35,13 @@ class User < ActiveRecord::Base
     where.not(id: registered.select(&:id))
   end
 
+  def self.not_on_a_team
+    league_id = League.current.id
+    registered.select { |u| u.teams.empty? || !u.teams.collect(&:league_id).include?(league_id) }
+  end
+
   def registration
-    registrations.where(league_id: League.next.id).first
+    registrations.where(league_id: League.current.id).first
   end
 
   def not_registered?
@@ -93,7 +98,11 @@ class User < ActiveRecord::Base
   end
 
   def team
-    teams.last
+    teams.where(league_id: League.current.id).first
+  end
+
+  def on_a_team?
+    !!team
   end
 
   def captains_team(league_id)
@@ -121,7 +130,7 @@ class User < ActiveRecord::Base
   end
 
   def paid?
-    league = League.next
+    league = League.current
     if registration
       payment = registration.payment
     else
@@ -129,7 +138,7 @@ class User < ActiveRecord::Base
     end
     payment ||= registration.create_payment
     return true if payment.paid?
-    return false unless league.price.zero?
+    return false unless league.current_price.zero?
     payment.update_attributes(paid: true)
   end
 

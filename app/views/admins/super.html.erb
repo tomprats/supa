@@ -12,6 +12,9 @@
       <%= link_to "Draft", "#drafts_new_modal", class: "admin_modal btn btn-success", role: "button", data: { toggle: "modal" } %>
       <%= link_to "Field", "#fields_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
     </div>
+    <div class="pull-right margin-right-10">
+      <%= link_to "Assign Late Players", "#assign_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
+    </div>
   </ul>
   <div id="content" class="tab-content">
     <div class="tab-pane active" id="announcements">
@@ -110,6 +113,7 @@
   </div>
 </div>
 
+<%= render partial: "admins/assign_modal" %>
 <%= render partial: "leagues/new_modal" %>
 <%= render partial: "announcements/new_modal" %>
 <%= render partial: "drafts/new_modal" %>

@@ -13,11 +13,7 @@ class League < ActiveRecord::Base
     where(active: true)
   end
 
-  def self.next
-    first
-  end
-
-  def self.most_recent
+  def self.current
     summer
   end
 
@@ -31,6 +27,14 @@ class League < ActiveRecord::Base
 
   def name
     "#{season} League #{year}"
+  end
+
+  def active?
+    active
+  end
+
+  def current_price
+    active ? late_price : price
   end
 
   def self.season_collection

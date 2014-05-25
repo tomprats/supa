@@ -1,0 +1,27 @@
+<div id="assign_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Assign Player</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_for(:assign, url: assign_player_path, method: :put, html: { class: "form-horizontal" }) do |f| %>
+          <div class="form-group">
+            <%= f.label :player_id, "Player", class: "col-md-4 control-label" %>
+            <div class="col-md-8">
+              <%= f.select :player_id, User.not_on_a_team.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :team_id, "Team", class: "col-md-4 control-label" %>
+            <div class="col-md-8">
+              <%= f.select :team_id, League.current.teams.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+            </div>
+          </div>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

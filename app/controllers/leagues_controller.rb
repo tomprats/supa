@@ -32,7 +32,7 @@ class LeaguesController < ApplicationController
 
   private
   def league_params
-    params.require(:league).permit(:season, :year, :price, :active)
+    params.require(:league).permit(:season, :year, :price, :active, :late_price)
   end
 
   def check_admin_level
