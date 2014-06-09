@@ -15,7 +15,7 @@ class PlayerStat < ActiveRecord::Base
     yield
 
     if assists_changed || goals_changed
-      update_column(:points, assists + goals)
+      update_column(:points, assists.to_i + goals.to_i)
       team_stats.update_goals if goals_changed
     end
   end
