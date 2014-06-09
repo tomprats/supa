@@ -4,6 +4,7 @@ $(document).ready( function () {
     var $table = $(this);
 
     $table.DataTable({
+      "bPaginate": false,
       "bSort": true,
       "bSortClasses": false,
       "sDom": '<"dt-content"rt>'
