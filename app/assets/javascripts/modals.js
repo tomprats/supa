@@ -1,13 +1,14 @@
 $(document).ready(function() {
-  $(".edit-stats").click(function(e) {
+  $("body").on("click", ".edit-stats", function(e) {
     e.preventDefault();
     setModal("stats", "/games/" + $(this).data("id") + "/stats/edit");
+    return false;
   });
 });
 
 function setModal(name, url) {
   $.get(url, function(data) {
     $("#" + name + "-modal").html(data);
-    $("#" + name + "-modal").modal('show');
+    $("#" + name + "-modal").modal("show");
   });
 }

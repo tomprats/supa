@@ -38,9 +38,11 @@
     <% @games.each do |game| %>
       <div class="row">
         <div class="btn-group btn-group-justified">
-          <%= link_to game.team1.name, team_path(game.team1), class: "btn btn-success" %>
+          <% btn = game.team1 == game.winner ? "success" : "danger" %>
+          <%= link_to game.team1.name, team_path(game.team1), class: "btn btn-#{btn}" %>
           <%= link_to "#{game.date} @ #{game.time}", game_stats_path(game.id), class: "btn btn-primary" %>
-          <%= link_to game.team2.name, team_path(game.team2), class: "btn btn-success" %>
+          <% btn = game.team2 == game.winner ? "success" : "danger" %>
+          <%= link_to game.team2.name, team_path(game.team2), class: "btn btn-#{btn}" %>
         </div>
       </div>
     <% end %>
