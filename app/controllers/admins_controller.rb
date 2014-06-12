@@ -94,6 +94,45 @@ class AdminsController < ApplicationController
     end
   end
 
+  def trade_players
+    league = League.current
+    draft = league.draft
+    player1 = User.find(params[:trade][:player1_id])
+    player2 = User.find(params[:trade][:player2_id])
+    if !league.active?
+      redirect_to :back, alert: "The league has not begun."
+    elsif !draft.active?
+      redirect_to :back, alert: "The draft has not started yet."
+    elsif !player1.on_a_team? || !player2.on_a_team?
+      redirect_to :back, alert: "Player not on a team."
+    elsif player1.team == player2.team
+      redirect_to :back, alert: "Players on the same team."
+    else
+      team1 = player1.team
+      team2 = player2.team
+      DraftedPlayer.create(
+        team_id: team2.id,
+        player_id: player1.id,
+        position: "Trade for #{player2.name}",
+        round: draft.round,
+        draft_id: draft.id
+      )
+      DraftedPlayer.create(
+        team_id: team1,
+        player_id: player2.id,
+        position: "Trade for #{player1.name}",
+        round: draft.round,
+        draft_id: draft.id
+      )
+      team1.players.delete(player1)
+      team2.players.delete(player2)
+      team1.players << player2
+      team2.players << player1
+
+      redirect_to :back, notice: "Player successfully assigned."
+    end
+  end
+
   private
   def user_params
     params.required(:user).permit(
