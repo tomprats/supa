@@ -4,7 +4,7 @@ class StatsController < ApplicationController
   before_filter :check_admin_level, except: [:index, :show]
 
   def index
-    @players = User.all
+    @players = User.registered
     @games = Game.all.select { |g| !g.team_stats1.player_stats.empty? }
   end
 
