@@ -16,6 +16,10 @@ class Game < ActiveRecord::Base
     order("datetime ASC")
   end
 
+  def self.active
+    joins(:team_stats1).where.not("team_stats.goals IS NULL AND league_id = ?", League.current.id)
+  end
+
   def date
     datetime.strftime("%m/%d/%Y") if datetime
   end

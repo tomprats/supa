@@ -1,10 +1,37 @@
 <h3 class="center">Summer Stats</h3>
 <ul class="nav nav-pills nav-center">
-  <li class="active"><a href="#all" data-toggle="tab">All Stats</a></li>
+  <li class="active"><a href="#rankings" data-toggle="tab">Rankings</a></li>
+  <li><a href="#all" data-toggle="tab">All Stats</a></li>
   <li><a href="#games" data-toggle="tab">Game Stats</a></li>
 </ul>
 <div id="content" class="tab-content">
-  <div class="tab-pane active" id="all">
+  <div class="tab-pane active" id="rankings">
+    <table class="data-table table table-striped">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Place</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Total Points</th>
+          <th>Points Per Game</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @teams.each do |team| %>
+          <tr class="team">
+            <td><%= team.name %></td>
+            <td><%= team.place %></td>
+            <td><%= team.wins.count %></td>
+            <td><%= team.losses.count %></td>
+            <td><%= team.points %></td>
+            <td><%= number_with_precision(team.points_per_game, strip_insignificant_zeros: true, precision: 2) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="all">
     <table class="data-table table table-striped">
       <thead>
         <tr>
@@ -20,7 +47,7 @@
       </thead>
       <tbody>
         <% @players.each do |player| %>
-          <tr class="team">
+          <tr>
             <td><%= player.first_name %></td>
             <td><%= player.last_name %></td>
             <td><%= player.team.try(:name) %></td>

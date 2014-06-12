@@ -10,6 +10,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'activemerchant', github: 'tomprats/active_merchant', branch: 'fix-paypal-digital-goods-gateway'
 gem 'paypal-sdk-rest'
+gem 'pry'
 
 # Testing
 group :development, :test do
@@ -48,10 +49,6 @@ gem 'jbuilder', '~> 1.2'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-end
-
-group :development, :test do
-  gem 'pry'
 end
 
 gem "mocha", group: :test

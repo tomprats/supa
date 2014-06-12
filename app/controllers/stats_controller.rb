@@ -6,6 +6,7 @@ class StatsController < ApplicationController
   def index
     @players = User.registered
     @games = Game.all.select { |g| !g.team_stats1.player_stats.empty? }
+    @teams = League.summer.teams
   end
 
   def show

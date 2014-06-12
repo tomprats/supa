@@ -4,6 +4,10 @@ class TeamStat < ActiveRecord::Base
 
   accepts_nested_attributes_for :player_stats, allow_destroy: true
 
+  def self.active
+    where.not(goals: nil)
+  end
+
   def update_goals
     update_attributes(goals: player_stats.reduce(0){|sum, ps| sum + ps.goals.to_i })
   end
