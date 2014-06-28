@@ -23,7 +23,7 @@
               <div class="col-md-12">
                 <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
                   <a class="close" data-dismiss="alert">×</a>
-                  <%= msg.html_safe %>
+                  <%= msg.to_s.html_safe %>
                 </div>
               </div>
             </div>

@@ -1,8 +1,6 @@
 class Game < ActiveRecord::Base
   belongs_to :league
   belongs_to :field
-  belongs_to :winner,   class_name: "Team"
-  belongs_to :loser,    class_name: "Team"
   belongs_to :creator,  class_name: "User"
   belongs_to :team_stats1, class_name: "TeamStat", dependent: :destroy
   belongs_to :team_stats2, class_name: "TeamStat", dependent: :destroy
@@ -10,7 +8,7 @@ class Game < ActiveRecord::Base
   accepts_nested_attributes_for :team_stats2
 
   validates_presence_of :datetime, :field, :league_id
-  validate :team1_exists, :team2_exists, :teams_differ, :winners_losers, :same_league
+  validate :team1_exists, :team2_exists, :teams_differ, :same_league
 
   def self.default_scope
     order("datetime ASC")
@@ -40,6 +38,50 @@ class Game < ActiveRecord::Base
     [team1, team2]
   end
 
+  def winner
+    diff = team_stats1.goals.to_i - team_stats2.goals.to_i
+    if diff > 0
+      team_stats1.team
+    elsif diff < 0
+      team_stats2.team
+    else
+      nil
+    end
+  end
+
+  def winner_id
+    diff = team_stats1.goals.to_i - team_stats2.goals.to_i
+    if diff > 0
+      team_stats1.team_id
+    elsif diff < 0
+      team_stats2.team_id
+    else
+      0
+    end
+  end
+
+  def loser
+    diff = team_stats1.goals.to_i - team_stats2.goals.to_i
+    if diff > 0
+      team_stats2.team
+    elsif diff < 0
+      team_stats1.team
+    else
+      nil
+    end
+  end
+
+  def loser_id
+    diff = team_stats1.goals.to_i - team_stats2.goals.to_i
+    if diff > 0
+      team_stats2.team_id
+    elsif diff < 0
+      team_stats1.team_id
+    else
+      0
+    end
+  end
+
   private
   def team1_exists
     unless team1
@@ -62,12 +104,6 @@ class Game < ActiveRecord::Base
   def teams_differ
     if team1 && team2 && team1 == team2
       errors.add(:teams, "must differ")
-    end
-  end
-
-  def winners_losers
-    if winner && loser && winner == loser
-      errors.add(:winners, "must be different than losers")
     end
   end
 end

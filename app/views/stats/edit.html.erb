@@ -10,21 +10,6 @@
 
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-5">
-            <div class="form-group">
-              <%= f.label :winner_id, class: "control-label" %>
-              <%= f.select :winner_id, @game.teams.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
-            </div>
-          </div>
-          <div class="col-md-5 col-md-offset-2">
-            <div class="form-group">
-              <%= f.label :loser_id, class: "control-label" %>
-              <%= f.select :loser_id, @game.teams.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
           <div class="col-md-12">
             <ul class="nav nav-pills">
               <li class="active"><a href="#team1" data-toggle="tab"><%= @game.team1.name %></a></li>

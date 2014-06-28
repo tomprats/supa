@@ -29,17 +29,17 @@ class StatsController < ApplicationController
   end
 
   def update
-    if Game.find(params[:game_id]).update_attributes(game_params)
+    @game =  Game.find(params[:game_id])
+    if @game.update_attributes(game_params)
       redirect_to :back, notice: "Stats were successfully updated"
     else
-      redirect_to :back, alert: "Stats could not be updated"
+      redirect_to :back, alert: @game.errors.try(:messages).to_s
     end
   end
 
   private
   def game_params
     params.require(:game).permit(
-      :winner_id, :loser_id,
       team_stats1_attributes: [:id, player_stats_attributes: [:_destroy, :id, :player_id, :assists, :goals]],
       team_stats2_attributes: [:id, player_stats_attributes: [:_destroy, :id, :player_id, :assists, :goals]]
     )

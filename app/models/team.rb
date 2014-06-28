@@ -4,8 +4,6 @@ class Team < ActiveRecord::Base
   belongs_to              :captain, class_name: 'User'
   has_many                :team_stats
   has_many                :drafted_players
-  has_many                :wins,    class_name: 'Game', foreign_key: 'winner_id'
-  has_many                :losses,  class_name: 'Game', foreign_key: 'loser_id'
   accepts_nested_attributes_for :players
 
   validates_presence_of :name, :captain_id, :league_id
@@ -14,8 +12,16 @@ class Team < ActiveRecord::Base
     where(league_id: League.current.id)
   end
 
+  def wins
+    games.select { |g| g.winner_id == id }
+  end
+
+  def losses
+    games.select { |g| g.loser_id == id }
+  end
+
   def games
-    wins + losses
+    Game.all.select { |game| game.teams.include?(self) }
   end
 
   def place2
