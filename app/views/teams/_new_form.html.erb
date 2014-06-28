@@ -23,5 +23,11 @@
       <%= f.text_field :image, { class: "form-control" } %>
     </div>
   </div>
+  <div class="form-group">
+    <%= f.label :place, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.number_field :place, { class: "form-control" } %>
+    </div>
+  </div>
   <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

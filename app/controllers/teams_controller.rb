@@ -34,13 +34,15 @@ class TeamsController < ApplicationController
 
   private
   def team_params
-    params.require(:team).permit(:name,
-                                 :captain_id,
-                                 :league_id,
-                                 :color,
-                                 :active,
-                                 :image,
-                                 player_ids: []
-                                )
+    params.require(:team).permit(
+      :name,
+      :captain_id,
+      :league_id,
+      :place,
+      :color,
+      :active,
+      :image,
+      player_ids: []
+    )
   end
 end

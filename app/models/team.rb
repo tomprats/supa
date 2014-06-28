@@ -20,32 +20,12 @@ class Team < ActiveRecord::Base
     games.select { |g| g.loser_id == id }
   end
 
+  def ties
+    games.select { |g| g.winner_id != id && g.loser_id != id}
+  end
+
   def games
     Game.all.select { |game| game.teams.include?(self) }
-  end
-
-  def place2
-    hash = {}
-    Game.active.each do |game|
-      hash[game.winner_id] ||= {}
-      hash[game.winner_id][game.loser_id] ||= 0
-      hash[game.winner_id][game.loser_id] += 1
-    end
-
-    hash2 = hash.clone
-    hash.each do |winner, losers|
-      losers.each do |loser, total|
-        hash2[loser] ||= {}
-        hash2[loser][winner] ||= 0
-        hash2[loser][winner] -= total
-      end
-    end
-
-    binding.pry
-  end
-
-  def place
-    "Coming Soon"
   end
 
   def points
