@@ -21,7 +21,7 @@ class Team < ActiveRecord::Base
   end
 
   def ties
-    games.select { |g| g.winner_id != id && g.loser_id != id}
+    games.select { |g| g.tie? }
   end
 
   def games
@@ -30,6 +30,23 @@ class Team < ActiveRecord::Base
 
   def points
     team_stats.active.inject(0){|sum,e| sum += e.goals.to_i }
+  end
+
+  def points_against
+    sum = 0
+    team_stats.active.each do |ts|
+      if ts.game.team_stats1.team_id != id
+        ts_against = ts.game.team_stats1
+      else
+        ts_against = ts.game.team_stats2
+      end
+      sum += ts_against.goals.to_i
+    end
+    sum
+  end
+
+  def point_differential
+    points - points_against
   end
 
   def points_per_game

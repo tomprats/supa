@@ -82,6 +82,11 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def tie?
+    diff = team_stats1.goals.to_i - team_stats2.goals.to_i
+    diff == 0 && team_stats1.goals
+  end
+
   private
   def team1_exists
     unless team1

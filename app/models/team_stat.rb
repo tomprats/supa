@@ -8,6 +8,10 @@ class TeamStat < ActiveRecord::Base
     where.not(goals: nil)
   end
 
+  def game
+    Game.where("team_stats1_id = ? OR team_stats2_id = ?", id, id).first
+  end
+
   def update_goals
     update_attributes(goals: player_stats.reduce(0){|sum, ps| sum + ps.goals.to_i })
   end

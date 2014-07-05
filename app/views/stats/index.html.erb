@@ -10,10 +10,12 @@
       <thead>
         <tr>
           <th>Team</th>
-          <th>Place</th>
+          <th class="default-sort">Place</th>
           <th>Wins</th>
           <th>Losses</th>
+          <th>Ties</th>
           <th>Total Points</th>
+          <th>Point Differential</th>
           <th>Points Per Game</th>
         </tr>
       </thead>
@@ -24,7 +26,9 @@
             <td><%= team.place %></td>
             <td><%= team.wins.count %></td>
             <td><%= team.losses.count %></td>
+            <td><%= team.ties.count %></td>
             <td><%= team.points %></td>
+            <td><%= team.point_differential %></td>
             <td><%= number_with_precision(team.points_per_game, strip_insignificant_zeros: true, precision: 2) %></td>
           </tr>
         <% end %>
