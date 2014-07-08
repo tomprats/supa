@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>Register for <%= League.summer.name %></h3>
+    <% if current_user %>
+      <% if current_user.on_a_team? %>
+        <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
+      <% else %>
+        <% if current_user.registered? %>
+          <%= link_to "Unregister", unregister_path, class: "btn btn-danger" %>
+          <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
+        <% else %>
+          <% if current_user.questionnaire %>
+            <% if current_user.paid? %>
+              <%= link_to "Register", register_path, class: "btn btn-success" %>
+            <% else %>
+              <%= link_to "Pay with Credit Card", "#", data: { toggle: "modal", target: "#credit-card-modal" }, class: "btn btn-success" %>
+            <% end %>
+            <%= link_to "Retake Questionnaire", "#", class: "btn btn-primary question" %>
+          <% else %>
+            <% if current_user.paid? %>
+              <%= link_to "Register", "#", class: "btn btn-success", data: { confirm: 'You must take the questionnaire first!' } %>
+            <% else %>
+              <%= link_to "Pay with Credit Card", "#", class: "btn btn-success", data: { confirm: 'You must take the questionnaire first!' } %>
+            <% end %>
+            <%= link_to "Questionnaire", "#", class: "btn btn-primary question" %>
+          <% end %>
+        <% end %>
+        <% if League.summer.draft.active? %>
+          <div class="row">
+            <div class="col-md-12 margin-top-10">
+              Captains will be selecting from post draft registrations after our June 1st games.
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= link_to "Sign in to Register!", new_user_session_path, class: "btn btn-success"  %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: "shared/credit_card_modal" %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140628201532) do
+ActiveRecord::Schema.define(version: 20140708210541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,26 @@ ActiveRecord::Schema.define(version: 20140628201532) do
     t.text     "purchase_response"
     t.text     "notify_response"
     t.string   "transaction_id"
+  end
+
+  create_table "player_awards", force: true do |t|
+    t.integer "user_id"
+    t.integer "most_valuable"
+    t.integer "offensive"
+    t.integer "defensive"
+    t.integer "rookie"
+    t.integer "female"
+    t.integer "comeback"
+    t.integer "captain"
+    t.integer "spirit"
+    t.integer "iron_man"
+    t.integer "most_outspoken"
+    t.integer "most_improved"
+    t.integer "hustle"
+    t.integer "best_layouts"
+    t.integer "most_underrated"
+    t.integer "sportsmanship"
+    t.string  "ideas"
   end
 
   create_table "player_stats", force: true do |t|

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
   has_many :registrations
   has_many :payments, through: :registrations
+  has_one :player_award
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

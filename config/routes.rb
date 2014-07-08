@@ -11,6 +11,7 @@ Supa::Application.routes.draw do
   get      'summer',           :to => 'pages#summer'
   get      'stats',            :to => 'stats#index'
 
+  resources :player_awards
   resources :teams
   resources :games do
     resource :stats, only: [:show, :edit, :update]
