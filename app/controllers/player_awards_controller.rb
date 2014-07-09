@@ -1,4 +1,36 @@
 class PlayerAwardsController < ApplicationController
+  skip_before_filter :authenticate_user!, :check_attr, only: [:index]
+
+  def index
+    @player_awards = PlayerAward.all
+    @awards = {
+      offensive: {},
+      defensive: {},
+      rookie: {},
+      female: {},
+      comeback: {},
+      captain: {},
+      spirit: {},
+      iron_man: {},
+      most_outspoken: {},
+      most_improved: {},
+      hustle: {},
+      best_layouts: {},
+      most_underrated: {},
+      sportsmanship: {}
+    }
+    @player_awards.each do |award|
+      @awards.each do |key, value|
+        id = award.try(key)
+        if @awards[key][id]
+          @awards[key][id] += 1
+        else
+          @awards[key][id] = 1
+        end
+      end
+    end
+  end
+
   def new
     if current_user.player_award
       redirect_to edit_player_award(current_user.player_award.id)
