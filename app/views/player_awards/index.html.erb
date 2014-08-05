@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <div class="center">
-      <%= render partial: "shared/summer" %>
+    <div class="row">
+      <h3>Player Awards</h3>
     </div>
     <% index = 0 %>
     <div class="row">
@@ -14,7 +14,7 @@
           <h4><%= key.to_s.titleize %></h4>
           <% value.delete(nil) %>
           <% sorted = value.sort_by { |k,v| v }.reverse %>
-          <% sorted.each do |user| %>
+          <% sorted.select { |user| user.last == sorted.first.last }.each do |user| %>
             <div class="row">
               <div class="col-md-9">
                 <%= User.find(user.first).name %>
@@ -27,5 +27,13 @@
         </div>
       <% end %>
     </div>
+    <div class="row">
+      <h3>Ideas</h3>
+    </div>
+    <% PlayerAward.all.select { |p| !p.ideas.blank? }.each do |p| %>
+      <div class="row padding-20">
+        <%= p.ideas %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -3,7 +3,6 @@
     <a href="#" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
       <%= fa_icon "bars" %>
     </a>
-
     <%= link_to "SUPA", summer_path, class: "navbar-brand" %>
   </div>
 
@@ -21,12 +20,6 @@
           Stats
         <% end %>
       </li>
-      <li>
-        <%= link_to(player_awards_path)  do %>
-          <%= fa_icon "trophy" %>
-          Player Awards
-        <% end %>
-      </li>
       <% if user_signed_in? %>
         <li>
           <%= link_to(profile_path)  do %>
@@ -35,6 +28,12 @@
           <% end %>
         </li>
         <% if current_user && current_user.is_super_admin? %>
+          <li>
+          <%= link_to(player_awards_path)  do %>
+            <%= fa_icon "trophy" %>
+            Player Awards
+          <% end %>
+          </li>
           <li>
           <%= link_to(super_path)  do %>
             <%= fa_icon "code" %>

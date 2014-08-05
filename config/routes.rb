@@ -11,13 +11,13 @@ Supa::Application.routes.draw do
   get      'summer',           :to => 'pages#summer'
   get      'stats',            :to => 'stats#index'
 
-  resources :player_awards
+  resources :player_awards, only: [:index]
   resources :teams
   resources :games do
     resource :stats, only: [:show, :edit, :update]
   end
   resources :leagues do
-    get 'activate', on: :member
+    get "activate", on: :member
   end
 
   get  "payments/checkout"
