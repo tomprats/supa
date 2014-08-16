@@ -1,0 +1,66 @@
+@import "variables";
+@import "bootstrap";
+
+.admin-navbar-push {
+  margin-top: 51px;
+}
+
+$color: $white;
+$bg-color: $green;
+
+.navbar.admin-navbar {
+  z-index: 1000;
+  top: 51px;
+  margin-right: 300px;
+  background-color: $bg-color;
+  .navbar-inner {
+    background-color: $bg-color;
+  }
+  .navbar-brand {
+    color: $color;
+    &:hover {
+      color: $blue;
+    }
+  }
+  div > ul a, .nav a {
+    color: $color;
+    &:hover {
+      color: $blue;
+      background-color: $bg-color;
+    }
+  }
+  div > ul .active a, .nav .active a {
+    background-color: $color;
+    color: $bg-color;
+  }
+  .dropdown-menu {
+    &:before {
+      border-bottom-color: #ccc;
+    }
+    &:after {
+      border-bottom-color: $bg-color;
+    }
+  }
+  div > ul .menu-dropdown, .nav .menu-dropdown, .topbar div > ul .dropdown-menu, .nav .dropdown-menu {
+    background-color: $bg-color;
+    li {
+      a {
+        background: $bg-color !important;
+        color: $color;
+        &:hover {
+          background-color: $bg-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $screen-sm) {
+  .navbar.admin-navbar {
+    top: 56px;
+    margin-right: 0;
+    .navbar-toggle {
+      margin-bottom: 4px;
+    }
+  }
+}

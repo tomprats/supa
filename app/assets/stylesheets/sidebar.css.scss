@@ -1,0 +1,29 @@
+@import "variables";
+@import "bootstrap";
+
+.main-content {
+  margin-right: 300px;
+}
+
+.sidebar {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  top: 50px;
+  right: 0;
+  padding: 0 20px;
+  color: #ffffff;
+  background-color: #6666FF;
+}
+
+@media screen and (max-width: $screen-sm) {
+  .main-content {
+    margin-right: 0;
+  }
+
+  .sidebar {
+    position: inherit;
+    width: 100%;
+    padding-top: 20px;
+  }
+}

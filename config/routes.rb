@@ -6,16 +6,18 @@ Supa::Application.routes.draw do
     :registrations      => "registrations"
   }
 
+  # Revision 2.0
+  resources :teams, only: [:show]
+  resources :games, only: [:show] do
+    resource :stats, only: [:show]
+  end
+  get :stats, to: "stats#index"
+
   get      'home',             :to => 'pages#home'
   get      'spring',           :to => 'pages#spring'
   get      'summer',           :to => 'pages#summer'
-  get      'stats',            :to => 'stats#index'
 
   resources :player_awards, only: [:index]
-  resources :teams
-  resources :games do
-    resource :stats, only: [:show, :edit, :update]
-  end
   resources :leagues do
     get "activate", on: :member
   end
@@ -53,10 +55,8 @@ Supa::Application.routes.draw do
     get    'register',         :to => 'registrations#register'
     get    'unregister',       :to => 'registrations#unregister'
     get    'profile',          :to => 'registrations#show'
-    get    'team',             :to => 'teams#show'
 
     get    'super',            :to => 'admins#super'
-    get    'admin',            :to => 'admins#standard'
     get    'captain',          :to => 'admins#captain'
 
     put    'update/admin/:id', :to => 'admins#update_admin',
@@ -72,5 +72,16 @@ Supa::Application.routes.draw do
     get    'questionnaire',     :to => 'registrations#create_questionnaire'
     get    'questionnaire/:id', :to => 'registrations#questionnaire',
                                 :as => 'user_questionnaire'
+
+    # Revision 2.0
+    get :admin, to: "admin/teams#index"
+    namespace :admin do
+      resources :teams
+      resources :captains
+      resources :users
+      resources :games do
+        resource :stats, only: [:edit, :update]
+      end
+    end
   end
 end

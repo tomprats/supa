@@ -1,6 +1,6 @@
 <div class="modal-dialog">
   <div class="modal-content">
-    <%= form_for(@game, url: game_stats_path(@game.id), class: "form-horizontal") do |f| %>
+    <%= form_for(@game, url: admin_game_stats_path(@game.id), class: "form-horizontal") do |f| %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">

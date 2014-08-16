@@ -13,27 +13,6 @@ class AdminsController < ApplicationController
     @late = User.not_on_a_team
   end
 
-  def standard
-    new_game
-
-    @teams = Team.all
-    @current_teams = League.summer.teams
-    @past_teams = Team.where.not(id: @current_teams.collect(&:id))
-
-    @captains = @teams.collect { |t| t.captain }
-    @current_captains = @current_teams.collect { |t| t.captain }
-    @past_captains = @past_teams.collect { |t| t.captain }
-
-    key = params[:key] || "last_name"
-    @users = User.all.order("#{key} ASC")
-    @registered_users = User.registered
-    @not_registered_users = User.not_registered
-
-    @games = Game.all
-    @current_games = League.summer.games
-    @past_games = Game.where.not(id: @current_games.collect(&:id))
-  end
-
   def captain
     @current_team = League.summer.teams.find_by(captain_id: current_user.id)
     @teams = current_user.captains_teams

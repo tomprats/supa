@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("body").on("click", ".edit-stats", function(e) {
     e.preventDefault();
-    setModal("stats", "/games/" + $(this).data("id") + "/stats/edit");
+    setModal("stats", "/admin/games/" + $(this).data("id") + "/stats/edit");
     return false;
   });
 });

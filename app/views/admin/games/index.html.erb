@@ -1,0 +1,51 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#all-games" data-toggle="tab">Games</a></li>
+  <li><a href="#current-games" data-toggle="tab">Current games</a></li>
+  <li><a href="#past-games" data-toggle="tab">Past games</a></li>
+
+  <div class="btn-group pull-right">
+    <%= link_to "Add Game", "#games_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
+  </div>
+</ul>
+
+<div id="games-content" class="tab-content">
+  <div class="tab-pane active" id="all-games">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Games</h3>
+        <% if @games.empty? %>
+          <p>There aren't any games yet!</p>
+        <% else %>
+          <%= render partial: "admin/games/table", locals: { games: @games } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="current-games">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Current Games</h3>
+        <% if @current_games.empty? %>
+          <p>There aren't any games for the current league yet!</p>
+        <% else %>
+          <%= render partial: "admin/games/table", locals: { games: @current_games } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="past-games">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Past Games</h3>
+        <% if @past_games.empty? %>
+          <p>There aren't any past games!</p>
+        <% else %>
+          <%= render partial: "admin/games/table", locals: { games: @past_games } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "admin/games/new_modal" %>
+<%= render partial: "admin/stats/modal" %>

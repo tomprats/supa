@@ -1,0 +1,50 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#all-teams" data-toggle="tab">Teams</a></li>
+  <li><a href="#current-teams" data-toggle="tab">Current Teams</a></li>
+  <li><a href="#past-teams" data-toggle="tab">Past Teams</a></li>
+
+  <div class="btn-group pull-right">
+    <%= link_to "Add Team","#teams_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
+  </div>
+</ul>
+
+<div id="teams-content" class="tab-content">
+  <div class="tab-pane active" id="all-teams">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Teams</h3>
+        <% if @teams.empty? %>
+          <p>There aren't any teams yet!</p>
+        <% else %>
+          <%= render partial: "admin/teams/table", locals: { teams: @teams } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="current-teams">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Current Teams</h3>
+        <% if @current_teams.empty? %>
+          <p>There aren't any teams for the current league yet!</p>
+        <% else %>
+          <%= render partial: "admin/teams/table", locals: { teams: @current_teams } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="past-teams">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Past Teams</h3>
+        <% if @past_teams.empty? %>
+          <p>There aren't any past teams!</p>
+        <% else %>
+          <%= render partial: "admin/teams/table", locals:  { teams:  @past_teams } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "admin/teams/new_modal" %>

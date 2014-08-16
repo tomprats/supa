@@ -1,0 +1,16 @@
+<div class="sidebar center">
+  <h3>Announcements</h3>
+  <% announcements = Announcement.all %>
+  <% if !announcements.empty? %>
+    <% announcements.each do |announcement| %>
+      <div class="row">
+        <div class="col-md-12">
+          <h4><%= announcement.heading %></h4>
+          <p class="text-left"><%=raw announcement.text.gsub("\n", "<br>") %></p>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>There aren't any announcements at this time</p>
+  <% end %>
+</div>

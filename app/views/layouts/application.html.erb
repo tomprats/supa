@@ -3,9 +3,13 @@
   <%= render "layouts/head" %>
   <body>
     <%= render "layouts/header" %>
-    <div class="row container-fluid">
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+    <div class="container-fluid  main-content">
+      <% if current_user && current_user.is_real_admin? %>
+        <%= render "layouts/admin_header" %>
+        <% extra_class = " admin-navbar-push"%>
+      <% end %>
+      <div class="row<%= extra_class %>">
+        <div class="col-md-12">
           <% unless devise_error_messages!.empty? %>
             <% devise_error_messages!.each do |key, value| %>
               <div class="row">
@@ -35,5 +39,6 @@
         </div>
       </div>
     </div>
+    <%= render "layouts/sidebar" %>
   </body>
 </html>

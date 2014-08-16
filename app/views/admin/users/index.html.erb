@@ -1,0 +1,43 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#all-users" data-toggle="tab">Users</a></li>
+  <li><a href="#registered" data-toggle="tab">Registered Users</a></li>
+  <li><a href="#not-registered" data-toggle="tab">Not Registered Users</a></li>
+</ul>
+<div id="users-content" class="tab-content">
+  <div class="tab-pane active" id="all-users">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>All Users</h3>
+        <% if @users.empty? %>
+          <p>There aren't any users yet!</p>
+        <% else %>
+          <%= render partial: "users/table", locals: { users: @users } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="registered">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Registered</h3>
+        <% if @registered_users.empty? %>
+          <p>There aren't any registered users yet!</p>
+        <% else %>
+          <%= render partial: "users/table", locals: { users: @registered_users } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="not-registered">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Not Registered</h3>
+        <% if @not_registered_users.empty? %>
+          <p>There aren't any users that haven't registered!</p>
+        <% else %>
+          <%= render partial: "users/table", locals: { users: @not_registered_users } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

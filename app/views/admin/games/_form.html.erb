@@ -1,4 +1,4 @@
-<%= form_for(@game, html: { class: "form-horizontal" }) do |f| %>
+<%= form_for(@game, url: admin_game_path(@game), html: { class: "form-horizontal" }) do |f| %>
   <div class="form-group">
     <%= f.label :league, class: "col-md-4 control-label" %>
     <div class="col-md-8">
@@ -30,7 +30,7 @@
       <%= stats.label :team_id, "Team 2", class: "col-md-4 control-label" %>
       <div class="col-md-8">
         <%= stats.select :team_id, Team.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
-    </div>
+      </div>
     <% end %>
   </div>
   <div class="form-group">

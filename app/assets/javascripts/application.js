@@ -22,3 +22,11 @@
 //= require dataTables/jquery.dataTables.bootstrap3
 //
 //= require_tree .
+
+$(document).ready(function() {
+  $(document).on("click", ".prevent-default", function(e) {
+    e.preventDefault();
+
+    return false;
+  });
+});

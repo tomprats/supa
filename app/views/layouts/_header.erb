@@ -1,76 +1,74 @@
 <div class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-header">
-    <a href="#" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-      <%= fa_icon "bars" %>
-    </a>
-    <%= link_to "SUPA", summer_path, class: "navbar-brand" %>
-  </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="" class="navbar-toggle prevent-default" data-toggle="collapse" data-target=".default-collapse">
+        <%= fa_icon "bars" %>
+      </a>
+      <%= link_to "SUPA", summer_path, class: "navbar-brand" %>
+    </div>
 
-  <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-      <li>
-        <%= link_to(summer_path)  do %>
-          <%= fa_icon "sun-o" %>
-          Summer
-        <% end %>
-      </li>
-      <li>
-        <%= link_to(stats_path)  do %>
-          <%= fa_icon "bar-chart-o" %>
-          Stats
-        <% end %>
-      </li>
-      <% if user_signed_in? %>
+    <div class="default-collapse navbar-collapse collapse">
+      <ul class="nav navbar-nav">
         <li>
-          <%= link_to(profile_path)  do %>
-            <%= fa_icon "user" %>
-            Profile
+          <%= link_to(summer_path)  do %>
+            <%= fa_icon "sun-o" %>
+            Summer
           <% end %>
         </li>
-        <% if current_user && current_user.is_super_admin? %>
-          <li>
-          <%= link_to(player_awards_path)  do %>
-            <%= fa_icon "trophy" %>
-            Player Awards
-          <% end %>
-          </li>
-          <li>
-          <%= link_to(super_path)  do %>
-            <%= fa_icon "code" %>
-            Super
-          <% end %>
-          </li>
-        <% end %>
-        <% if current_user && current_user.is_real_admin? %>
-          <li>
-          <%= link_to(admin_path)  do %>
-            <%= fa_icon "coffee" %>
-            Admin
-          <% end %>
-          </li>
-        <% end %>
-        <% if current_user && current_user.is_captain? %>
-          <li>
-          <%= link_to(captain_path)  do %>
-            <%= fa_icon "anchor" %>
-            Captain
-          <% end %>
-          </li>
-        <% end %>
         <li>
-        <%= link_to(sign_out_path, method: :delete)  do %>
-          <%= fa_icon "power-off" %>
-          Sign Out
-        <% end %>
+          <%= link_to(stats_path)  do %>
+            <%= fa_icon "bar-chart-o" %>
+            Stats
+          <% end %>
         </li>
-      <% else %>
-        <li>
-        <%= link_to(new_user_session_path)  do %>
-          <%= fa_icon "sign-in" %>
-          Sign In/Up
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to(profile_path)  do %>
+              <%= fa_icon "user" %>
+              Profile
+            <% end %>
+          </li>
+          <% if current_user && current_user.is_super_admin? %>
+            <li>
+            <%= link_to(player_awards_path)  do %>
+              <%= fa_icon "trophy" %>
+              Player Awards
+            <% end %>
+            </li>
+            <li>
+            <%= link_to(super_path)  do %>
+              <%= fa_icon "code" %>
+              Super
+            <% end %>
+            </li>
+          <% end %>
+          <% if current_user && current_user.is_captain? %>
+            <li>
+            <%= link_to(captain_path)  do %>
+              <%= fa_icon "anchor" %>
+              Captain
+            <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+          <%= link_to(sign_out_path, method: :delete)  do %>
+            <%= fa_icon "power-off" %>
+            Sign Out
+          <% end %>
+          </li>
+        <% else %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+          <%= link_to(new_user_session_path)  do %>
+            <%= fa_icon "sign-in" %>
+            Sign In/Up
+          <% end %>
+          </li>
         <% end %>
-        </li>
-      <% end %>
-    </ul>
+      </ul>
+    </div>
   </div>
 </div>
