@@ -1,0 +1,40 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>League</th>
+      <th>Active</th>
+      <th>Order</th>
+      <th>Snake</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% drafts.each do |draft|%>
+      <tr>
+        <td><%= draft.league.name %></td>
+        <td>
+          <% if draft.active? %>
+            <%= link_to "Deactivate", activate_super_draft_path(draft.id, active: false), method: :post, class: "btn btn-success" %>
+          <% else %>
+            <%= link_to "Activate", activate_super_draft_path(draft.id, active: true), method: :post, class: "btn btn-success" %>
+          <% end %>
+        </td>
+        <td><%= link_to "Edit", "#drafts_order_modal", class: "admin_modal btn btn-success", role: "button", data: { id: draft.id, toggle: "modal" } %>
+        </td>
+        <td>
+          <% if draft.snake? %>
+            <%= link_to "Turn off", snake_super_draft_path(draft.id, snake: false), method: :post, class: "btn btn-success" %>
+          <% else %>
+            <%= link_to "Turn on", snake_super_draft_path(draft.id, snake: true), method: :post, class: "btn btn-success" %>
+          <% end %>
+        </td>
+        <td class="btn-group">
+          <%= link_to "Feed", feed_path(draft.id), class: "btn btn-primary" %>
+          <%= link_to "Delete", super_draft_path(draft.id), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this draft?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render partial: "super/drafts/order_modal" %>

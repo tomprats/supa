@@ -1,0 +1,18 @@
+<div class="super-navbar navbar navbar-fixed-top">
+  <div class="navbar-header">
+    <a href="" class="navbar-toggle prevent-default" data-toggle="collapse" data-target=".super-collapse">
+      <%= fa_icon "bars" %>
+    </a>
+    <%= link_to(fa_icon("code") + " SUPER", super_path, class: "navbar-brand") %>
+  </div>
+
+  <div class="super-collapse navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li><%= link_to(fa_icon("check-circle-o") + " Announcements", super_announcements_path) %></li>
+      <li><%= link_to(fa_icon("check-circle-o") + " Leagues", super_leagues_path) %></li>
+      <li><%= link_to(fa_icon("check-circle-o") + " Drafts", super_drafts_path) %></li>
+      <li><%= link_to(fa_icon("check-circle-o") + " Fields", super_fields_path) %></li>
+      <li><%= link_to(fa_icon("check-circle-o") + " Administrators", super_users_path) %></li>
+    </ul>
+  </div>
+</div>

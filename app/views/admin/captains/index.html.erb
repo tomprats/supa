@@ -3,6 +3,7 @@
   <li><a href="#current-captains" data-toggle="tab">Current Captains</a></li>
   <li><a href="#past-captains" data-toggle="tab">Past Captains</a></li>
 </ul>
+
 <div id="captains-content" class="tab-content">
   <div class="tab-pane active" id="all-captains">
     <div class="row">
@@ -11,7 +12,7 @@
         <% if @captains.empty? %>
           <p>There aren't any captains yet!</p>
         <% else %>
-          <%= render partial: "users/table", locals: { users: @captains } %>
+          <%= render partial: "admin/users/table", locals: { users: @captains } %>
         <% end %>
       </div>
     </div>
@@ -23,7 +24,7 @@
         <% if @current_captains.empty? %>
           <p>There aren't any captains for the current league yet!</p>
         <% else %>
-          <%= render partial: "users/table", locals: { users: @current_captains } %>
+          <%= render partial: "admin/users/table", locals: { users: @current_captains } %>
         <% end %>
       </div>
     </div>
@@ -35,7 +36,7 @@
         <% if @past_captains.empty? %>
           <p>There aren't any past captains!</p>
         <% else %>
-          <%= render partial: "users/table", locals: { users: @past_captains } %>
+          <%= render partial: "admin/users/table", locals: { users: @past_captains } %>
         <% end %>
       </div>
     </div>

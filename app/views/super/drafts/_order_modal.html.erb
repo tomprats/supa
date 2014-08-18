@@ -1,0 +1,36 @@
+<div id="drafts_order_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Set Order</h3>
+      </div>
+      <div class="modal-body">
+        <% @drafts.each do |draft| %>
+          <div id="draft<%= draft.id %>" class="draft-order center hide">
+            <%= form_tag(order_super_draft_path(draft.id), class: "form-horizontal", method: :post) do %>
+              <% if draft.order %>
+                <% draft.captains.each_with_index do |captain, index| %>
+                  <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                      <%= select("order", index, draft.captains.collect { |c| [c.name, c.id] }, { selected: draft.order[index] }, { class: "form-control" }) %>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <% draft.captains.each_with_index do |captain, index| %>
+                  <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                      <%= select("order", index, draft.captains.collect { |c| [c.name, c.id] }, {}, { class: "form-control" }) %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+              <%= submit_tag("Submit", class: "btn btn-primary") %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

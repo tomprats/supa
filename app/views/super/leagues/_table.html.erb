@@ -1,0 +1,29 @@
+<table class="data-table table">
+  <thead>
+    <tr>
+      <th>Season</th>
+      <th>Year</th>
+      <th>Price</th>
+      <th>Late Price</th>
+      <th class="dont-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% leagues.each do |league|%>
+      <tr>
+        <td><%= league.season %></td>
+        <td><%= league.year %></td>
+        <td>$<%= number_with_precision(league.price, strip_insignificant_zeros: true, precision: 2) %>
+        <td>$<%= number_with_precision(league.late_price, strip_insignificant_zeros: true, precision: 2) %>
+        <td class="btn-group">
+          <% if league.active? %>
+            <%= link_to "Deactivate", activate_super_league_path(league.id, active: false), class: "btn btn-success" %>
+          <% else %>
+            <%= link_to "Activate", activate_super_league_path(league.id, active: true), class: "btn btn-success" %>
+          <% end %>
+          <%= link_to "Edit", edit_super_league_path(league.id), class: "btn btn-primary" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

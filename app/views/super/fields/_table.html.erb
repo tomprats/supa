@@ -1,0 +1,21 @@
+<table class="data-table table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th class="dont-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% fields.each do |field| %>
+      <tr>
+        <td><%= field.name %></td>
+        <td><%= field.location %></td>
+        <td class="btn-group">
+          <%= link_to "Edit", edit_super_field_path(field), class: "btn btn-primary" %>
+          <%= link_to "Delete", super_field_path(field), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this field?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

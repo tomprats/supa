@@ -1,0 +1,52 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#none" data-toggle="tab">None</a></li>
+  <li><a href="#standard" data-toggle="tab">Standard</a></li>
+  <li><a href="#super" data-toggle="tab">Super</a></li>
+
+  <div class="btn-group pull-right">
+    <%= link_to "Assign Late Players", "#assign_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
+    <%= link_to "Trade Players", "#trade_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
+  </div>
+</ul>
+
+<div id="users-content" class="tab-content">
+  <div class="tab-pane active" id="none">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Normal Users</h3>
+        <% if @none.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render partial: "super/users/table", locals: { users: @none } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="standard">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Standard Administrators</h3>
+        <% if @standards.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render partial: "super/users/table", locals: { users: @standards } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="super">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Super Administrators</h3>
+        <% if @supers.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render partial: "super/users/table", locals: { users: @supers } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "super/users/assign_modal" %>
+<%= render partial: "super/users/trade_modal" %>

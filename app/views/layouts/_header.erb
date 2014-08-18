@@ -4,69 +4,28 @@
       <a href="" class="navbar-toggle prevent-default" data-toggle="collapse" data-target=".default-collapse">
         <%= fa_icon "bars" %>
       </a>
-      <%= link_to "SUPA", summer_path, class: "navbar-brand" %>
+      <%= link_to(fa_icon("database") + " SUPA", summer_path, class: "navbar-brand") %>
     </div>
 
     <div class="default-collapse navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-          <%= link_to(summer_path)  do %>
-            <%= fa_icon "sun-o" %>
-            Summer
-          <% end %>
-        </li>
-        <li>
-          <%= link_to(stats_path)  do %>
-            <%= fa_icon "bar-chart-o" %>
-            Stats
-          <% end %>
-        </li>
+        <li><%= link_to(fa_icon("sun-o") + " Summer", summer_path) %></li>
+        <li><%= link_to(fa_icon("bar-chart-o") + " Stats", stats_path) %></li>
         <% if user_signed_in? %>
-          <li>
-            <%= link_to(profile_path)  do %>
-              <%= fa_icon "user" %>
-              Profile
-            <% end %>
-          </li>
+          <li><%= link_to(fa_icon("user") + " Profile", profile_path) %></li>
           <% if current_user && current_user.is_super_admin? %>
-            <li>
-            <%= link_to(player_awards_path)  do %>
-              <%= fa_icon "trophy" %>
-              Player Awards
-            <% end %>
-            </li>
-            <li>
-            <%= link_to(super_path)  do %>
-              <%= fa_icon "code" %>
-              Super
-            <% end %>
-            </li>
+            <li><%= link_to(fa_icon("trophy") + " Player Awards", player_awards_path) %></li>
           <% end %>
           <% if current_user && current_user.is_captain? %>
-            <li>
-            <%= link_to(captain_path)  do %>
-              <%= fa_icon "anchor" %>
-              Captain
-            <% end %>
-            </li>
+            <li><%= link_to(fa_icon("anchor") + " Captain", captain_path) %></li>
           <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li>
-          <%= link_to(sign_out_path, method: :delete)  do %>
-            <%= fa_icon "power-off" %>
-            Sign Out
-          <% end %>
-          </li>
+          <li><%= link_to(fa_icon("power-off") + " Sign Out", sign_out_path, method: :delete) %></li>
         <% else %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li>
-          <%= link_to(new_user_session_path)  do %>
-            <%= fa_icon "sign-in" %>
-            Sign In/Up
-          <% end %>
-          </li>
+          <li><%= link_to(fa_icon("sign-in") + " Sign In/Up", new_user_session_path) %></li>
         <% end %>
       </ul>
     </div>

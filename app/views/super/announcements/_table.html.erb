@@ -1,0 +1,25 @@
+<table class="data-table table table-striped table-responsive">
+  <thead>
+    <tr>
+      <th>Heading</th>
+      <th>Importance</th>
+      <th>Creator</th>
+      <th class="dont-sort">Text</th>
+      <th class="dont-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% announcements.each do |announcement| %>
+      <tr>
+        <td><%= announcement.heading %></td>
+        <td><%= announcement.importance %></td>
+        <td><%= announcement.creator.name %></td>
+        <td><%= announcement.text %></td>
+        <td class="btn-group">
+          <%= link_to "Edit", edit_super_announcement_path(announcement), class: "btn btn-primary" %>
+          <%= link_to "Delete", super_announcement_path(announcement), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this announcement?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

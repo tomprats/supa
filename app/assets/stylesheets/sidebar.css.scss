@@ -1,7 +1,7 @@
 @import "variables";
 @import "bootstrap";
 
-.main-content {
+.container-fluid.main-content {
   margin-right: 300px;
 }
 
@@ -16,8 +16,8 @@
   background-color: #6666FF;
 }
 
-@media screen and (max-width: $screen-sm) {
-  .main-content {
+@media screen and (max-width: $grid-float-breakpoint) {
+  .container-fluid.main-content {
     margin-right: 0;
   }
 
@@ -25,5 +25,10 @@
     position: inherit;
     width: 100%;
     padding-top: 20px;
+  }
+
+  .navbar-fixed-top.navbar.admin-navbar,
+  .navbar-fixed-top.navbar.super-navbar {
+    margin-right: 0;
   }
 }

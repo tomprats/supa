@@ -1,9 +1,9 @@
 Supa::Application.routes.draw do
   root to: "pages#summer"
 
-  devise_for :users, :controllers => {
-    :omniauth_callbacks => "authentications",
-    :registrations      => "registrations"
+  devise_for :users, controllers: {
+    omniauth_callbacks: "authentications",
+    registrations: "registrations"
   }
 
   # Revision 2.0
@@ -18,9 +18,6 @@ Supa::Application.routes.draw do
   get      'summer',           :to => 'pages#summer'
 
   resources :player_awards, only: [:index]
-  resources :leagues do
-    get "activate", on: :member
-  end
 
   get  "payments/checkout"
   get  "payments/success"
@@ -31,21 +28,14 @@ Supa::Application.routes.draw do
 
   devise_scope :user do
     resources :authentications
-    resources :announcements
-    resources :fields
-    resources :drafts do
-      get 'snake', on: :member
-      get 'activate', on: :member
-    end
 
-    post   'drafts/:id/order', :to => 'drafts#order',
-                               :as => 'draft_order'
     get    'drafts/:id/turn',  :to => 'drafts#turn'
     get    'drafts/:id/feed',  :to => 'drafts#feed',
                                :as => 'feed'
     get    'summer/draft',     :to => 'drafts#feed',
                                :as => 'summer_draft'
 
+    resources :drafts, only: [:index, :show]
     resources :draft_groups
     resources :draft_players
 
@@ -56,18 +46,10 @@ Supa::Application.routes.draw do
     get    'unregister',       :to => 'registrations#unregister'
     get    'profile',          :to => 'registrations#show'
 
-    get    'super',            :to => 'admins#super'
     get    'captain',          :to => 'admins#captain'
-
-    put    'update/admin/:id', :to => 'admins#update_admin',
-                               :as => 'update_admin'
 
     put    'drafted_player/:id', :to => 'drafted_players#create',
                                  :as => 'drafted_player'
-    put    'assign_player',      :to => 'admins#assign_player',
-                                 :as => 'assign_player'
-    put    'trade_players',      :to => 'admins#trade_players',
-                                 :as => 'trade_players'
 
     get    'questionnaire',     :to => 'registrations#create_questionnaire'
     get    'questionnaire/:id', :to => 'registrations#questionnaire',
@@ -81,6 +63,25 @@ Supa::Application.routes.draw do
       resources :users
       resources :games do
         resource :stats, only: [:edit, :update]
+      end
+    end
+
+    # Revision 2.0
+    get :super, to: "super/announcements#index"
+    namespace :super do
+      resources :announcements
+      resources :leagues do
+        get :activate, on: :member
+      end
+      resources :drafts do
+        post :order, on: :member
+        post :snake, on: :member
+        post :activate, on: :member
+      end
+      resources :fields
+      resources :users, only: [:index, :update] do
+        put :assign, on: :collection
+        put :trade, on: :collection
       end
     end
   end

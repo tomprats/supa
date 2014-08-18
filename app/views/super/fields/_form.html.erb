@@ -1,0 +1,15 @@
+<%= form_for(@field || Field.new, url: super_fields_path, html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :name, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :location, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :location, { placeholder: "Optional", class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

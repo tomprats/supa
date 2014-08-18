@@ -11,7 +11,7 @@
         <% if @users.empty? %>
           <p>There aren't any users yet!</p>
         <% else %>
-          <%= render partial: "users/table", locals: { users: @users } %>
+          <%= render partial: "admin/users/table", locals: { users: @users } %>
         <% end %>
       </div>
     </div>
@@ -23,7 +23,7 @@
         <% if @registered_users.empty? %>
           <p>There aren't any registered users yet!</p>
         <% else %>
-          <%= render partial: "users/table", locals: { users: @registered_users } %>
+          <%= render partial: "admin/users/table", locals: { users: @registered_users } %>
         <% end %>
       </div>
     </div>
@@ -35,7 +35,7 @@
         <% if @not_registered_users.empty? %>
           <p>There aren't any users that haven't registered!</p>
         <% else %>
-          <%= render partial: "users/table", locals: { users: @not_registered_users } %>
+          <%= render partial: "admin/users/table", locals: { users: @not_registered_users } %>
         <% end %>
       </div>
     </div>
