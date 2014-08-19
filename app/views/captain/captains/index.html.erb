@@ -5,7 +5,7 @@
     <li><a href="#players" data-toggle="tab">Registered Players</a></li>
 
     <div class="btn-group pull-right">
-      <%= link_to "View Drafts", drafts_path, class: "btn btn-primary" %>
+      <%= link_to "View Drafts", captain_drafts_path, class: "btn btn-primary" %>
     </div>
   </ul>
 
@@ -17,7 +17,7 @@
           <% if !@current_team %>
             <p>You don't have team for the current league yet!</p>
           <% else %>
-            <%= render partial: "users/table", locals: { users: @current_team.players } %>
+            <%= render partial: "admin/users/table", locals: { users: @current_team.players } %>
           <% end %>
         </div>
       </div>
@@ -43,7 +43,7 @@
           <% if @users.empty? %>
             <p>There aren't any players!</p>
           <% else %>
-            <%= render partial: "users/table", locals: { users: @users } %>
+            <%= render partial: "admin/users/table", locals: { users: @users } %>
           <% end %>
         </div>
       </div>

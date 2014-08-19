@@ -13,9 +13,9 @@ Supa::Application.routes.draw do
   end
   get :stats, to: "stats#index"
 
-  get      'home',             :to => 'pages#home'
-  get      'spring',           :to => 'pages#spring'
-  get      'summer',           :to => 'pages#summer'
+  get :home, to: "pages#home"
+  get :spring, to: "pages#spring"
+  get :summer, to: "pages#summer"
 
   resources :player_awards, only: [:index]
 
@@ -32,30 +32,18 @@ Supa::Application.routes.draw do
     get    'drafts/:id/turn',  :to => 'drafts#turn'
     get    'drafts/:id/feed',  :to => 'drafts#feed',
                                :as => 'feed'
-    get    'summer/draft',     :to => 'drafts#feed',
-                               :as => 'summer_draft'
-
-    resources :drafts, only: [:index, :show]
-    resources :draft_groups
-    resources :draft_players
-
-    get    'sign_in',          :to => 'devise/sessions#new'
-    delete 'sign_out',         :to => 'devise/sessions#destroy'
-
-    get    'register',         :to => 'registrations#register'
-    get    'unregister',       :to => 'registrations#unregister'
-    get    'profile',          :to => 'registrations#show'
-
-    get    'captain',          :to => 'admins#captain'
-
-    put    'drafted_player/:id', :to => 'drafted_players#create',
-                                 :as => 'drafted_player'
 
     get    'questionnaire',     :to => 'registrations#create_questionnaire'
     get    'questionnaire/:id', :to => 'registrations#questionnaire',
                                 :as => 'user_questionnaire'
 
     # Revision 2.0
+    get "sign_in", to: "devise/sessions#new"
+    delete "sign_out", to: "devise/sessions#destroy"
+    get "register", to: "registrations#register"
+    get "unregister", to: "registrations#unregister"
+    get "profile", to: "registrations#show"
+
     get :admin, to: "admin/teams#index"
     namespace :admin do
       resources :teams
@@ -66,7 +54,6 @@ Supa::Application.routes.draw do
       end
     end
 
-    # Revision 2.0
     get :super, to: "super/announcements#index"
     namespace :super do
       resources :announcements
@@ -84,5 +71,15 @@ Supa::Application.routes.draw do
         put :trade, on: :collection
       end
     end
+
+    get :captain, to: "captain/captains#index"
+    namespace :captain do
+      resources :drafts, only: [:index, :show]
+    end
+
+    resources :draft_groups
+    resources :draft_players
+    put "drafted_player/:id", to: "drafted_players#create",
+                              as: "drafted_player"
   end
 end
