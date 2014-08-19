@@ -17,8 +17,6 @@ Supa::Application.routes.draw do
   get :spring, to: "pages#spring"
   get :summer, to: "pages#summer"
 
-  resources :player_awards, only: [:index]
-
   get  "payments/checkout"
   get  "payments/success"
   post "payments/notify"
@@ -28,10 +26,6 @@ Supa::Application.routes.draw do
 
   devise_scope :user do
     resources :authentications
-
-    get    'drafts/:id/turn',  :to => 'drafts#turn'
-    get    'drafts/:id/feed',  :to => 'drafts#feed',
-                               :as => 'feed'
 
     get    'questionnaire',     :to => 'registrations#create_questionnaire'
     get    'questionnaire/:id', :to => 'registrations#questionnaire',
@@ -64,6 +58,7 @@ Supa::Application.routes.draw do
         post :order, on: :member
         post :snake, on: :member
         post :activate, on: :member
+        get :feed, on: :member
       end
       resources :fields
       resources :users, only: [:index, :update] do
@@ -74,12 +69,15 @@ Supa::Application.routes.draw do
 
     get :captain, to: "captain/captains#index"
     namespace :captain do
-      resources :drafts, only: [:index, :show]
-    end
+      resources :drafts, only: [:index, :show] do
+        get :turn, on: :member
+        get :feed, on: :member
+      end
 
-    resources :draft_groups
-    resources :draft_players
-    put "drafted_player/:id", to: "drafted_players#create",
-                              as: "drafted_player"
+      resources :drafted_players, only: [:create] do
+        post :create_from_tentative, on: :collection
+      end
+      resources :tentative_players, only: [:create, :destroy]
+    end
   end
 end

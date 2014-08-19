@@ -4,6 +4,7 @@ class Team < ActiveRecord::Base
   belongs_to              :captain, class_name: 'User'
   has_many                :team_stats
   has_many                :drafted_players
+  has_many                :tentative_players
   accepts_nested_attributes_for :players
 
   validates_presence_of :name, :captain_id, :league_id

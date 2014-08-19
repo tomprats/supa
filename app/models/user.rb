@@ -2,9 +2,8 @@ class User < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
   has_many :announcements
   has_and_belongs_to_many :teams
-  has_many :drafted_players, foreign_key: :player_id, dependent: :destroy
+  has_many :tentative_players, foreign_key: :player_id, dependent: :destroy
   has_many :draft_players, foreign_key: :player_id, dependent: :destroy
-  has_many :draft_groups, foreign_key: :captain_id, dependent: :destroy
   has_one :questionnaire, dependent: :destroy
   has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
   has_many :registrations
@@ -106,7 +105,8 @@ class User < ActiveRecord::Base
     !!team
   end
 
-  def captains_team(league_id)
+  def captains_team(league_id = nil)
+    league_id ||= League.current.id
     Team.where(captain_id: id, league_id: league_id).first
   end
 

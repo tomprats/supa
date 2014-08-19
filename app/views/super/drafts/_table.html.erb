@@ -29,7 +29,7 @@
           <% end %>
         </td>
         <td class="btn-group">
-          <%= link_to "Feed", feed_path(draft.id), class: "btn btn-primary" %>
+          <%= link_to "Feed", feed_super_draft_path(draft.id), class: "btn btn-primary" %>
           <%= link_to "Delete", super_draft_path(draft.id), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this draft?" %>
         </td>
       </tr>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708210541) do
+ActiveRecord::Schema.define(version: 20140819042816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,29 +36,10 @@ ActiveRecord::Schema.define(version: 20140708210541) do
     t.datetime "updated_at"
   end
 
-  create_table "draft_groups", force: true do |t|
-    t.string   "name"
-    t.integer  "draft_id"
-    t.integer  "captain_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "draft_players", force: true do |t|
-    t.integer  "draft_group_id"
-    t.integer  "player_id"
-    t.string   "position"
-    t.integer  "rating"
-    t.string   "info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "drafted_players", force: true do |t|
     t.integer  "draft_id"
     t.integer  "team_id"
     t.integer  "player_id"
-    t.string   "position"
     t.integer  "round"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -189,6 +170,15 @@ ActiveRecord::Schema.define(version: 20140708210541) do
   end
 
   add_index "teams_users", ["team_id", "user_id"], name: "index_teams_users_on_team_id_and_user_id", unique: true, using: :btree
+
+  create_table "tentative_players", force: true do |t|
+    t.integer  "player_id"
+    t.string   "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "draft_id"
+    t.integer  "team_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",     null: false

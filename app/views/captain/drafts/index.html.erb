@@ -9,7 +9,7 @@
         <div class="btn-group">
           <%= link_to draft.league.name, "#", class: "btn btn-default" %>
           <%= link_to "View", captain_draft_path(draft.id), class: "btn btn-primary" %>
-          <%= link_to "Feed", feed_path(draft.id), class: "btn btn-warning" %>
+          <%= link_to "Feed", feed_captain_draft_path(draft.id), class: "btn btn-warning" %>
         </div>
       </div>
       <br>

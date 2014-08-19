@@ -10,15 +10,12 @@ module Captain
     def show
       @draft = Draft.find(params[:id])
       @users = User.registered.select { |u| !u.drafted?(@draft.id) }
+      @tentative_players = current_user.captains_team(@draft.league_id).tentative_players
 
       if @draft.players_undrafted?
         if !@draft.order.empty?
-          @groups = @draft.groups(current_user.id).order("created_at")
-          @group = DraftGroup.new(draft_id: @draft.id, captain_id: current_user.id)
-          @group.draft_players.build
-
           if @draft.drafted_players.last
-            flash[:notice] = "#{@draft.drafted_players.first.name} has been drafted by #{@draft.drafted_players.first.team.name}: <a target=\"_blank\" href=\"#{feed_path(@draft.id)}\">View Feed</a>"
+            flash[:notice] ||= "#{@draft.drafted_players.first.name} has been drafted by #{@draft.drafted_players.first.team.name}: <a target=\"_blank\" href=\"#{feed_captain_draft_path(@draft.id)}\">View Feed</a>"
           end
         else
           redirect_to :back, notice: "Draft does not have a picking order yet"

@@ -1,6 +1,6 @@
 class Draft < ActiveRecord::Base
-  has_many :draft_groups, dependent: :destroy
   has_many :drafted_players, dependent: :destroy
+  has_many :tentative_players, dependent: :destroy
   belongs_to :league
 
   delegate :teams, to: :league
@@ -9,10 +9,6 @@ class Draft < ActiveRecord::Base
 
   def self.default_scope
     order('created_at DESC')
-  end
-
-  def groups(captain)
-    draft_groups.where(:captain_id => captain)
   end
 
   def players(captain)

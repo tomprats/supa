@@ -55,6 +55,20 @@ module Super
       end
     end
 
+    def feed
+      if params[:id]
+        @draft = Draft.find(params[:id])
+      else
+        @draft = League.summer.draft
+      end
+
+      if !@draft.order.empty?
+        @drafted_players = @draft.drafted_players
+      else
+        redirect_to :back, notice: "Draft does not have a picking order yet"
+      end
+    end
+
     private
     def check_admin_level
       unless current_user.is_super_admin?

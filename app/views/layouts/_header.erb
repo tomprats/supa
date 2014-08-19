@@ -13,9 +13,6 @@
         <li><%= link_to(fa_icon("bar-chart-o") + " Stats", stats_path) %></li>
         <% if user_signed_in? %>
           <li><%= link_to(fa_icon("user") + " Profile", profile_path) %></li>
-          <% if current_user && current_user.is_super_admin? %>
-            <li><%= link_to(fa_icon("trophy") + " Player Awards", player_awards_path) %></li>
-          <% end %>
           <% if current_user && current_user.is_captain? %>
             <li><%= link_to(fa_icon("anchor") + " Captain", captain_path) %></li>
           <% end %>
