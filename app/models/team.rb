@@ -32,6 +32,7 @@ class Team < ActiveRecord::Base
   def points_against
     sum = 0
     team_stats.active.each do |ts|
+      return "Unknown" unless ts.game
       if ts.game.team_stats1.team_id != id
         ts_against = ts.game.team_stats1
       else
@@ -43,6 +44,7 @@ class Team < ActiveRecord::Base
   end
 
   def point_differential
+    return "Unknown" if points_against == "Unknown"
     points - points_against
   end
 

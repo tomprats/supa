@@ -1,6 +1,5 @@
 class Game < ActiveRecord::Base
   belongs_to :event, dependent: :destroy
-  belongs_to :creator,  class_name: "User"
   belongs_to :team_stats1, class_name: "TeamStat", dependent: :destroy
   belongs_to :team_stats2, class_name: "TeamStat", dependent: :destroy
   accepts_nested_attributes_for :event

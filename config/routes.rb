@@ -7,10 +7,7 @@ Supa::Application.routes.draw do
   }
 
   resources :teams, only: [:show]
-  resources :games, only: [:show] do
-    resource :stats, only: [:show]
-  end
-  get :stats, to: "stats#index"
+  resources :games, only: [:show]
 
   get :spring, to: "pages#spring"
   get :summer, to: "pages#summer"

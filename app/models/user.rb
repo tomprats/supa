@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
     order("last_name ASC")
   end
 
-  def self.registered
-    league_id = League.current.id
+  def self.registered(league_id = nil)
+    league_id ||= League.current.id
     joins(:registrations).where("registrations.league_id = ? AND registrations.registered = ?", league_id, true)
   end
 
