@@ -9,13 +9,13 @@
 
     <div class="default-collapse navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <% if League.summer %>
+        <% if League.summer && League.summer.started? %>
           <li><%= link_to(fa_icon("sun-o") + " Summer", summer_path) %></li>
         <% end %>
-        <% if League.fall %>
+        <% if League.fall && League.fall.started? %>
           <li><%= link_to(fa_icon("leaf") + " Fall", fall_path) %></li>
         <% end %>
-        <% if League.spring %>
+        <% if League.spring && League.spring.started? %>
           <li><%= link_to(fa_icon("send-o") + " Spring", spring_path) %></li>
         <% end %>
         <% if user_signed_in? %>

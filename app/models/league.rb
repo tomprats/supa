@@ -64,6 +64,10 @@ class League < ActiveRecord::Base
     }
   end
 
+  def started?
+    state != "None"
+  end
+
   def registration?
     state == "Registration"
   end
