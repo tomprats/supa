@@ -1,7 +1,7 @@
 <div id="credit-card-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <%= form_for(:credit_card, url: credit_card_path(league_id: League.summer.id), class: "form-horizontal") do |f| %>
+      <%= form_for(:credit_card, url: credit_card_path(league_id: @league.id), class: "form-horizontal") do |f| %>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3 id="myModalLabel">Credit Card Payment</h3>
@@ -17,10 +17,10 @@
           <div class="form-group">
             <div class="row">
               <div class="col-md-4">
-                <b><%= League.summer.name %></b>
+                <b><%= @league.name %></b>
               </div>
               <div class="col-md-8">
-                $<%= number_with_precision(League.summer.current_price, precision: 2) %>
+                $<%= number_with_precision(@league.current_price, precision: 2) %>
               </div>
             </div>
           </div>
