@@ -9,7 +9,15 @@
 
     <div class="default-collapse navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><%= link_to(fa_icon("sun-o") + " Summer", summer_path) %></li>
+        <% if League.summer %>
+          <li><%= link_to(fa_icon("sun-o") + " Summer", summer_path) %></li>
+        <% end %>
+        <% if League.fall %>
+          <li><%= link_to(fa_icon("leaf") + " Fall", fall_path) %></li>
+        <% end %>
+        <% if League.spring %>
+          <li><%= link_to(fa_icon("send-o") + " Spring", spring_path) %></li>
+        <% end %>
         <li><%= link_to(fa_icon("bar-chart-o") + " Stats", stats_path) %></li>
         <% if user_signed_in? %>
           <li><%= link_to(fa_icon("user") + " Profile", profile_path) %></li>

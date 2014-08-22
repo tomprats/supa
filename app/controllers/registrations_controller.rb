@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  skip_before_filter :authenticate_user!, :except => [:show, :edit]
+  skip_before_filter :authenticate_user!, except: [:show, :edit]
   before_filter :check_attr, :only => [:show]
 
   def build_resource(*args)
@@ -23,6 +23,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def show
     authentications
+    @league = League.current
   end
 
   def register
@@ -62,30 +63,6 @@ class RegistrationsController < Devise::RegistrationsController
       flash[:alert] = "Please fill in all necessary fields correctly"
       redirect_to action: :edit
     end
-  end
-
-  def questionnaire
-    @user = User.find(params[:id])
-    @questionnaire = @user.questionnaire
-  end
-
-  def create_questionnaire
-    current_user.questionnaire.destroy if current_user.questionnaire
-    cocaptain = params[:cocaptain] == "Yes"
-    current_user.create_questionnaire(
-      handling: params[:handling],
-      cutting: params[:cutting],
-      defense: params[:defense],
-      fitness: params[:fitness],
-      injuries: params[:injuries],
-      height: params[:height],
-      teams: params[:teams],
-      cocaptain: cocaptain,
-      roles: params[:roles],
-      availability: params[:availability],
-      comments: params[:comments]
-    )
-    redirect_to profile_path, notice: "Thanks for filling out the questionnaire!"
   end
 
   private

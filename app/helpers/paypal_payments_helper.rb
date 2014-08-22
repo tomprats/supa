@@ -59,7 +59,11 @@ module PaypalPaymentsHelper
           currency: "USD"
         },
         description: description
-      }]
+      }],
+      redirect_urls: {
+        return_url: payments_success_url,
+        cancel_return_url: payments_cancel_url,
+      }
     })
   end
 end

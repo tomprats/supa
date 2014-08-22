@@ -42,5 +42,5 @@ end %>
       <%= f.select :current, options_for_select({ "True" => true, "False" => false }, @league.try(:current)), {}, { class: "form-control" } %>
     </div>
   </div>
-  <%= f.submit "Submit", :class => "btn btn-primary" %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

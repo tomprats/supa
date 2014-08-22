@@ -76,6 +76,10 @@ class League < ActiveRecord::Base
     state == "In Progress"
   end
 
+  def over?
+    state == "Over"
+  end
+
   def self.year_collection
     now = Date.today.year
     {

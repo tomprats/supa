@@ -20,8 +20,9 @@
         <td><%= user.gender %></td>
         <td><%= user.shirt_size %></td>
         <td>
-          <% if user.questionnaire %>
-            <%= link_to "View", user_questionnaire_path(user.id), class: "btn btn-primary" %>
+          <% questionnaire = user.questionnaire_for(League.current.id) %>
+          <% if questionnaire %>
+            <%= link_to "View", questionnaire_path(questionnaire.id), class: "btn btn-primary" %>
           <% else %>
             <%= link_to "None", "#", class: "btn btn-default" %>
           <% end %>

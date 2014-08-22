@@ -2,6 +2,7 @@ class PaymentsController < ApplicationController
   protect_from_forgery except: :notify
 
   before_filter :assigns_gateway
+  before_filter :check_admin_level, only: :cash
   skip_before_filter :authenticate_user!, only: [:notify]
   skip_before_filter :check_attr, only: [:notify]
 
@@ -146,5 +147,11 @@ class PaymentsController < ApplicationController
         :country_code
       ]
     )
+  end
+
+  def check_admin_level
+    unless current_user.is_super_admin?
+      redirect_to profile_path, notice: "You are not authorized to be there!"
+    end
   end
 end

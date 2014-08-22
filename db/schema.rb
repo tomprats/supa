@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821062310) do
+ActiveRecord::Schema.define(version: 20140822040026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,14 @@ ActiveRecord::Schema.define(version: 20140821062310) do
 
   add_index "leagues", ["current"], name: "index_leagues_on_current", using: :btree
 
+  create_table "meetings", force: true do |t|
+    t.datetime "datetime"
+    t.boolean  "available",        default: false
+    t.integer  "questionnaire_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "payments", force: true do |t|
     t.boolean  "paid",              default: false
     t.integer  "registration_id"
@@ -139,12 +147,13 @@ ActiveRecord::Schema.define(version: 20140821062310) do
     t.string   "injuries"
     t.string   "height"
     t.string   "teams"
-    t.boolean  "cocaptain"
-    t.string   "roles"
+    t.boolean  "cocaptain",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "availability"
     t.string   "comments"
+    t.boolean  "handler"
+    t.boolean  "cutter"
+    t.integer  "league_id"
   end
 
   create_table "registrations", force: true do |t|

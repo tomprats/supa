@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :teams
   has_many :tentative_players, foreign_key: :player_id, dependent: :destroy
   has_many :draft_players, foreign_key: :player_id, dependent: :destroy
-  has_one :questionnaire, dependent: :destroy
+  has_many :questionnaires, dependent: :destroy
   has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
   has_many :registrations
   has_many :payments, through: :registrations
@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
   def self.not_on_a_team
     league_id = League.current.id
     registered.select { |u| u.teams.empty? || !u.teams.collect(&:league_id).include?(league_id) }
+  end
+
+  def questionnaire_for(league_id)
+    questionnaires.find_by(league_id: league_id)
   end
 
   def registration

@@ -25,10 +25,7 @@ Supa::Application.routes.draw do
 
   devise_scope :user do
     resources :authentications
-
-    get    'questionnaire',     :to => 'registrations#create_questionnaire'
-    get    'questionnaire/:id', :to => 'registrations#questionnaire',
-                                :as => 'user_questionnaire'
+    resources :questionnaires, only: [:show, :create, :update]
 
     get "sign_in", to: "devise/sessions#new"
     delete "sign_out", to: "devise/sessions#destroy"

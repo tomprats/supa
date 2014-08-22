@@ -1,0 +1,145 @@
+<% @questionnaire = current_user.questionnaire_for(@league.id)
+if @questionnaire
+  url = questionnaire_path(@questionnaire.id)
+else
+  @questionnaire = Questionnaire.new(user_id: current_user.id, league_id: @league.id)
+  @league.events.collect(&:datetime).compact.each do |datetime|
+    @questionnaire.meetings.build(datetime: datetime)
+  end
+  url = questionnaires_path
+end %>
+
+<div id="questionnaire-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Questionnaire</h3>
+      </div>
+      <%= form_for(@questionnaire, url: url, html: { class: "form-horizontal text-left" }) do |f| %>
+        <%= f.hidden_field :league_id %>
+        <%= f.hidden_field :user_id %>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="form-group">
+              <%= f.label :handling, class: "control-label" %>
+              <%= f.select :handling, options_for_select(
+                {
+                  "Only can throw a forehand or backhand" => "Forehand or backhand",
+                  "Learning forehand and backhand but having trouble when marked" => "Trouble when marked",
+                  "Comfortable throwing both but would rather cut" => "Would rather cut",
+                  "It's hammer time" => "Hammer time",
+                  "Can huck pretty accurately" => "Hucking"
+                },
+                @questionnaire.try(:handling)), {}, { class: "form-control" }
+              %>
+            </div>
+            <div class="form-group">
+              <%= f.label :cutting, class: "control-label" %>
+              <%= f.select :cutting, options_for_select(
+                {
+                  "I just run around" => "Circles",
+                  "Vertical stack" => "Vertical stack",
+                  "Vertical and horizontal stack" => "Both stacks",
+                  "Don't know the stacks but can cut deep" => "Deep option",
+                  "Know the stacks and can cut deep" => "Stacks and deep"
+                },
+                @questionnaire.try(:cutting)), {}, { class: "form-control" }
+              %>
+            </div>
+            <div class="form-group">
+              <%= f.label :defense, class: "control-label" %>
+              <%= f.select :defense, options_for_select(
+                {
+                  "Learning marking" => "Learning marking",
+                  "Learning stack defense" => "Learning stacking",
+                  "Learning zone defense" => "Learning zone",
+                  "Know the basics" => "Basics",
+                  "Above average" => "Above average",
+                  "Can shut Joe Prats down" => "Can shut down"
+                },
+                @questionnaire.try(:defense)), {}, { class: "form-control" }
+              %>
+            </div>
+            <div class="form-group">
+              <%= f.label :fitness, class: "control-label" %>
+              <%= f.select :fitness, options_for_select(
+                {
+                  "Seriously injured" => "Seriously injured",
+                  "Athletically challenged" => "Athletically challenged",
+                  "Easily winded" => "Easily winded",
+                  "Average athlete but not currently in shape" => "Average but out of shape",
+                  "Average athlete with regular exercise" => "Average with regular exercise",
+                  "Serious athletic training" => "Serious athletic training"
+                },
+                @questionnaire.try(:fitness)), {}, { class: "form-control" }
+              %>
+            </div>
+            <div class="form-group">
+              <%= f.label :injuries, class: "control-label" %>
+              <%= f.text_area :injuries, { class: "form-control" } %>
+            </div>
+            <div class="form-group">
+              <%= f.label :height, class: "control-label" %>
+              <%= f.select :height, options_for_select(
+                {
+                  "5'2\" or shorter" => "5'2\" or shorter",
+                  "5'3\"" => "5'3\"",
+                  "5'4\"" => "5'4\"",
+                  "5'5\"" => "5'5\"",
+                  "5'6\"" => "5'6\"",
+                  "5'7\"" => "5'7\"",
+                  "5'8\"" => "5'8\"",
+                  "5'9\"" => "5'9\"",
+                  "5'10\"" => "5'10\"",
+                  "5'11\"" => "5'11\"",
+                  "6'0\"" => "6'0\"",
+                  "6'1\"" => "6'1\"",
+                  "6'2\"" => "6'2\"",
+                  "6'3\"" => "6'3\"",
+                  "6'4\" or taller" => "6'4\" or taller"
+                },
+                @questionnaire.try(:height)), {}, { class: "form-control" }
+              %>
+            </div>
+            <div class="form-group">
+              <%= f.label :teams, "List club or college teams you've played for", class: "control-label" %>
+              <%= f.text_area :teams, { class: "form-control" } %>
+            </div>
+            <div class="form-group">
+              <b>Do you want to be a Co-captain?</b>
+              <div class="radio">
+                <%= f.label "cocaptain_yes", f.radio_button(:cocaptain, "Yes") + " Yes" %>
+                <%= f.label "cocaptain_no", f.radio_button(:cocaptain, "No") + " No" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <b>Previous roles on team</b>
+              <div class="checkbox">
+                <%= f.label :handler, f.check_box(:handler) + " Handler" %>
+                <%= f.label :cutter, f.check_box(:cutter) + " Cutter" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <b>Availability</b>
+              <%= f.fields_for :meetings do |m| %>
+                <%= m.hidden_field :date %>
+                <%= m.hidden_field :time %>
+                <div class="checkbox">
+                  <%= m.label :available, m.check_box(:available) + " #{m.object.date} #{m.object.time}" %>
+                </div>
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.label :comments, "Additional comments", class: "control-label" %>
+              <%= f.text_area :comments , { class: "form-control" } %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

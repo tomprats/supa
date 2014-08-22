@@ -33,7 +33,8 @@ module Admin
     end
 
     def destroy
-      if Event.find(params[:id]).destroy
+      event = Event.find(params[:id])
+      if !event.game && event.destroy
         redirect_to admin_events_path, notice: "Event was successfully destroyed"
       else
         redirect_to :back, alert: "Event could not be destroyed"

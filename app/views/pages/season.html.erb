@@ -1,9 +1,13 @@
-<h3 class="text-center no-margin-top">SUPA <%= @league.season %> Season</h3>
+<h3 class="text-center no-margin-top">SUPA <%= @league.name %></h3>
 
 <%= render partial: "pages/images" %>
 
 <div class="center">
-  <% if @league.draft.active? %>
+  <% if @league.registration? || @league.late_registration? %>
+    <%= render partial: "shared/registration" %>
+  <% end %>
+
+  <% if @league.late_registration? || @league.in_progress? || @league.over? %>
     <h3>Check out this years teams!</h3>
     <div>
       <% @teams.each do |team| %>
