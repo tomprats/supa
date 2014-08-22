@@ -14,6 +14,10 @@
   padding: 0 20px;
   color: #ffffff;
   background-color: #6666FF;
+  a {
+    color: $brand-success;
+    font-weight: 200;
+  }
 }
 
 @media screen and (max-width: $grid-float-breakpoint) {
