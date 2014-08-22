@@ -3,7 +3,7 @@ module Admin
     before_filter :check_admin_level
 
     def create
-      params[:game][:datetime] = convert_to_datetime(params[:game][:date], params[:game][:time])
+      params[:game][:event_attributes][:datetime] = convert_to_datetime(params[:game].delete(:date), params[:game].delete(:time))
       @game = Game.create(game_params.merge!(creator_id: current_user.id))
       if @game.valid?
         redirect_to admin_games_path, notice: "Game was successfully created"
@@ -25,7 +25,7 @@ module Admin
     end
 
     def update
-      params[:game][:datetime] = convert_to_datetime(params[:game][:date], params[:game][:time])
+      params[:game][:event_attributes][:datetime] = convert_to_datetime(params[:game].delete(:date), params[:game].delete(:time))
       if Game.find(params[:id]).update_attributes(game_params)
         redirect_to admin_games_path, notice: "Game was successfully updated"
       else
@@ -43,7 +43,8 @@ module Admin
 
     private
     def game_params
-      params.require(:game).permit(:datetime, :field_id, :name, :league_id,
+      params.require(:game).permit(
+        event_attributes: [:id, :league_id, :datetime, :field_id, :title],
         team_stats1_attributes: [:id, :team_id],
         team_stats2_attributes: [:id, :team_id]
       )
@@ -55,6 +56,7 @@ module Admin
 
     def new_game
       @game = Game.new
+      @game.build_event
       @game.build_team_stats1
       @game.build_team_stats2
       @game.team_stats1.player_stats.build

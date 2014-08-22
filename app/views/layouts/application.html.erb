@@ -12,34 +12,39 @@
         <%= render "layouts/admin_header" %>
         <% extra_class = " admin-navbar-push"%>
       <% end %>
-      <div class="row<%= extra_class %>">
-        <div class="col-md-12">
-          <% unless devise_error_messages!.empty? %>
-            <% devise_error_messages!.each do |key, value| %>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-danger">
-                    <a class="close" data-dismiss="alert">×</a>
-                    <%= key %> <%= value %>
+      <div class="<%= extra_class %>">
+        <%= render partial: "layouts/ads" %>
+      </div>
+      <div class="ad-offset">
+        <div class="row<%= extra_class %>">
+          <div class="col-md-12">
+            <% unless devise_error_messages!.empty? %>
+              <% devise_error_messages!.each do |key, value| %>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-danger">
+                      <a class="close" data-dismiss="alert">×</a>
+                      <%= key %> <%= value %>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
-          <% unless flash.empty? %>
-            <% flash.each do |name, msg| %>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
-                    <a class="close" data-dismiss="alert">×</a>
-                    <%= msg.to_s.html_safe %>
+            <% unless flash.empty? %>
+              <% flash.each do |name, msg| %>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
+                      <a class="close" data-dismiss="alert">×</a>
+                      <%= msg.to_s.html_safe %>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
-          <%= yield %>
-          <%= render "layouts/footer" %>
+            <%= yield %>
+            <%= render "layouts/footer" %>
+          </div>
         </div>
       </div>
     </div>

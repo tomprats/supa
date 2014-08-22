@@ -3,8 +3,7 @@
 
   <div class="btn-group pull-right">
     <%= link_to "Add Announcement", "#announcements_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
-    <%= link_to "Assign Late Players", "#assign_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
-    <%= link_to "Trade Players", "#trade_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
+    <%= render partial: "super/layouts/buttons" %>
   </div>
 </ul>
 

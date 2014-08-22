@@ -1,21 +1,20 @@
 Supa::Application.routes.draw do
-  root to: "pages#summer"
+  root to: "pages#current"
 
   devise_for :users, controllers: {
     omniauth_callbacks: "authentications",
     registrations: "registrations"
   }
 
-  # Revision 2.0
   resources :teams, only: [:show]
   resources :games, only: [:show] do
     resource :stats, only: [:show]
   end
   get :stats, to: "stats#index"
 
-  get :home, to: "pages#home"
   get :spring, to: "pages#spring"
   get :summer, to: "pages#summer"
+  get :fall, to: "pages#fall"
 
   get  "payments/checkout"
   get  "payments/success"
@@ -31,7 +30,6 @@ Supa::Application.routes.draw do
     get    'questionnaire/:id', :to => 'registrations#questionnaire',
                                 :as => 'user_questionnaire'
 
-    # Revision 2.0
     get "sign_in", to: "devise/sessions#new"
     delete "sign_out", to: "devise/sessions#destroy"
     get "register", to: "registrations#register"
@@ -43,6 +41,7 @@ Supa::Application.routes.draw do
       resources :teams
       resources :captains
       resources :users
+      resources :events
       resources :games do
         resource :stats, only: [:edit, :update]
       end
@@ -51,13 +50,10 @@ Supa::Application.routes.draw do
     get :super, to: "super/announcements#index"
     namespace :super do
       resources :announcements
-      resources :leagues do
-        get :activate, on: :member
-      end
+      resources :leagues
       resources :drafts do
         post :order, on: :member
         post :snake, on: :member
-        post :activate, on: :member
         get :feed, on: :member
       end
       resources :fields

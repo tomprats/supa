@@ -9,10 +9,6 @@ class Team < ActiveRecord::Base
 
   validates_presence_of :name, :captain_id, :league_id
 
-  def self.active
-    where(league_id: League.current.id)
-  end
-
   def wins
     games.select { |g| g.winner_id == id }
   end

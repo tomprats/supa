@@ -4,7 +4,7 @@
       <a href="" class="navbar-toggle prevent-default" data-toggle="collapse" data-target=".default-collapse">
         <%= fa_icon "bars" %>
       </a>
-      <%= link_to(fa_icon("database") + " SUPA", summer_path, class: "navbar-brand") %>
+      <%= link_to(fa_icon("database") + " SUPA", root_path, class: "navbar-brand") %>
     </div>
 
     <div class="default-collapse navbar-collapse collapse">
@@ -16,12 +16,12 @@
           <% if current_user && current_user.is_captain? %>
             <li><%= link_to(fa_icon("anchor") + " Captain", captain_path) %></li>
           <% end %>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <% end %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
           <li><%= link_to(fa_icon("power-off") + " Sign Out", sign_out_path, method: :delete) %></li>
         <% else %>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
           <li><%= link_to(fa_icon("sign-in") + " Sign In/Up", new_user_session_path) %></li>
         <% end %>
       </ul>

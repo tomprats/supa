@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819042816) do
+ActiveRecord::Schema.define(version: 20140821062310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,13 +46,21 @@ ActiveRecord::Schema.define(version: 20140819042816) do
   end
 
   create_table "drafts", force: true do |t|
-    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "turn",       default: 1
     t.text     "order"
     t.boolean  "snake"
     t.integer  "league_id"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "title"
+    t.string   "text"
+    t.integer  "field_id"
+    t.integer  "league_id"
+    t.integer  "creator_id"
+    t.datetime "datetime"
   end
 
   create_table "fields", force: true do |t|
@@ -63,24 +71,23 @@ ActiveRecord::Schema.define(version: 20140819042816) do
   end
 
   create_table "games", force: true do |t|
-    t.integer  "creator_id"
-    t.integer  "team_stats1_id"
-    t.integer  "team_stats2_id"
-    t.datetime "datetime"
-    t.integer  "field_id"
-    t.string   "name"
-    t.integer  "league_id"
+    t.integer "team_stats1_id"
+    t.integer "team_stats2_id"
+    t.integer "event_id"
   end
 
   create_table "leagues", force: true do |t|
     t.string   "season"
     t.integer  "year"
     t.decimal  "price",      default: 0.0
-    t.boolean  "active",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "late_price", default: 0.0
+    t.boolean  "current",    default: false
+    t.string   "state",      default: "None"
   end
+
+  add_index "leagues", ["current"], name: "index_leagues_on_current", using: :btree
 
   create_table "payments", force: true do |t|
     t.boolean  "paid",              default: false

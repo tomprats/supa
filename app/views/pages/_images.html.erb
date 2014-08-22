@@ -1,0 +1,8 @@
+<div class="owl-wrapper">
+  <div class="owl-carousel">
+  <% images = ["face.jpg", "goofy.jpg", "maybe.jpg", "mine.jpg", "sitdown.jpg", "sour.jpg", "surprise.jpg", "thunk.jpg", "yuck.jpg", "zonked.jpg"].shuffle %>
+  <% images.each do |image| %>
+      <%= image_tag image %>
+    <% end %>
+  </div>
+</div>

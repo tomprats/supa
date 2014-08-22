@@ -1,29 +1,22 @@
 class Game < ActiveRecord::Base
-  belongs_to :league
-  belongs_to :field
+  belongs_to :event
   belongs_to :creator,  class_name: "User"
   belongs_to :team_stats1, class_name: "TeamStat", dependent: :destroy
   belongs_to :team_stats2, class_name: "TeamStat", dependent: :destroy
+  accepts_nested_attributes_for :event
   accepts_nested_attributes_for :team_stats1
   accepts_nested_attributes_for :team_stats2
 
-  validates_presence_of :datetime, :field, :league_id
+  delegate :league, :datetime, :date, :time, :field, to: :event, allow_nil: true
+
   validate :team1_exists, :team2_exists, :teams_differ, :same_league
 
   def self.default_scope
-    order("datetime ASC")
+    joins(:event).order("events.datetime ASC")
   end
 
-  def self.active
-    joins(:team_stats1).where.not("team_stats.goals IS NULL AND league_id = ?", League.current.id)
-  end
-
-  def date
-    datetime.strftime("%m/%d/%Y") if datetime
-  end
-
-  def time
-    datetime.strftime("%I:%M %p") if datetime
+  def name
+    teams.collect(&:name).join(" vs ")
   end
 
   def team1

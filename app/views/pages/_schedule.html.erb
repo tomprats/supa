@@ -1,47 +1,28 @@
-<% if !@games.empty? %>
+<% if !@events.empty? %>
   <br>
   <div class="center schedule">
     <h3>Schedule</h3>
     <div class="row">
-      <% @games.keys.each_with_index do |date, index| %>
-        <% if index != 0 && index % 2 == 0 %>
-          </div>
-          <div class="row">
-        <% end %>
-        <div class="col-md-6">
-          <table class="center-th table table-bordered">
-            <thead>
-              <tr>
-                <th colspan="100"><%= @games[date][:name] %></th>
-              </tr>
-              <tr>
-                <th colspan="100"><%= date %></th>
-              </tr>
-              <tr>
-                <th>Time</th>
-                <% @games[date][:fields].each do |field| %>
-                  <th><%= field.name %></th>
-                <% end %>
-              </tr>
-            </thead>
+      <div class="col-md-12">
+        <table class="table table-bordered center-th">
+          <thead>
+            <th></th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Field</th>
+            <th>Event</th>
+          </thead>
+          <% @events.each do |event| %>
             <tbody>
-              <% @games[date][:times].each do |time| %>
-                <tr>
-                  <td><%= time %></td>
-                  <% @games[date][:fields].each do |field| %>
-                    <% game = @games[date][:games].select { |g| g.time == time && g.field == field }.first %>
-                    <% if game %>
-                      <td><%= game.teams.collect(&:name).join(" vs ") %></td>
-                    <% else %>
-                      <td>No game</td>
-                    <% end %>
-                  <% end %>
-                </tr>
-              <% end %>
+              <td><%= event.title %></td>
+              <td><%= event.date %></td>
+              <td><%= event.time %></td>
+              <td><%= event.field.name %></td>
+              <td><%= event.text || event.game.name %></td>
             </tbody>
-          </table>
-        </div>
-      <% end %>
+          <% end %>
+        </table>
+      </div>
     </div>
   </div>
 <% end %>

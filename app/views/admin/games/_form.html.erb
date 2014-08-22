@@ -1,23 +1,5 @@
 <%= form_for(@game, url: admin_game_path(@game), html: { class: "form-horizontal" }) do |f| %>
   <div class="form-group">
-    <%= f.label :league, class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= f.select :league_id, League.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= label_tag :date, "Date", class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= text_field_tag "game[date]", "", class: "form-control", data: { value: @game.try(:date) }  %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= label_tag :time, "Time", class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= text_field_tag "game[time]", "", class: "form-control", data: { value: @game.try(:time) }  %>
-    </div>
-  </div>
-  <div class="form-group">
     <%= f.fields_for :team_stats1 do |stats| %>
       <%= stats.label :team_id, "Team 1", class: "col-md-4 control-label" %>
       <div class="col-md-8">
@@ -33,17 +15,37 @@
       </div>
     <% end %>
   </div>
-  <div class="form-group">
-    <%= f.label :field_id, class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= f.select :field_id, Field.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+  <%= f.fields_for :event do |e| %>
+    <div class="form-group">
+      <%= e.label :league, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= e.select :league_id, League.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :name, placeholder: "Only need 1 name per date", class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= f.text_field :name, { class: "form-control" } %>
+    <div class="form-group">
+      <%= label_tag :date, "Date", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= text_field_tag "game[date]", "", class: "form-control", data: { value: @game.try(:date) }  %>
+      </div>
     </div>
-  </div>
+    <div class="form-group">
+      <%= label_tag :time, "Time", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= text_field_tag "game[time]", "", class: "form-control", data: { value: @game.try(:time) }  %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= e.label :field_id, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= e.select :field_id, Field.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= e.label :title, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= e.text_field :title, { class: "form-control" } %>
+      </div>
+    </div>
+  <% end %>
   <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

@@ -1,0 +1,50 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#all-events" data-toggle="tab">Events</a></li>
+  <li><a href="#current-events" data-toggle="tab">Current events</a></li>
+  <li><a href="#past-events" data-toggle="tab">Past events</a></li>
+
+  <div class="btn-group pull-right">
+    <%= link_to "Add Event", "#events_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
+  </div>
+</ul>
+
+<div id="events-content" class="tab-content">
+  <div class="tab-pane active" id="all-events">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Events</h3>
+        <% if @events.empty? %>
+          <p>There aren't any events yet!</p>
+        <% else %>
+          <%= render partial: "admin/events/table", locals: { events: @events } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="current-events">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Current Events</h3>
+        <% if @current_events.empty? %>
+          <p>There aren't any events for the current league yet!</p>
+        <% else %>
+          <%= render partial: "admin/events/table", locals: { events: @current_events } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="past-events">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Past Events</h3>
+        <% if @past_events.empty? %>
+          <p>There aren't any past events!</p>
+        <% else %>
+          <%= render partial: "admin/events/table", locals: { events: @past_events } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "admin/events/new_modal" %>

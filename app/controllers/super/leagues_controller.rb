@@ -18,15 +18,6 @@ module Super
       @league = League.find(params[:id])
     end
 
-    def activate
-      league = League.find(params[:id])
-      if league.update_attributes(active: params[:active])
-        redirect_to super_leagues_path, notice: "League has been updated"
-      else
-        redirect_to :back, alert: "League cannot be updated"
-      end
-    end
-
     def update
       if League.find(params[:id]).update_attributes(league_params)
         redirect_to super_leagues_path, notice: "League was successfully updated"
@@ -43,7 +34,7 @@ module Super
     end
 
     def league_params
-      params.require(:league).permit(:season, :year, :price, :active, :late_price)
+      params.require(:league).permit(:season, :year, :price, :late_price, :current, :state)
     end
   end
 end

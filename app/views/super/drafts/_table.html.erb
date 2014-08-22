@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th>League</th>
-      <th>Active</th>
       <th>Order</th>
       <th>Snake</th>
       <th></th>
@@ -12,13 +11,6 @@
     <% drafts.each do |draft|%>
       <tr>
         <td><%= draft.league.name %></td>
-        <td>
-          <% if draft.active? %>
-            <%= link_to "Deactivate", activate_super_draft_path(draft.id, active: false), method: :post, class: "btn btn-success" %>
-          <% else %>
-            <%= link_to "Activate", activate_super_draft_path(draft.id, active: true), method: :post, class: "btn btn-success" %>
-          <% end %>
-        </td>
         <td><%= link_to "Edit", "#drafts_order_modal", class: "admin_modal btn btn-success", role: "button", data: { id: draft.id, toggle: "modal" } %>
         </td>
         <td>

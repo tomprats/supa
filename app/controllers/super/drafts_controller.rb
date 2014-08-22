@@ -25,16 +25,6 @@ module Super
       redirect_to super_drafts_path, notice: "Draft successfully destroyed."
     end
 
-    def activate
-      draft = Draft.find(params[:id])
-      draft.setup_players
-      if draft.update_attributes(active: params[:active])
-        redirect_to super_drafts_path, notice: "Draft has been updated"
-      else
-        redirect_to :back, alert: "Draft cannot be updated"
-      end
-    end
-
     def snake
       draft = Draft.find(params[:id])
       if draft.update_attributes(snake: params[:snake])
@@ -77,7 +67,7 @@ module Super
     end
 
     def draft_params
-      params.require(:draft).permit(:league_id, :active)
+      params.require(:draft).permit(:league_id)
     end
   end
 end

@@ -1,4 +1,11 @@
-<%= form_for(@league || League.new, url: super_leagues_path, html: { class: "form-horizontal" }) do |f| %>
+<% if @league
+  url = super_league_path(@league.id)
+else
+  @league = League.new
+  url = super_leagues_path
+end %>
+
+<%= form_for(@league, url: url, html: { class: "form-horizontal" }) do |f| %>
   <div class="form-group">
     <%= f.label :season, class: "col-md-4 control-label" %>
     <div class="col-md-8">
@@ -24,9 +31,15 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :active, class: "col-md-4 control-label" %>
+    <%= f.label :state, class: "col-md-4 control-label" %>
     <div class="col-md-8">
-      <%= f.select :active, options_for_select([["Yes", true], ["No", false]], @league.try(:active)), {}, { class: "form-control" } %>
+      <%= f.select :state, options_for_select(League.state_collection, @league.try(:state)), {}, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :current, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.select :current, options_for_select({ "True" => true, "False" => false }, @league.try(:current)), {}, { class: "form-control" } %>
     </div>
   </div>
   <%= f.submit "Submit", :class => "btn btn-primary" %>

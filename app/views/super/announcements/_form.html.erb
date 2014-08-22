@@ -1,4 +1,11 @@
-<%= form_for(@announcement || Announcement.new, url: super_announcements_path, html: { class: "form-horizontal" }) do |f| %>
+<% if @announcement
+  url = super_announcement_path(@announcement.id)
+else
+  @announcement = Announcement.new
+  url = super_announcements_path
+end %>
+
+<%= form_for(@announcement, url: url, html: { class: "form-horizontal" }) do |f| %>
   <div class="form-group">
     <%= f.label :heading, class: "col-md-4 control-label" %>
     <div class="col-md-8">

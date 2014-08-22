@@ -1,5 +1,9 @@
+<h3 class="text-center no-margin-top">SUPA <%= @league.season %> Season</h3>
+
+<%= render partial: "pages/images" %>
+
 <div class="center">
-  <% if League.summer.draft.active? %>
+  <% if @league.draft.active? %>
     <h3>Check out this years teams!</h3>
     <div>
       <% @teams.each do |team| %>
@@ -8,4 +12,5 @@
     </div>
   <% end %>
 </div>
+
 <%= render partial: "pages/schedule" %>

@@ -1,0 +1,29 @@
+<table class="data-table table table-striped">
+  <thead>
+    <tr>
+      <th>League</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Field</th>
+      <th>Title</th>
+      <th>Text</th>
+      <th class="dont-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% events.each do |event| %>
+      <tr>
+        <td><%= event.league.name %></td>
+        <td><%= event.date %></td>
+        <td><%= event.time %></td>
+        <td><%= event.field.name %></td>
+        <td><%= event.title %></td>
+        <td><%= event.text || event.game.try(:name) %></td>
+        <td class="btn-group">
+          <%= link_to "Edit", edit_admin_event_path(event), class: "btn btn-primary" %>
+          <%= link_to "Delete", admin_event_path(event), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this event?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

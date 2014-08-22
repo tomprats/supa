@@ -2,42 +2,31 @@ class PagesController < ApplicationController
   skip_before_filter :authenticate_user!
   skip_before_filter :check_attr
 
-  def home
-  end
-
-  def spring
-    @announcements = Announcement.all
-    @league = League.spring
-    @teams = @league.teams
-    @games = @league.games.group_by { |game| game.date }
-    @games.keys.each do |date|
-      name = @games[date].collect { |g| g.name }.reject { |g| g.blank? }.first
-      fields = @games[date].collect { |g| g.field }.uniq
-      times = @games[date].collect { |g| g.time }.uniq
-      @games[date] = {
-        games: @games[date],
-        name: name,
-        fields: fields,
-        times: times
-      }
-    end
+  def current
+    @league = League.current
+    render_league
   end
 
   def summer
-    @announcements = Announcement.all
     @league = League.summer
+    render_league
+  end
+
+  def fall
+    @league = League.fall
+    render_league
+  end
+
+  def spring
+    @league = League.spring
+    render_league
+  end
+
+  private
+  def render_league
     @teams = @league.teams
-    @games = @league.games.group_by { |game| game.date }
-    @games.keys.each do |date|
-      name = @games[date].collect { |g| g.name }.reject { |g| g.blank? }.first
-      fields = @games[date].collect { |g| g.field }.uniq
-      times = @games[date].collect { |g| g.time }.uniq
-      @games[date] = {
-        games: @games[date],
-        name: name,
-        fields: fields,
-        times: times
-      }
-    end
+    @events = @league.events
+
+    render :season
   end
 end

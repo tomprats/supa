@@ -1,4 +1,11 @@
-<%= form_for(@field || Field.new, url: super_fields_path, html: { class: "form-horizontal" }) do |f| %>
+<% if @field
+  url = super_field_path(@field.id)
+else
+  @field = Field.new
+  url = super_fields_path
+end %>
+
+<%= form_for(@field, url: url, html: { class: "form-horizontal" }) do |f| %>
   <div class="form-group">
     <%= f.label :name, class: "col-md-4 control-label" %>
     <div class="col-md-8">

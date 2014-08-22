@@ -11,6 +11,10 @@ class Draft < ActiveRecord::Base
     order('created_at DESC')
   end
 
+  def active?
+    league.state == "Draft"
+  end
+
   def players(captain)
     groups(captain).collect(&:draft_players).flatten
   end
@@ -84,10 +88,6 @@ class Draft < ActiveRecord::Base
         )
       end
     end
-  end
-
-  def active?
-    active
   end
 
   def snake?
