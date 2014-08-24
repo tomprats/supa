@@ -4,7 +4,7 @@ module Admin
 
     def create
       params[:game][:event_attributes][:datetime] = convert_to_datetime(params[:game].delete(:date), params[:game].delete(:time))
-      @game = Game.create(game_params.merge!(creator_id: current_user.id))
+      @game = Game.create(game_params)
       if @game.valid?
         redirect_to admin_games_path, notice: "Game was successfully created"
       else
@@ -43,6 +43,7 @@ module Admin
 
     private
     def game_params
+      params[:game][:event_attributes][:creator_id] = current_user.id
       params.require(:game).permit(
         event_attributes: [:id, :league_id, :datetime, :field_id, :title],
         team_stats1_attributes: [:id, :team_id],

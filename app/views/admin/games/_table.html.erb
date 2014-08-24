@@ -12,10 +12,10 @@
   <tbody>
     <% games.each do |game| %>
       <tr>
-        <td><%= game.league.name %></td>
+        <td><%= game.league.try(:name) %></td>
         <td><%= game.date %></td>
         <td><%= game.time %></td>
-        <td><%= game.field.name %></td>
+        <td><%= game.field.try(:name) %></td>
         <td><%= game.name %></td>
         <td class="btn-group">
           <%= link_to "Stats", "#", class: "btn btn-success edit-stats", data: { id: game.id } %>

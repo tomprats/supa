@@ -25,6 +25,10 @@ class Team < ActiveRecord::Base
     Game.all.select { |game| game.teams.include?(self) }
   end
 
+  def self.collection_with_leagues
+    League.all.collect(&:teams).flatten.collect{ |t| ["#{t.league.name}: #{t.name}", t.id] }
+  end
+
   def points
     team_stats.active.inject(0){|sum,e| sum += e.goals.to_i }
   end
