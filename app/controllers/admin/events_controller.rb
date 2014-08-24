@@ -15,7 +15,7 @@ module Admin
     def index
       @event = Event.new
       @events = Event.all
-      @current_events = League.summer.events
+      @current_events = League.current.events
       @past_events = Event.where.not(id: @current_events.collect(&:id))
     end
 

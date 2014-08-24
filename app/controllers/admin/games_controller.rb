@@ -16,12 +16,13 @@ module Admin
       new_game
 
       @games = Game.all
-      @current_games = League.summer.games
+      @current_games = League.current.games
       @past_games = Game.where.not(id: @current_games.collect(&:id))
     end
 
     def edit
       @game = Game.find(params[:id])
+      @game.build_event unless @game.event
     end
 
     def update

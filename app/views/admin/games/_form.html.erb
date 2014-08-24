@@ -3,7 +3,7 @@
     <%= f.fields_for :team_stats1 do |stats| %>
       <%= stats.label :team_id, "Team 1", class: "col-md-4 control-label" %>
       <div class="col-md-8">
-        <%= stats.select :team_id, Team.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+        <%= stats.select :team_id, Team.collection_with_leagues, {}, { class: "form-control" } %>
       </div>
     <% end %>
   </div>
@@ -11,7 +11,7 @@
     <%= f.fields_for :team_stats2 do |stats| %>
       <%= stats.label :team_id, "Team 2", class: "col-md-4 control-label" %>
       <div class="col-md-8">
-        <%= stats.select :team_id, Team.all.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+        <%= stats.select :team_id, Team.collection_with_leagues, {}, { class: "form-control" } %>
       </div>
     <% end %>
   </div>

@@ -49,7 +49,7 @@ module Super
       if params[:id]
         @draft = Draft.find(params[:id])
       else
-        @draft = League.summer.draft
+        @draft = League.current.draft
       end
 
       if !@draft.order.empty?

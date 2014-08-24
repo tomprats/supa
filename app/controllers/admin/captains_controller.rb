@@ -2,7 +2,7 @@ module Admin
   class CaptainsController < ApplicationController
     def index
       @teams = Team.all
-      @current_teams = League.summer.teams
+      @current_teams = League.current.teams
       @past_teams = Team.where.not(id: @current_teams.collect(&:id))
 
       @captains = @teams.collect { |t| t.captain }
