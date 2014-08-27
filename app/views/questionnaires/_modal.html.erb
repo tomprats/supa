@@ -122,6 +122,9 @@ end %>
             </div>
             <div class="form-group">
               <b>Availability</b>
+              <div class="checkbox">
+                <%= label_tag :select_all, check_box_tag(:select_all) + " Select All" %>
+              </div>
               <%= f.fields_for :meetings do |m| %>
                 <%= m.hidden_field :date %>
                 <%= m.hidden_field :time %>
