@@ -36,6 +36,6 @@
     </div>
   </div>
 
-  <%= render partial: "shared/credit_card_modal" %>
-  <%= render partial: "questionnaires/modal" %>
+  <%= render partial: "shared/credit_card_modal" if current_user %>
+  <%= render partial: "questionnaires/modal" if current_user %>
 <% end %>

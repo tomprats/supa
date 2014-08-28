@@ -14,11 +14,11 @@
           </thead>
           <% @events.each do |event| %>
             <tbody>
-              <td><%= event.title %></td>
+              <td><%= event.title.blank? ? "Regular Season" : event.title %></td>
               <td><%= event.date %></td>
               <td><%= event.time %></td>
               <td><%= event.field.name %></td>
-              <td><%= event.text || event.game.name %></td>
+              <td><%= event.text.blank? ? event.game.try(:name) : event.text %></td>
             </tbody>
           <% end %>
         </table>

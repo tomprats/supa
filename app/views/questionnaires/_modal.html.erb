@@ -3,7 +3,7 @@ if @questionnaire
   url = questionnaire_path(@questionnaire.id)
 else
   @questionnaire = Questionnaire.new(user_id: current_user.id, league_id: @league.id)
-  @league.events.collect(&:datetime).compact.each do |datetime|
+  @league.events.collect(&:datetime).uniq.each do |datetime|
     @questionnaire.meetings.build(datetime: datetime)
   end
   url = questionnaires_path
