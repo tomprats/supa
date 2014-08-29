@@ -13,7 +13,7 @@
                 <% draft.captains.each_with_index do |captain, index| %>
                   <div class="form-group">
                     <div class="col-md-6 col-md-offset-3">
-                      <%= select("order", index, draft.captains.collect { |c| [c.name, c.id] }, { selected: draft.order[index] }, { class: "form-control" }) %>
+                      <%= select("order", index, draft.teams.collect { |t| ["#{t.name}: #{t.captain.name}", t.id] }, { selected: draft.order[index] }, { class: "form-control" }) %>
                     </div>
                   </div>
                 <% end %>
@@ -21,7 +21,7 @@
                 <% draft.captains.each_with_index do |captain, index| %>
                   <div class="form-group">
                     <div class="col-md-6 col-md-offset-3">
-                      <%= select("order", index, draft.captains.collect { |c| [c.name, c.id] }, {}, { class: "form-control" }) %>
+                      <%= select("order", index, draft.teams.collect { |t| ["#{t.name}: #{t.captain.name}", t.id] }, {}, { class: "form-control" }) %>
                     </div>
                   </div>
                 <% end %>

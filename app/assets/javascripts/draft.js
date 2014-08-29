@@ -21,7 +21,7 @@ $(document).ready(function() {
   }
 
   // Order
-  $(".super a.admin_modal").click(function(e) {
+  $("a.admin_modal.draft-order-toggle").click(function(e) {
     var draftID = "#draft" + $(this).data("id");
     $(".draft-order").addClass("hide");
     $(draftID).removeClass("hide");

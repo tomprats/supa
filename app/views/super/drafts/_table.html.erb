@@ -11,7 +11,7 @@
     <% drafts.each do |draft|%>
       <tr>
         <td><%= draft.league.name %></td>
-        <td><%= link_to "Edit", "#drafts_order_modal", class: "admin_modal btn btn-success", role: "button", data: { id: draft.id, toggle: "modal" } %>
+        <td><%= link_to "Edit", "#drafts_order_modal", class: "admin_modal draft-order-toggle btn btn-success", role: "button", data: { id: draft.id, toggle: "modal" } %>
         </td>
         <td>
           <% if draft.snake? %>
