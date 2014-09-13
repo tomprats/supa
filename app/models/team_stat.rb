@@ -2,6 +2,8 @@ class TeamStat < ActiveRecord::Base
   has_many   :player_stats, -> { joins(:player).includes(:player).order("users.last_name ASC") }, foreign_key: :team_stats_id, dependent: :destroy
   belongs_to :team
 
+  delegate :league, to: :team, allow_nil: true
+
   accepts_nested_attributes_for :player_stats, allow_destroy: true
 
   def self.active

@@ -101,8 +101,12 @@ class User < ActiveRecord::Base
     !DraftedPlayer.where(player_id: id, draft_id: draft_id).empty?
   end
 
-  def team
-    teams.where(league_id: League.current.id).first
+  def team(league_id = nil)
+    if league_id
+      teams.where(league_id: league_id).first
+    else
+      teams.where(league_id: League.current.id).first
+    end
   end
 
   def on_a_team?
@@ -147,27 +151,39 @@ class User < ActiveRecord::Base
     payment.update_attributes(paid: true)
   end
 
-  def games_played
-    stats.map(&:team_stats).uniq.count
+  def games_played(league_id = nil)
+    if league_id
+      stats.map(&:team_stats).select { |ts| ts.league.try(:id) == league_id }.uniq.count
+    else
+      stats.map(&:team_stats).uniq.count
+    end
   end
 
-  def assists
-    stats.reduce(0){|sum, s| sum + s.assists.to_i }
+  def assists(league_id = nil)
+    if league_id
+      stats.select { |s| s.league.try(:id) == league_id }.reduce(0){|sum, s| sum + s.assists.to_i }
+    else
+      stats.reduce(0){|sum, s| sum + s.assists.to_i }
+    end
   end
 
-  def goals
-    stats.reduce(0){|sum, s| sum + s.goals.to_i }
+  def goals(league_id = nil)
+    if league_id
+      stats.select { |s| s.league.try(:id) == league_id }.reduce(0){|sum, s| sum + s.goals.to_i }
+    else
+      stats.reduce(0){|sum, s| sum + s.goals.to_i }
+    end
   end
 
-  def points
-    assists + goals
+  def points(league_id = nil)
+    assists(league_id) + goals(league_id)
   end
 
-  def points_per_game
-    if games_played.zero?
+  def points_per_game(league_id = nil)
+    if games_played(league_id).zero?
       0
     else
-      (points/games_played).round(2)
+      (points(league_id)/games_played(league_id)).round(2)
     end
   end
 

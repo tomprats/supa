@@ -8,11 +8,15 @@
   <% end %>
 
   <% if @league.late_registration? || @league.in_progress? || @league.over? %>
-    <h3>Check out this years teams!</h3>
+    <h3>Check out the teams!</h3>
     <div>
       <% @teams.each do |team| %>
         <%= link_to team.name, team_path(team.id), class: "btn btn-primary" %>
       <% end %>
+    </div>
+    <div class="btn-group margin-top-10">
+      <%= link_to "Standings", league_standings_path(@league.id), class: "btn btn-success" %>
+      <%= link_to "Stats", league_stats_path(@league.id), class: "btn btn-success" %>
     </div>
   <% end %>
 </div>

@@ -16,12 +16,12 @@
     <% @players.each do |player| %>
       <tr class="text-center">
         <td class="text-left"><%= player.name %></td>
-        <td class="text-left"><%= player.team.name %></td>
-        <td><%= player.games_played %></td>
-        <td><%= player.assists %></td>
-        <td><%= player.goals %></td>
-        <td><%= player.points %></td>
-        <td><%= number_with_precision(player.points_per_game, strip_insignificant_zeros: true, precision: 2) %></td>
+        <td class="text-left"><%= player.team(@league.id).name %></td>
+        <td><%= player.games_played(@league.id) %></td>
+        <td><%= player.assists(@league.id) %></td>
+        <td><%= player.goals(@league.id) %></td>
+        <td><%= player.points(@league.id) %></td>
+        <td><%= number_with_precision(player.points_per_game(@league.id), strip_insignificant_zeros: true, precision: 2) %></td>
       </tr>
     <% end %>
   </tbody>

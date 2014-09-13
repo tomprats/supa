@@ -2,6 +2,8 @@ class PlayerStat < ActiveRecord::Base
   belongs_to :player, class_name: "User"
   belongs_to :team_stats, class_name: "TeamStat"
 
+  delegate :league, to: :team_stats, allow_nil: true
+
   validates_presence_of :player
   validates :player_id, uniqueness: { scope: :team_stats_id }
 
