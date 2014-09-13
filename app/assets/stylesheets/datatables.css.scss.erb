@@ -1,3 +1,5 @@
+@import "variables";
+
 // Custom
 .dataTables_wrapper table.table .DTTT_selected td {
   color: white;
@@ -5,6 +7,21 @@
 }
 .dataTables_wrapper .dataTables_length select {
   height: 18px;
+}
+@media screen and (max-width: $grid-float-breakpoint) {
+  div.dataTables_info,
+  div.dataTables_length {
+    display: none;
+  }
+
+  div.dataTables_filter {
+    width: 100%;
+    input {
+      width: 100%;
+      margin-top: 20px;
+      text-align: center;
+    }
+  }
 }
 
 .dataTables_wrapper {

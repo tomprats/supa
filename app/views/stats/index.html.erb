@@ -1,0 +1,28 @@
+<h3 class="text-center no-margin-top"><%= @league.name %> Stats</h3>
+
+<table class="data-table table table-striped stats">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Team</th>
+      <th>Games Played</th>
+      <th>Assists</th>
+      <th>Goals</th>
+      <th class="default-sort" data-dir="desc">Points</th>
+      <th>Points Per Game</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @players.each do |player| %>
+      <tr class="text-center">
+        <td class="text-left"><%= player.name %></td>
+        <td class="text-left"><%= player.team.name %></td>
+        <td><%= player.games_played %></td>
+        <td><%= player.assists %></td>
+        <td><%= player.goals %></td>
+        <td><%= player.points %></td>
+        <td><%= number_with_precision(player.points_per_game, strip_insignificant_zeros: true, precision: 2) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

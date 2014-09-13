@@ -12,6 +12,8 @@ Supa::Application.routes.draw do
   get :spring, to: "pages#spring"
   get :summer, to: "pages#summer"
   get :fall, to: "pages#fall"
+  get :stats, to: "stats#index"
+  get :standings, to: "stats#standings"
 
   get  "payments/checkout"
   get  "payments/success"

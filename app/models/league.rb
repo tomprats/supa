@@ -4,6 +4,7 @@ class League < ActiveRecord::Base
   has_many :games, dependent: :destroy
   has_many :events, order: :datetime, dependent: :destroy
   has_many :games, through: :events
+  has_many :players, through: :teams
 
   validates_presence_of :season, :year
 

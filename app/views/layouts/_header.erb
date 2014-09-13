@@ -18,6 +18,10 @@
         <% if League.spring && League.spring.started? %>
           <li><%= link_to(fa_icon("send-o") + " Spring", spring_path) %></li>
         <% end %>
+        <% if League.current && League.current.started? %>
+          <li><%= link_to(fa_icon("trophy") + " Standings", standings_path) %></li>
+          <li><%= link_to(fa_icon("bar-chart-o") + " Stats", stats_path) %></li>
+        <% end %>
         <% if user_signed_in? %>
           <li><%= link_to(fa_icon("user") + " Profile", profile_path) %></li>
           <% if current_user && current_user.is_captain? %>

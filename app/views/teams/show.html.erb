@@ -4,24 +4,10 @@
   <br>
   <br>
   <div class="row">
-    <div class="col-md-4 col-md-offset-2">
-      <h4>Captain</h4>
-      <div>
-        <span><%= @team.captain.name %></span>
-        <% if current_user && @team.players.collect { |p| p.id }.include?(current_user.id) %>
-          <span>| <%= @team.captain.phone_number %></span>
-          <span>| <%= @team.captain.email %></span>
-        <% end %>
-      </div>
-      <h4>League</h4>
-      <div><%= @team.league.name %></div>
-      <h4>Color</h4>
-      <div><%= @team.color %></div>
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <h4>Roster</h4>
       <% if @team.players %>
-        <div class="text-left col-md-offset-2">
+        <div class="text-left">
           <ol>
             <% @team.players.each do |player| %>
               <li><%= player.name %></li>
@@ -31,6 +17,47 @@
       <% else %>
         There are no players on this team
       <% end %>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4">
+          <h4>Captain</h4>
+          <div><%= @team.captain.name %></div>
+          <% if current_user && @team.players.collect { |p| p.id }.include?(current_user.id) %>
+            <div><%= @team.captain.phone_number %></div>
+            <div><%= @team.captain.email %></div>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+          <h4>League</h4>
+          <div><%= @team.league.name %></div>
+        </div>
+        <div class="col-md-4">
+          <h4>Color</h4>
+          <div><%= @team.color %></div>
+        </div>
+      </div>
+      <div class="row game-stats">
+        <div class="col-md-12">
+          <h3>Stats</h3>
+          <% @team.games.each do |game| %>
+            <div class="row">
+              <div class="col-xs-4">
+                <div><%= "#{game.date} @#{game.time}" %></div>
+              </div>
+              <div class="col-xs-4">
+                <%= link_to game.name, game_path(game.id), class: "btn btn-primary" %>
+              </div>
+              <div class="col-xs-4">
+                <div><%= game.score %></div>
+              </div>
+            </div>
+          <% end %>
+          <% if @team.games.empty? %>
+            There are no current stats on this team
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

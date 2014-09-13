@@ -79,6 +79,14 @@ class Game < ActiveRecord::Base
     diff == 0 && team_stats1.goals
   end
 
+  def score
+    if team_stats1.goals && team_stats2.goals
+      "#{team_stats1.goals} to #{team_stats2.goals}"
+    else
+      "Not Yet Played"
+    end
+  end
+
   private
   def team1_exists
     unless team1
