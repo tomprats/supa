@@ -27,6 +27,7 @@ gem "pg"
 
 # Heroku compatable assets
 gem "rails_12factor", group: :production
+gem "yui-compressor"
 
 # Remaining assets
 gem "sass-rails", "~> 4.0.0"
