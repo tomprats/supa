@@ -23,7 +23,6 @@ module Super
         DraftedPlayer.create(
           team_id: team.id,
           player_id: player.id,
-          position: "Late Register",
           round: draft.round,
           draft_id: draft.id
         )
@@ -50,14 +49,12 @@ module Super
         DraftedPlayer.create(
           team_id: team2.id,
           player_id: player1.id,
-          position: "Trade for #{player2.name}",
           round: draft.round,
           draft_id: draft.id
         )
         DraftedPlayer.create(
           team_id: team1,
           player_id: player2.id,
-          position: "Trade for #{player1.name}",
           round: draft.round,
           draft_id: draft.id
         )
