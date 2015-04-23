@@ -7,6 +7,7 @@ class QuestionnairesController < ApplicationController
 
   def create
     if Questionnaire.create(questionnaire_params).valid?
+      save_baggage
       redirect_to :back, notice: "Thanks for filling out the questionnaire"
     else
       redirect_to :back, alert: "Questionnaire could not be created"
@@ -15,6 +16,7 @@ class QuestionnairesController < ApplicationController
 
   def update
     if Questionnaire.find(params[:id]).update_attributes(questionnaire_params)
+      save_baggage
       redirect_to :back, notice: "Thanks for filling out the questionnaire"
     else
       redirect_to :back, alert: "Questionnaire could not be updated"
@@ -25,6 +27,24 @@ class QuestionnairesController < ApplicationController
   def check_admin_level
     unless current_user.is_captain? || current_user.is_real_admin?
       redirect_to profile_path, notice: "You are not authorized to be there!"
+    end
+  end
+
+  def save_baggage
+    partner_id = params[:baggage][:partner_id]
+    return if partner_id.blank?
+    league_id = params[:questionnaire][:league_id]
+    comment = params[:baggage][:comment]
+    baggage = Baggage.find_by_partners(current_user.id, partner_id, league_id)
+    if baggage
+      baggage.add_comment(current_user.id, comment)
+    else
+      Baggage.create(
+        league_id: league_id,
+        partner1_id: current_user.id,
+        partner2_id: partner_id,
+        comment1: comment
+      )
     end
   end
 

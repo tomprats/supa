@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   scope :none,     -> { where(admin: "none") }
 
   def self.default_scope
-    order("last_name ASC")
+    order(:last_name, :first_name)
   end
 
   def self.registered(league_id = nil)

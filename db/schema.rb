@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822040026) do
+ActiveRecord::Schema.define(version: 20150423044722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20140822040026) do
     t.string   "token_secret"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "baggages", force: true do |t|
+    t.integer "league_id"
+    t.boolean "approved"
+    t.integer "approver_id"
+    t.integer "partner1_id"
+    t.integer "partner2_id"
+    t.string  "comment1"
+    t.string  "comment2"
   end
 
   create_table "drafted_players", force: true do |t|

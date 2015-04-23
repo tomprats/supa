@@ -134,8 +134,20 @@ end %>
               <% end %>
             </div>
             <div class="form-group">
+              <b>Baggage</b>
+              <%= fields_for :baggage do |b| %>
+                <div>If you are signing up with someone, both of you will need to sign up. After you are both signed up, you will be able to select each other here. Then leave the reason for why you are signing up together, as there are restrictions to keep this from being abused. Only one of you needs to select the other, but it's alright if you both do.</div>
+                <div class="padding-left-20">
+                  <%= b.label :partner_id, "Partner", class: "control-label" %>
+                  <%= b.collection_select :partner_id, User.where.not(id: current_user.id), :id, :name, { include_blank: "Optional" }, { class: "form-control" } %>
+                  <%= b.label :comment, "Comment", class: "control-label" %>
+                  <%= b.text_area :comment, placeholder: "Optional", class: "form-control" %>
+                </div>
+              <% end %>
+            </div>
+            <div class="form-group">
               <%= f.label :comments, "Additional comments", class: "control-label" %>
-              <%= f.text_area :comments , { class: "form-control" } %>
+              <%= f.text_area :comments, { class: "form-control" } %>
             </div>
           </div>
         </div>

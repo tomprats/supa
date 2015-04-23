@@ -59,6 +59,9 @@ Supa::Application.routes.draw do
         put :assign, on: :collection
         put :trade, on: :collection
       end
+      resources :baggages do
+        post :approve, on: :member
+      end
     end
 
     get :captain, to: "captain/captains#index"
