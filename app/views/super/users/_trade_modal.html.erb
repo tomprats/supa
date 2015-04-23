@@ -7,7 +7,7 @@
           <h3 id="myModalLabel">Trade Players</h3>
         </div>
         <div class="modal-body">
-          <%= form_for(:trade, html: { class: "form-horizontal" }) do |f| %>
+          <%= form_for(:trade, url: trade_super_users_path, method: :put, html: { class: "form-horizontal" }) do |f| %>
             <div class="form-group">
               <div class="col-md-2">
                 <h4>Teams</h4>
@@ -19,17 +19,15 @@
                 <%= f.select :team2_id, League.current.teams.collect {|t| [t.name, t.id]}, {}, { class: "form-control" } %>
               </div>
             </div>
-          <% end %>
-          <%= form_for(:trade, url: trade_super_users_path, method: :put, html: { class: "form-horizontal" }) do |f| %>
             <div class="form-group">
               <div class="col-md-2">
                 <h4>Players</h4>
               </div>
               <div class="col-md-5 trade-player-1">
-                <%= f.select :player1_id, League.current.teams.first.players.collect {|p| [p.name, p.id]}, {}, { class: "form-control" } %>
+                <%= f.select :player1_id, League.current.teams.first.players.collect {|p| [p.name, p.id]}, { include_blank: "No One" }, { class: "form-control" } %>
               </div>
               <div class="col-md-5 trade-player-2">
-                <%= f.select :player2_id, League.current.teams.first.players.collect {|p| [p.name, p.id]}, {}, { class: "form-control" } %>
+                <%= f.select :player2_id, League.current.teams.first.players.collect {|p| [p.name, p.id]}, { include_blank: "No One" }, { class: "form-control" } %>
               </div>
             </div>
             <%= f.submit "Submit", class: "btn btn-primary" %>
@@ -38,7 +36,7 @@
       </div>
     </div>
     <% League.current.teams.each do |team| %>
-      <div class="hide team-<%= team.id %>"><%= options_for_select(team.players.collect { |p| [p.name, p.id] }) %></div>
+      <div class="hide team-<%= team.id %>"><%= options_for_select(team.players.collect { |p| [p.name, p.id] }.prepend(["No One", nil])) %></div>
     <% end %>
   </div>
 <% end %>

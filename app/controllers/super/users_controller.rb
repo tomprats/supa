@@ -35,35 +35,40 @@ module Super
     def trade
       league = League.current
       draft = league.draft
-      player1 = User.find(params[:trade][:player1_id])
-      player2 = User.find(params[:trade][:player2_id])
+      player1 = User.find_by(id: params[:trade][:player1_id])
+      player2 = User.find_by(id: params[:trade][:player2_id])
+      team1 = player1.try(:team) || Team.find(params[:trade][:team1_id])
+      team2 = player2.try(:team) || Team.find(params[:trade][:team2_id])
       if !(league.late_registration? || league.in_progress?)
         redirect_to :back, alert: "It's not time for that."
-      elsif !player1.on_a_team? || !player2.on_a_team?
+      elsif (player1 && !player1.on_a_team?) || (player2 && !player2.on_a_team?)
         redirect_to :back, alert: "Player not on a team."
-      elsif player1.team == player2.team
+      elsif team1 == team2
         redirect_to :back, alert: "Players on the same team."
       else
-        team1 = player1.team
-        team2 = player2.team
-        DraftedPlayer.create(
-          team_id: team2.id,
-          player_id: player1.id,
-          round: draft.round,
-          draft_id: draft.id
-        )
-        DraftedPlayer.create(
-          team_id: team1,
-          player_id: player2.id,
-          round: draft.round,
-          draft_id: draft.id
-        )
-        team1.players.delete(player1)
-        team2.players.delete(player2)
-        team1.players << player2
-        team2.players << player1
+        if player1
+          DraftedPlayer.create(
+            team_id: team2.id,
+            player_id: player1.id,
+            round: draft.round,
+            draft_id: draft.id
+          )
+          team1.players.delete(player1)
+          team2.players << player1
+        end
 
-        redirect_to :back, notice: "Player successfully traded."
+        if player2
+          DraftedPlayer.create(
+            team_id: team1,
+            player_id: player2.id,
+            round: draft.round,
+            draft_id: draft.id
+          )
+          team2.players.delete(player2)
+          team1.players << player2
+        end
+
+        redirect_to :back, notice: "Players successfully traded."
       end
     end
 
