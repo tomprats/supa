@@ -1,10 +1,10 @@
-<table class="table">
+<table class="data-table table table-striped table-responsive">
   <thead>
     <tr>
       <th>League</th>
-      <th>Partner 1</th>
+      <th class="default-sort">Partner 1</th>
       <th>Comment</th>
-      <th>Partner 2</th>
+      <th class="default-sort">Partner 2</th>
       <th>Comment</th>
       <th>Approval</th>
     </tr>
@@ -17,13 +17,7 @@
         <td><%= baggage.comment1 %></td>
         <td><%= baggage.partner2.name %></td>
         <td><%= baggage.comment2 %></td>
-        <td>
-          <% if baggage.approved %>
-            <%= link_to "Disapprove", approve_super_baggage_path(baggage.id), method: :post, class: "btn btn-primary" %>
-          <% else %>
-            <%= link_to "Approve", approve_super_baggage_path(baggage.id), method: :post, class: "btn btn-primary" %>
-          <% end %>
-        </td>
+        <td><%= link_to baggage.approved ? "Disapprove" : "Approve", approve_super_baggage_path(baggage.id), method: :post, class: "btn btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>

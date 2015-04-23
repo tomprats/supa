@@ -32,12 +32,12 @@ $(document).ready( function () {
     });
   });
 
-  $(".dataTables_filter").html($(".dataTables_filter input"));
-  $(".dataTables_filter input").attr("placeholder", "Search the table")
-  $(".dataTables_filter").each(function(){
+  $(".dataTables_filter input").each(function(){
     var $this = $(this);
-    $this.closest(".dataTables_wrapper").siblings("h3").append($this);
-  })
+    $this.attr("placeholder", "Search the table")
+    $this.closest(".dataTables_filter").html($this);
+    $this.closest(".dataTables_wrapper").siblings("h3").append($this.closest("dataTables_filter"));
+  });
   $(".dt-content .table-footer").append($(".dt-content #table_id_info"));
   $(".dt-content #table_id_info").addClass("pagination");
   $(".dt-content .table-footer").append($(".dt-content #table_id_length"));
