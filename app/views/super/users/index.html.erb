@@ -4,6 +4,7 @@
   <li><a href="#super" data-toggle="tab">Super</a></li>
 
   <div class="btn-group pull-right">
+    <%= link_to "Export", "#export_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
     <%= render partial: "super/layouts/buttons" %>
   </div>
 </ul>
@@ -47,5 +48,6 @@
   </div>
 </div>
 
+<%= render partial: "super/users/export_modal" %>
 <%= render partial: "super/users/assign_modal" %>
 <%= render partial: "super/users/trade_modal" %>

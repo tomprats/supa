@@ -56,6 +56,7 @@ Supa::Application.routes.draw do
       end
       resources :fields
       resources :users, only: [:index, :update] do
+        put :export, on: :collection
         put :assign, on: :collection
         put :trade, on: :collection
       end

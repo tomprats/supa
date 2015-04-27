@@ -1,0 +1,28 @@
+<div id="export_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Export Users</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_for(:export, url: export_super_users_path, method: :put, html: { class: "form-horizontal" }) do |f| %>
+          <div class="form-group">
+            <%= f.label :attributes, "Attributes", class: "col-md-4 control-label" %>
+            <div class="col-md-8">
+              <% User.exportable_attributes.each do |attr| %>
+                <div class="checkbox">
+                  <%= label_tag do %>
+                    <%= f.check_box :attributes, { multiple: true }, attr.first, nil %>
+                    <%= attr.last %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

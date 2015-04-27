@@ -10,6 +10,11 @@ module Super
       @late = User.not_on_a_team
     end
 
+    def export
+      @users = User.pluck(params[:export][:attributes])
+      render layout: false
+    end
+
     def assign
       league = League.current
       draft = league.draft

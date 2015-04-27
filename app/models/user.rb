@@ -40,6 +40,15 @@ class User < ActiveRecord::Base
     registered.select { |u| u.teams.empty? || !u.teams.collect(&:league_id).include?(league_id) }
   end
 
+  def self.exportable_attributes
+    [
+      ["first_name", "First Name"],
+      ["last_name", "Last Name"],
+      ["email", "Email"],
+      ["phone_number", "Phone Number"]
+    ]
+  end
+
   def questionnaire_for(league_id)
     questionnaires.find_by(league_id: league_id)
   end

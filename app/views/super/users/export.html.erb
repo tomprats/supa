@@ -1,0 +1,3 @@
+<% @users.collect do |user| %>
+  <div><%= user.instance_of?(Array) ? user.join(" ") : user %></div>
+<% end %>
