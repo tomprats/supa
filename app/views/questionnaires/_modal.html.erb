@@ -136,7 +136,7 @@ end %>
             <div class="form-group">
               <b>Baggage</b>
               <%= fields_for :baggage do |b| %>
-                <div>If you are signing up with someone, both of you will need to sign up. After you are both signed up, you will be able to select each other here. Then leave the reason for why you are signing up together, as there are restrictions to keep this from being abused. Only one of you needs to select the other, but it's alright if you both do.</div>
+                <div>Baggage is for players new to the league and significant others, allowing you to be placed on the same team during the draft. If this applies to you, then select your partner (both of you should create accounts beforehand) and leave the reason why as a comment. Only one of you needs to select the other, but it's best if you both do.</div>
                 <div class="padding-left-20">
                   <%= b.label :partner_id, "Partner", class: "control-label" %>
                   <%= b.collection_select :partner_id, User.where.not(id: current_user.id), :id, :name, { include_blank: "Optional" }, { class: "form-control" } %>

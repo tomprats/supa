@@ -8,6 +8,6 @@ class Questionnaire < ActiveRecord::Base
   accepts_nested_attributes_for :meetings
 
   def availability
-    meetings.count.zero? ? 0 : 100 * meetings.count(&:available) / meetings.count
+    meetings.count.zero? ? 0 : 100 * meetings.where(available: true).count / meetings.count
   end
 end
