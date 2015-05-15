@@ -35,7 +35,6 @@ $(document).ready( function () {
   $(".dataTables_filter input").each(function(){
     var $this = $(this);
     $this.attr("placeholder", "Search the table")
-    $this.closest(".dataTables_filter").html($this);
     $this.closest(".dataTables_wrapper").siblings("h3").append($this.closest("dataTables_filter"));
   });
   $(".dt-content .table-footer").append($(".dt-content #table_id_info"));

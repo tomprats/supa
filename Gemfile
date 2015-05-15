@@ -1,8 +1,5 @@
 source "https://rubygems.org"
 
-gem "letter"
-gem "nifty-generators", :group => :development
-
 # User authentication
 gem "devise"
 gem "omniauth"
@@ -38,9 +35,6 @@ gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.0.0"
 gem "jquery-datatables-rails", github: "rweng/jquery-datatables-rails"
 gem "jquery-rails"
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem "jbuilder", "~> 1.2"
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt-ruby", "~> 3.0.0"
