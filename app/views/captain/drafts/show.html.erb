@@ -34,10 +34,11 @@
               <span class="red">The draft has not started yet</span>
             <% elsif @draft.my_turn?(current_user) %>
               <span class="teams-turn">Turn: <%= @draft.current_pick.team.name %></span>
+              <span>Pick: <%= @draft.turn %></span>
             <% else %>
               <span>Turn: <%= @draft.current_pick.team.name %></span>
+              <span>Pick: <%= @draft.turn %></span>
             <% end %>
-            <span>Pick: <%= @draft.turn %></span>
           </h4>
           <% if @draft.active? %>
             <h5 class="center check" data-id="<%= @draft.id %>" data-turn="<%= @draft.turn %>">
@@ -90,7 +91,7 @@
           <% end %>
           <% @tentative_players.each do |tp| %>
             <div class="row">
-              <div class="col-md-4"><%= tp.player.name %></div>
+            <div class="col-md-4"><%= tp.player.name %><%= " (#{tp.baggage_partner.name})" if tp.baggage_partner %></div>
               <div class="col-md-5"><%= tp.info %></div>
               <div class="col-md-3 btn-group">
                 <%= link_to "Draft", create_from_tentative_captain_drafted_players_path(id: tp.id, draft_id: @draft.id), method: :post, class: "btn btn-success" %>

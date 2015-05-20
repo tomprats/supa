@@ -23,16 +23,12 @@ module Captain
       end
 
       if @draft.players_undrafted?
-        if @drafted_players.empty?
-          redirect_to captain_drafts_path, notice: "Super Admin must set up the draft order!"
-        else
-          @draft.setup_players if @drafted_players.where.not(player_id: nil).empty?
+        @draft.setup_players if @drafted_players.where.not(player_id: nil).empty? && @draft.active?
 
-          @drafted_players = current_user.captains_team(@draft.league_id).drafted_players
-          @last = @drafted_players.where.not(player_id: nil).last
-          if flash.empty?
-            flash[:notice] = "#{@last.name} has been drafted by #{@last.team.name}: <a target=\"_blank\" href=\"#{feed_draft_path(@draft.id)}\">View Feed</a>"
-          end
+        @drafted_players = current_user.captains_team(@draft.league_id).drafted_players
+        @last = @drafted_players.where.not(player_id: nil).last
+        if flash.empty? && @last
+          flash[:notice] = "#{@last.name} has been drafted by #{@last.team.name}: <a target=\"_blank\" href=\"#{feed_draft_path(@draft.id)}\">View Feed</a>"
         end
       else
         redirect_to captain_path, notice: "All the registered players have been drafted"
