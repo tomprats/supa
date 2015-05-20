@@ -9,39 +9,34 @@ module Captain
 
     def show
       @draft = Draft.find(params[:id])
-      @users = User.registered.select { |u| !u.drafted?(@draft.id) }
+      @users = User.registered(@draft.league_id).select { |u| !u.drafted?(@draft.id) }
       @tentative_players = current_user.captains_team(@draft.league_id).tentative_players
+      @drafted_players = current_user.captains_team(@draft.league_id).drafted_players
+      @baggage = Baggage.where(league_id: @draft.league_id, approved: true)
+      @users_with_baggage = @users.collect do |user|
+        name = user.name
+        if baggage = @baggage.find { |b| [b.partner1_id, b.partner2_id].include? user.id }
+          partner = baggage.other_partner(user.id)
+          name += " (#{partner.name})" unless partner.drafted?(@draft.id)
+        end
+        [name, user.id]
+      end
 
       if @draft.players_undrafted?
-        if !@draft.order.empty?
-          if @draft.drafted_players.last
-            flash[:notice] ||= "#{@draft.drafted_players.first.name} has been drafted by #{@draft.drafted_players.first.team.name}: <a target=\"_blank\" href=\"#{feed_captain_draft_path(@draft.id)}\">View Feed</a>"
-          end
+        if @drafted_players.empty?
+          redirect_to captain_drafts_path, notice: "Super Admin must set up the draft order!"
         else
-          redirect_to :back, notice: "Draft does not have a picking order yet"
+          @draft.setup_players if @drafted_players.where.not(player_id: nil).empty?
+
+          @drafted_players = current_user.captains_team(@draft.league_id).drafted_players
+          @last = @drafted_players.where.not(player_id: nil).last
+          if flash.empty?
+            flash[:notice] = "#{@last.name} has been drafted by #{@last.team.name}: <a target=\"_blank\" href=\"#{feed_draft_path(@draft.id)}\">View Feed</a>"
+          end
         end
       else
         redirect_to captain_path, notice: "All the registered players have been drafted"
       end
-    end
-
-    def feed
-      if params[:id]
-        @draft = Draft.find(params[:id])
-      else
-        @draft = League.current.draft
-      end
-
-      if !@draft.order.empty?
-        @drafted_players = @draft.drafted_players
-      else
-        redirect_to :back, notice: "Draft does not have a picking order yet"
-      end
-    end
-
-    def turn
-      draft = Draft.find(params[:id])
-      render json: { turn: draft.turn }
     end
 
     private

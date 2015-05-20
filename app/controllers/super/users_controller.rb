@@ -112,15 +112,5 @@ module Super
         redirect_to profile_path, notice: "You are not authorized to be there!"
       end
     end
-
-    def user_params
-      params.required(:user).permit(
-        :first_name,
-        :last_name,
-        :email,
-        :phone_number,
-        :admin
-      )
-    end
   end
 end

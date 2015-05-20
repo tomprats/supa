@@ -1,21 +1,17 @@
 .draft {
   &.feed {
-    .draft-round {
+    .draft-pick {
       color: #3EAAED; // Blue
     }
     .draft-player {
       color: #0FAB34; // Green
     }
-    .draft-captain,
     .draft-team {
       color: #3EAAED; // Blue
     }
-    .draft-position {
-      color: #F29C2C; // Orange
-    }
   }
 
-  .captains-turn {
-    color: blue;
+  .teams-turn {
+    color: #3EAAED;
   }
 }

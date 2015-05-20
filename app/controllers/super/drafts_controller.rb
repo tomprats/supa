@@ -20,43 +20,47 @@ module Super
       redirect_to super_drafts_path, notice: "Draft successfully updated."
     end
 
+    def reset
+      @draft = Draft.find(params[:id])
+      @draft.setup_players
+      redirect_to super_drafts_path, notice: "Draft successfully reset."
+    end
+
     def destroy
       @draft = Draft.find(params[:id]).destroy
       redirect_to super_drafts_path, notice: "Draft successfully destroyed."
     end
 
-    def snake
-      draft = Draft.find(params[:id])
-      if draft.update_attributes(snake: params[:snake])
-        redirect_to super_drafts_path, notice: "Draft has been updated"
-      else
-        redirect_to :back, alert: "Draft cannot be updated"
-      end
-    end
-
     def order
-      draft = Draft.find(params[:id])
-      order = params[:order].collect { |o| o.last.to_i }
-      if order.length == order.uniq.length
-        draft.update_attributes(order: order)
-        redirect_to super_drafts_path, notice: "Draft order successfully updated."
-      else
-        redirect_to :back, alert: "Draft order could not be updated."
-      end
+      @draft = Draft.find(params[:id])
+      @teams = @draft.teams
+      @players = @draft.drafted_players
+      @registered = User.registered(@draft.league_id).count
     end
 
-    def feed
-      if params[:id]
-        @draft = Draft.find(params[:id])
-      else
-        @draft = League.current.draft
+    def update_order
+      draft = Draft.find(params[:id])
+      picks = Hash[draft.teams.collect { |t| [t.id, t.drafted_players.to_a] }]
+      order = params[:picks].collect { |p| p.to_i }
+      order.each_with_index do |pick, index|
+        index = index + 1
+        drafted_player = picks[pick].shift
+        if drafted_player
+          drafted_player.update(position: index)
+        else
+          DraftedPlayer.create(
+            draft_id: draft.id,
+            team_id: pick,
+            position: index
+          )
+        end
       end
 
-      if !@draft.order.empty?
-        @drafted_players = @draft.drafted_players
-      else
-        redirect_to :back, notice: "Draft does not have a picking order yet"
+      picks.each do |key, value|
+        value.each { |dp| dp.destroy }
       end
+
+      render json: { success: true }
     end
 
     private

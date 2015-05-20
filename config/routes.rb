@@ -34,6 +34,12 @@ Supa::Application.routes.draw do
     get "unregister", to: "registrations#unregister"
     get "profile", to: "registrations#show"
 
+    get :feed, to: "drafts#feed"
+    resources :drafts, only: [] do
+      get :feed, on: :member
+      get :turn, on: :member
+    end
+
     get :admin, to: "admin/teams#index"
     namespace :admin do
       resources :teams
@@ -50,9 +56,9 @@ Supa::Application.routes.draw do
       resources :announcements
       resources :leagues
       resources :drafts do
-        post :order, on: :member
-        post :snake, on: :member
-        get :feed, on: :member
+        get :order, on: :member
+        post :order, on: :member, to: :update_order
+        delete :reset, on: :member
       end
       resources :fields
       resources :users, only: [:index, :update] do
@@ -67,10 +73,7 @@ Supa::Application.routes.draw do
 
     get :captain, to: "captain/captains#index"
     namespace :captain do
-      resources :drafts, only: [:index, :show] do
-        get :turn, on: :member
-        get :feed, on: :member
-      end
+      resources :drafts, only: [:index, :show]
 
       resources :drafted_players, only: [:create] do
         post :create_from_tentative, on: :collection

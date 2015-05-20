@@ -4,18 +4,18 @@
       <h4>Drafted Players</h4>
       <div class="row">
         <h5 class="col-md-8">Player</h5>
-        <h5 class="col-md-4">Round</h5>
+        <h5 class="col-md-4">Pick</h5>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <% if current_user.captains_team(@draft.league_id).drafted_players.empty? %>
+          <% if @drafted_players.empty? %>
             <div>There are no players yet!</div>
             <br>
           <% else %>
-            <% current_user.captains_team(@draft.league_id).drafted_players.each do |dp| %>
+            <% @drafted_players.each do |dp| %>
               <div class="row">
-                <div class="col-md-8"><%= dp.player.name %></div>
-                <div class="col-md-4 text-center"><%= dp.round %></div>
+                <div class="col-md-8"><%= dp.player.try(:name) || "None" %></div>
+                <div class="col-md-4 text-center"><%= dp.position %></div>
               </div>
             <% end %>
           <% end %>
@@ -26,18 +26,18 @@
       <div class="row">
         <div class="col-md-12">
           <h3 class="center">
-            <span>Draft: <%= @draft.id %></span>
-            <span><%= @draft.league.season %> <%= @draft.league.year %></span>
+            <span>Draft <%= @draft.id %>: </span>
+            <span><%= @draft.league.name %></span>
           </h3>
           <h4 class="center">
             <% if !@draft.active? %>
               <span class="red">The draft has not started yet</span>
             <% elsif @draft.my_turn?(current_user) %>
-              <span class="captains-turn">Captain's Turn: <%= @draft.captains_turn %></span>
+              <span class="teams-turn">Turn: <%= @draft.current_pick.team.name %></span>
             <% else %>
-              <span>Captain's Turn: <%= @draft.captains_turn %></span>
+              <span>Turn: <%= @draft.current_pick.team.name %></span>
             <% end %>
-            <span>Round: <%= @draft.round %></span>
+            <span>Pick: <%= @draft.turn %></span>
           </h4>
           <% if @draft.active? %>
             <h5 class="center check" data-id="<%= @draft.id %>" data-turn="<%= @draft.turn %>">
@@ -57,7 +57,7 @@
             </div>
             <div class="form-group">
               <div class="col-md-4">
-                <%= f.select :player_id, @users.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+                <%= f.select :player_id, @users_with_baggage, {}, { class: "form-control" } %>
               </div>
               <div class="col-md-3">
                 <%= f.submit "Draft", class: "btn btn-success" %>
@@ -78,7 +78,7 @@
             </div>
             <div class="form-group">
               <div class="col-md-4">
-                <%= f.select :player_id, @users.collect {|a| [a.name, a.id]}, {}, { class: "form-control" } %>
+                <%= f.select :player_id, @users_with_baggage, {}, { class: "form-control" } %>
               </div>
               <div class="col-md-5">
                 <%= f.text_field :info, { class: "form-control" } %>

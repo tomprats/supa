@@ -6,12 +6,7 @@ module Captain
       draft = Draft.find(params[:drafted_player][:draft_id])
       player = User.find(params[:drafted_player][:player_id])
 
-      create_from_hash({
-        draft_id: draft.id,
-        team_id: current_user.captains_team(draft.league_id).id,
-        player_id: player.id,
-        round: draft.round
-      }, draft, player)
+      draft_player(draft, player)
     end
 
     def create_from_tentative
@@ -19,12 +14,7 @@ module Captain
       tentative_player = current_user.captains_team(draft.league_id).tentative_players.find(params[:id])
       player = tentative_player.player
 
-      create_from_hash({
-        draft_id: tentative_player.draft_id,
-        team_id: tentative_player.team_id,
-        player_id: tentative_player.player_id,
-        round: draft.round
-      }, draft, player)
+      draft_player(draft, player)
     end
 
     private
@@ -34,7 +24,7 @@ module Captain
       end
     end
 
-    def create_from_hash(hash, draft, player)
+    def draft_player(draft, player)
       if !draft.active?
         redirect_to :back, alert: "The draft has not started yet."
       elsif draft.my_turn?(current_user)
@@ -42,16 +32,39 @@ module Captain
           TentativePlayer.where(draft_id: draft.id, player_id: player.id).destroy_all
           redirect_to :back, alert: "Player already drafted."
         else
-          @drafted_player = DraftedPlayer.create(hash)
-          draft.update_turn
-          unless draft.players_undrafted?
-            draft.update_players
-          end
+          drafted_player = draft.current_pick
+          drafted_player.update(player_id: player.id)
+          draft_baggage(drafted_player)
           TentativePlayer.where(draft_id: draft.id, player_id: player.id).destroy_all
-          redirect_to :back, notice: "Player successfully drafted."
+
+          more = draft.update_turn
+          if (more && draft.players_undrafted?) || (!more && !draft.players_undrafted?)
+            updated_players unless more
+            redirect_to :back, notice: "Player successfully drafted."
+          else
+            redirect_to :back, alert: "Organizer must update draft order."
+          end
         end
       else
         redirect_to :back, alert: "It is not your turn!"
+      end
+    end
+
+    def draft_baggage(drafted_player)
+      player_id = drafted_player.player.id
+      draft = drafted_player.draft
+      baggage = Baggage.find_by("""
+        (league_id = :league_id)
+        AND (approved = :approved)
+        AND (partner1_id = :id OR partner2_id = :id)
+      """, league_id: draft.league_id, approved: true, id: player_id)
+
+      if baggage
+        partner = baggage.other_partner(player_id)
+        if !partner.drafted?(draft.id) && drafted_baggage = drafted_player.team.drafted_players.find_by(player_id: nil)
+          drafted_baggage.update(player_id: partner.id)
+          TentativePlayer.where(draft_id: draft.id, player_id: partner.id).destroy_all
+        end
       end
     end
   end

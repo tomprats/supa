@@ -4,7 +4,7 @@ module Admin
 
     def create
       @team = Team.create(team_params)
-      redirect_to admin_teams_path, :notice => "#{@team.name} was successfully created."
+      redirect_to admin_teams_path, notice: "#{@team.name} was successfully created."
     end
 
     def index
@@ -25,7 +25,7 @@ module Admin
 
     def destroy
       @team = Team.find(params[:id]).destroy
-      redirect_to admin_teams_path, :notice => "#{@team.name} was successfully destroyed."
+      redirect_to admin_teams_path, notice: "#{@team.name} was successfully destroyed."
     end
 
     private
@@ -33,6 +33,7 @@ module Admin
       params.require(:team).permit(
         :name,
         :captain_id,
+        :cocaptain_id,
         :league_id,
         :place,
         :color,

@@ -1,0 +1,10 @@
+<div class="row pick<%= " hide" if dp.id.blank? %>">
+  <div class="col-md-1 padding-6 text-right position"><%= dp.position %></div>
+  <div class="col-md-6"><%= select :order, :team, @teams.collect { |t| [t.name, t.id] }, { selected: dp.team_id }, { class: "form-control" } %></div>
+  <div class="col-md-5">
+    <span class="margin-right-10"><%= link_to fa_icon("plus 2x"), "#", class: "add" %></span>
+    <span class="margin-right-10"><%= link_to fa_icon("arrow-down 2x"), "#", class: "move-down" %></span>
+    <span class="margin-right-10"><%= link_to fa_icon("arrow-up 2x"), "#", class: "move-up" %></span>
+    <span><%= link_to fa_icon("times 2x"), "#", class: "delete" %></span>
+  </div>
+</div>

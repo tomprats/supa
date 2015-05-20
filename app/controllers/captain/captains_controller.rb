@@ -3,7 +3,7 @@ module Captain
     before_filter :check_admin_level
 
     def index
-      @current_team = League.current.teams.find_by(captain_id: current_user.id)
+      @current_team = current_user.captains_team
       @teams = current_user.captains_teams
       @users = User.registered
     end

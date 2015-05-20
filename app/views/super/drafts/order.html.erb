@@ -1,0 +1,34 @@
+<div class="draft order">
+  <h3 class="center">Draft Order</h3>
+  <div class="row">
+    <div class="col-md-4 preview-section">
+      <div>Count: <span class="count"><%= @players.count %></span> / Registered: <span class="total"><%= @registered %></span></div>
+      <div class="margin-top-10"><%= select :order, :kind, ["Snake", "Repeat"], {}, { class: "form-control" } %></div>
+      <% @teams.each do |team| %>
+        <div class="margin-top-10 team" data-id="<%= team.id %>">
+          <span><%= team.name %></span>
+          <span class="pull-right"><%= link_to fa_icon("arrow-up"), "#", class: "move-up" %></span>
+          <span class="pull-right margin-right-10"><%= link_to fa_icon("arrow-down"), "#", class: "move-down" %></span>
+        </div>
+      <% end %>
+      <div class="margin-top-10">
+        <%= link_to "Preview", "#", class: "preview btn btn-success" %>
+        <%= link_to "Save", "#", class: "save btn btn-primary pull-right" %>
+      </div>
+    </div>
+    <div class="col-md-6 picks">
+      <% @players.each do |dp| %>
+        <%= render partial: "super/drafts/pick", locals: { dp: dp } %>
+      <% end %>
+      <%= render partial: "super/drafts/pick", locals: { dp: DraftedPlayer.new } %>
+    </div>
+    <div class="col-md-2 counts">
+      <% @teams.each do |team| %>
+        <div class="row">
+          <span><%= team.name %>: </span>
+          <span class="team-count" data-id="<%= team.id %>"><%= team.drafted_players.count %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

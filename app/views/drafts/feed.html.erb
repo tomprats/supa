@@ -1,6 +1,6 @@
 <div class="draft feed">
   <h3 class="center">Draft Feed</h3>
-  <div class="center">Turn: <%= @draft.whose_turn.name %></div>
+  <div class="center">Turn: <%= @draft.current_pick.team.name %></div>
   <div class="check" data-id="<%= @draft.id %>" data-turn="<%= @draft.turn %>"></div>
   <br>
   <% if @drafted_players.empty? %>
@@ -9,11 +9,9 @@
   <% @drafted_players.each do |drafted_player| %>
     <div class="row">
       <div class="col-md-12">
-        <span class="draft-round"><%= "Round #{drafted_player.round}: " %></span>
+        <span class="draft-pick"><%= "Pick #{drafted_player.position}: " %></span>
         <span class="draft-player"><%= "#{drafted_player.name}" %></span>
         <span> drafted by </span>
-        <span class="draft-captain"><%= drafted_player.team.captain.name %></span>
-        <span> will play on </span>
         <span class="draft-team"><%= drafted_player.team.name %></span>
       </div>
     </div>

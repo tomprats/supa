@@ -10,16 +10,12 @@ class User < ActiveRecord::Base
   has_many :payments, through: :registrations
   has_one :player_award
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable,
          :omniauthable, :recoverable, :rememberable, :trackable,
          :validatable
 
   scope :super,    -> { where(admin: "super") }
   scope :standard, -> { where(admin: "standard") }
-  scope :captain,  -> { where(admin: "captain") }
   scope :none,     -> { where(admin: "none") }
 
   def self.default_scope
@@ -95,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def is_captain?
-    Team.where(captain_id: id).count > 0
+    Team.where("captain_id = :id OR cocaptain_id = :id", id: id).exists?
   end
 
   def account_registered?
@@ -111,11 +107,8 @@ class User < ActiveRecord::Base
   end
 
   def team(league_id = nil)
-    if league_id
-      teams.where(league_id: league_id).first
-    else
-      teams.where(league_id: League.current.id).first
-    end
+    league_id ||= League.current.id
+    teams.find_by(league_id: league_id)
   end
 
   def on_a_team?
@@ -124,11 +117,11 @@ class User < ActiveRecord::Base
 
   def captains_team(league_id = nil)
     league_id ||= League.current.id
-    Team.where(captain_id: id, league_id: league_id).first
+    Team.where(league_id: league_id).where("captain_id = :id OR cocaptain_id = :id", id: id).first
   end
 
   def captains_teams
-    Team.where(captain_id: id)
+    Team.where("captain_id = :id OR cocaptain_id = :id", id: id)
   end
 
   def drafts

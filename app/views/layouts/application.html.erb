@@ -18,28 +18,15 @@
       <div class="ad-offset">
         <div class="row">
           <div class="col-md-12">
+            <%= render partial: "layouts/message", locals: { kind: :danger, message: "" } %>
             <% unless devise_error_messages!.empty? %>
               <% devise_error_messages!.each do |key, value| %>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="alert alert-danger">
-                      <a class="close" data-dismiss="alert">×</a>
-                      <%= key %> <%= value %>
-                    </div>
-                  </div>
-                </div>
+                <%= render partial: "layouts/message", locals: { kind: :danger, message: "#{key} #{value}" } %>
               <% end %>
             <% end %>
             <% unless flash.empty? %>
               <% flash.each do |name, msg| %>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
-                      <a class="close" data-dismiss="alert">×</a>
-                      <%= msg.to_s.html_safe %>
-                    </div>
-                  </div>
-                </div>
+                <%= render partial: "layouts/message", locals: { kind: (name == :notice ? :success : :danger), message: msg.to_s.html_safe } %>
               <% end %>
             <% end %>
             <%= yield %>

@@ -5,9 +5,9 @@ module Admin
       @current_teams = League.current.teams
       @past_teams = Team.where.not(id: @current_teams.collect(&:id))
 
-      @captains = @teams.collect { |t| t.captain }
-      @current_captains = @current_teams.collect { |t| t.captain }
-      @past_captains = @past_teams.collect { |t| t.captain }
+      @captains = @teams.collect { |t| [t.captain, t.cocaptain] }.flatten.compact
+      @current_captains = @current_teams.collect { |t| [t.captain, t.cocaptain] }.flatten.compact
+      @past_captains = @past_teams.collect { |t| [t.captain, t.cocaptain] }.flatten.compact
     end
   end
 end
