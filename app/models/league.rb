@@ -69,6 +69,10 @@ class League < ActiveRecord::Base
     state != "None"
   end
 
+  def pre_draft?
+    state == "Pre Draft"
+  end
+
   def registration?
     state == "Registration"
   end

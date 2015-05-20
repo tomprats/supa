@@ -20,17 +20,19 @@ module Super
       draft = league.draft
       player = User.find(params[:assign][:player_id])
       team = Team.find(params[:assign][:team_id])
-      if !(league.late_registration? || league.in_progress?)
+      if !(league.pre_draft? || league.late_registration? || league.in_progress?)
         redirect_to :back, alert: "It's not time for that."
       elsif player.on_a_team?
         redirect_to :back, alert: "Player already on a team."
       else
-        DraftedPlayer.create(
-          team_id: team.id,
-          player_id: player.id,
-          round: draft.round,
-          draft_id: draft.id
-        )
+        unless league.pre_draft?
+          DraftedPlayer.create(
+            team_id: team.id,
+            player_id: player.id,
+            position: 0,
+            draft_id: draft.id
+          )
+        end
         team.players << player
 
         redirect_to :back, notice: "Player successfully assigned."
@@ -44,7 +46,7 @@ module Super
       player2 = User.find_by(id: params[:trade][:player2_id])
       team1 = player1.try(:team) || Team.find(params[:trade][:team1_id])
       team2 = player2.try(:team) || Team.find(params[:trade][:team2_id])
-      if !(league.late_registration? || league.in_progress?)
+      if !(league.pre_draft? || league.late_registration? || league.in_progress?)
         redirect_to :back, alert: "It's not time for that."
       elsif (player1 && !player1.on_a_team?) || (player2 && !player2.on_a_team?)
         redirect_to :back, alert: "Player not on a team."
@@ -52,23 +54,27 @@ module Super
         redirect_to :back, alert: "Players on the same team."
       else
         if player1
-          DraftedPlayer.create(
-            team_id: team2.id,
-            player_id: player1.id,
-            round: draft.round,
-            draft_id: draft.id
-          )
+          unless league.pre_draft?
+            DraftedPlayer.create(
+              team_id: team2.id,
+              player_id: player1.id,
+              position: 0,
+              draft_id: draft.id
+            )
+          end
           team1.players.delete(player1)
           team2.players << player1
         end
 
         if player2
-          DraftedPlayer.create(
-            team_id: team1,
-            player_id: player2.id,
-            round: draft.round,
-            draft_id: draft.id
-          )
+          unless league.pre_draft?
+            DraftedPlayer.create(
+              team_id: team1,
+              player_id: player2.id,
+              position: 0,
+              draft_id: draft.id
+            )
+          end
           team2.players.delete(player2)
           team1.players << player2
         end
