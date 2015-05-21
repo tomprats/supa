@@ -1,12 +1,13 @@
 <div class="draft feed">
   <h3 class="center">Draft Feed</h3>
   <div class="center">Turn: <%= @draft.current_pick.team.name %></div>
+  <div class="center">Pick: <%= "#{@draft.turn} / #{@total}" %></div>
   <div class="check" data-id="<%= @draft.id %>" data-turn="<%= @draft.turn %>"></div>
   <br>
   <% if @drafted_players.empty? %>
     <div class="center">No players have been drafted</div>
   <% end %>
-  <% @drafted_players.each do |drafted_player| %>
+  <% @drafted_players.reverse.each do |drafted_player| %>
     <div class="row">
       <div class="col-md-12">
         <span class="draft-pick"><%= "Pick #{drafted_player.position}: " %></span>

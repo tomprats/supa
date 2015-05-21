@@ -9,7 +9,9 @@ class DraftsController < ApplicationController
       @draft = League.current.draft
     end
 
-    @drafted_players = @draft.drafted_players.where("position < ?", @draft.turn)
+    @drafted_players = @draft.drafted_players
+    @total = @drafted_players.count
+    @drafted_players = @drafted_players.where("position < ?", @draft.turn)
   end
 
   def turn
