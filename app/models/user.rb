@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   has_many :announcements
   has_and_belongs_to_many :teams
   has_many :tentative_players, foreign_key: :player_id, dependent: :destroy
-  has_many :draft_players, foreign_key: :player_id, dependent: :destroy
   has_many :questionnaires, dependent: :destroy
   has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
   has_many :registrations

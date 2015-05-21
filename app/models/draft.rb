@@ -32,15 +32,12 @@ class Draft < ActiveRecord::Base
   end
 
   def players_undrafted?
-    User.registered(league_id).each do |player|
-      return true unless player.drafted?(id)
-    end
-    false
+    User.registered(league_id).count != drafted_players.where.not(player_id: nil).count
   end
 
   def update_players
     drafted_players.each do |dp|
-      dp.team.players << dp.player
+      dp.team.players << dp.player unless dp.team.players.include? dp.player
     end
   end
 

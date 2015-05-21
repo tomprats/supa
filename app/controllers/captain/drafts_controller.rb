@@ -31,6 +31,8 @@ module Captain
           flash[:notice] = "#{@last.name} has been drafted by #{@last.team.name}: <a target=\"_blank\" href=\"#{feed_draft_path(@draft.id)}\">View Feed</a>"
         end
       else
+        @first = @draft.teams.first
+        @draft.update_players unless @first.drafted_players.count == @first.players.count
         redirect_to captain_path, notice: "All the registered players have been drafted"
       end
     end
