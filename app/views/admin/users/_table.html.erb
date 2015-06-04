@@ -6,7 +6,7 @@
       <th>Phone Number</th>
       <th>Experience</th>
       <th>Gender</th>
-      <th>Shirt Size</th>
+      <th>Personality</th>
       <th class="dont-sort">Questionnaire</th>
     </tr>
   </thead>
@@ -18,9 +18,10 @@
         <td><%= user.phone_number %></td>
         <td><%= user.experience %></td>
         <td><%= user.gender %></td>
-        <td><%= user.shirt_size %></td>
+        <% blend_name = user.assessment.blend_name %>
+        <td><%= blend_name.blank? ? "None" : blend_name %></td>
         <td>
-          <% questionnaire = user.questionnaire_for(League.current.id) %>
+          <% questionnaire = user.questionnaire %>
           <% if questionnaire %>
             <%= link_to "View", questionnaire_path(questionnaire.id), class: "btn btn-primary" %>
           <% else %>

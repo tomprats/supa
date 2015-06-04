@@ -26,6 +26,7 @@ Supa::Application.routes.draw do
 
   devise_scope :user do
     resources :authentications
+    resources :assessments, only: :update
     resources :questionnaires, only: [:show, :create, :update]
 
     get "sign_in", to: "devise/sessions#new"

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12 center">
+        <h3>Personality</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 center">
+        <% assessment = current_user.assessment %>
+        <% if assessment.blend_name %>
+          <%= link_to "Results", "#", class: "personality btn btn-success" %>
+        <% else %>
+          <%= link_to "Discover", "#", class: "personality btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="personality-data hide" data-uid="<%= assessment.uid %>"></div>
+<div id="personality-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Personality</h3>
+      </div>
+      <div class="modal-body">
+        <div class="personality-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.traitify.com/js/widgets/v1.js"></script>
+<script>
+  Traitify.setPublicKey("<%= ENV["TRAITIFY_PUBLIC"] %>");
+  Traitify.setHost("<%= ENV["TRAITIFY_HOST"] %>");
+  Traitify.setVersion("v1");
+</script>

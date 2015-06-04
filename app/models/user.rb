@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :registrations
   has_many :payments, through: :registrations
   has_one :player_award
+  has_many :assessments, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :omniauthable,
          :omniauthable, :recoverable, :rememberable, :trackable,
@@ -19,6 +20,11 @@ class User < ActiveRecord::Base
 
   def self.default_scope
     order(:last_name, :first_name)
+  end
+
+  def self.table_list(key = nil)
+    key.blank? ? tmp = self : tmp = order("#{key} ASC")
+    tmp = tmp.includes(:assessments, :questionnaires)
   end
 
   def self.registered(league_id = nil)
@@ -42,6 +48,19 @@ class User < ActiveRecord::Base
       ["email", "Email"],
       ["phone_number", "Phone Number"]
     ]
+  end
+
+  def assessment
+    unless a = assessments.to_a.first
+      uid = Traitify.new.create_assessment.id
+      a = assessments.create(uid: uid, deck_id: "core")
+    end
+
+    a
+  end
+
+  def questionnaire
+    questionnaires.to_a.find { |q| q.league_id == League.current.id }
   end
 
   def questionnaire_for(league_id)

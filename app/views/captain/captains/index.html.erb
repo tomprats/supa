@@ -17,7 +17,7 @@
           <% if !@current_team %>
             <p>You don't have team for the current league yet!</p>
           <% else %>
-            <%= render partial: "admin/users/table", locals: { users: @current_team.players } %>
+            <%= render partial: "admin/users/table", locals: { users: @current_team.players.table_list } %>
           <% end %>
         </div>
       </div>

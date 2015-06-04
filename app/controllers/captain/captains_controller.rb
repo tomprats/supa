@@ -5,7 +5,7 @@ module Captain
     def index
       @current_team = current_user.captains_team
       @teams = current_user.captains_teams
-      @users = User.registered
+      @users = User.registered.table_list
     end
 
     private

@@ -36,6 +36,9 @@ gem "coffee-rails", "~> 4.0.0"
 gem "jquery-datatables-rails", github: "rweng/jquery-datatables-rails"
 gem "jquery-rails"
 
+# Other
+gem "traitify"
+
 # Use ActiveModel has_secure_password
 # gem "bcrypt-ruby", "~> 3.0.0"
 
