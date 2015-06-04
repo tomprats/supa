@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :authenticate_user!, except: [:show, :edit]
-  before_filter :check_attr, :only => [:show]
+  before_filter :check_attr, only: [:show]
 
   def build_resource(*args)
     super
@@ -80,6 +80,8 @@ class RegistrationsController < Devise::RegistrationsController
   def check_attr
     if !current_user.account_registered?
       redirect_to edit_user_registration_path, alert: "Please fill in your registration information below."
+    elsif !current_user.valid_shirt_size?
+      redirect_to edit_user_registration_path, alert: "Please update your shirt size."
     end
   end
 end

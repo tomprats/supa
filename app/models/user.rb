@@ -81,6 +81,23 @@ class User < ActiveRecord::Base
     }
   end
 
+  def self.shirt_sizes
+    [
+      "Mens XSmall",
+      "Mens Small",
+      "Mens Medium",
+      "Mens Large",
+      "Mens XLarge",
+      "Mens XXLarge",
+      "Womens XSmall",
+      "Womens Small",
+      "Womens Medium",
+      "Womens Large",
+      "Womens XLarge",
+      "Womens XXLarge"
+    ]
+  end
+
   def is_super_admin?
     admin == "super"
   end
@@ -93,12 +110,13 @@ class User < ActiveRecord::Base
     Team.where("captain_id = :id OR cocaptain_id = :id", id: id).exists?
   end
 
+  def valid_shirt_size?
+    User.shirt_sizes.include? shirt_size
+  end
+
   def account_registered?
-    phone_number &&
-    (phone_number.length == 14) &&
-    experience &&
-    shirt_size &&
-    name?
+    phone_number && shirt_size && experience && name? &&
+    phone_number.match(/\A\(\d{3}\)\s\d{3}\-\d{4}\z/)
   end
 
   def drafted?(draft_id)

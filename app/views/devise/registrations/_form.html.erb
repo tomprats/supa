@@ -85,7 +85,7 @@
   <div class="form-group">
     <%= f.label :shirt_size, class: "col-md-4 control-label" %>
     <div class="col-md-8">
-      <%= f.select :shirt_size, { "xsmall" => :xsmall, "small" => :small, "medium" => :medium, "large" => :large, "xlarge" => :xlarge, "xxlarge" => :xxlarge }, {}, { class: "form-control" } %>
+      <%= f.select :shirt_size, User.shirt_sizes, {}, { class: "form-control" } %>
     </div>
   </div>
   <div class="form-group">
