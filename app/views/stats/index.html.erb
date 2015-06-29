@@ -14,7 +14,7 @@
   </thead>
   <tbody>
     <% @players.each do |player| %>
-      <% cache(player) do %>
+      <% cache [player, @league] do %>
         <tr class="text-center">
           <td class="text-left"><%= player.name %></td>
           <td class="text-left"><%= player.team(@league.id).name %></td>
