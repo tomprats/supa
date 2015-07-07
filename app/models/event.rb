@@ -11,6 +11,6 @@ class Event < ActiveRecord::Base
   end
 
   def time
-    self.datetime.strftime("%I:%M %p") if datetime
+    self.datetime.strftime("%l:%M %p") if datetime
   end
 end

@@ -1,0 +1,25 @@
+<div class="admins captain">
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#current-team" data-toggle="tab">Games</a></li>
+
+    <div class="btn-group pull-right">
+      <%= link_to "Team", captain_game_path(:team), target: :_blank, class: "btn btn-primary" %>
+      <%= link_to "League", captain_game_path(:league), target: :_blank, class: "btn btn-primary" %>
+    </div>
+  </ul>
+
+  <div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="all-games">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Games</h3>
+          <% if @games.empty? %>
+            <p>There aren't any games yet!</p>
+          <% else %>
+            <%= render partial: "captain/games/table", locals: { games: @games } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

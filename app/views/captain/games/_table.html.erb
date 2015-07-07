@@ -1,0 +1,26 @@
+<table class="data-table table table-striped">
+  <thead>
+    <tr>
+      <th>League</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Field</th>
+      <th>Teams</th>
+      <th class="dont-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% games.each do |game| %>
+      <tr>
+        <td><%= game.league.try(:name) %></td>
+        <td><%= game.date %></td>
+        <td><%= game.time %></td>
+        <td><%= game.field.try(:name) %></td>
+        <td><%= game.name %></td>
+        <td class="btn-group">
+          <%= link_to "Print", captain_game_path(game), target: :_blank, class: "btn btn-primary" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -75,6 +75,7 @@ Supa::Application.routes.draw do
     get :captain, to: "captain/captains#index"
     namespace :captain do
       resources :drafts, only: [:index, :show]
+      resources :games, only: [:index, :show]
 
       resources :drafted_players, only: [:create] do
         post :create_from_tentative, on: :collection
