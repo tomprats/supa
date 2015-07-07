@@ -1,7 +1,7 @@
 <ul class="nav nav-pills">
-  <li class="active"><a href="#all-games" data-toggle="tab">Games</a></li>
-  <li><a href="#current-games" data-toggle="tab">Current games</a></li>
-  <li><a href="#past-games" data-toggle="tab">Past games</a></li>
+  <li class="active"><a href="#recent-games" data-toggle="tab">Recent Games</a></li>
+  <li><a href="#current-games" data-toggle="tab">Current Games</a></li>
+  <li><a href="#all-games" data-toggle="tab">All Games</a></li>
 
   <div class="btn-group pull-right">
     <%= link_to "Add Game", "#games_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
@@ -9,14 +9,14 @@
 </ul>
 
 <div id="games-content" class="tab-content">
-  <div class="tab-pane active" id="all-games">
+  <div class="tab-pane active" id="recent-games">
     <div class="row">
       <div class="col-md-12">
-        <h3>Games</h3>
-        <% if @games.empty? %>
-          <p>There aren't any games yet!</p>
+        <h3>Recent Games</h3>
+        <% if @recent_games.empty? %>
+          <p>There aren't any past games!</p>
         <% else %>
-          <%= render partial: "admin/games/table", locals: { games: @games } %>
+          <%= render partial: "admin/games/table", locals: { games: @recent_games } %>
         <% end %>
       </div>
     </div>
@@ -33,14 +33,14 @@
       </div>
     </div>
   </div>
-  <div class="tab-pane" id="past-games">
+  <div class="tab-pane" id="all-games">
     <div class="row">
       <div class="col-md-12">
-        <h3>Past Games</h3>
-        <% if @past_games.empty? %>
-          <p>There aren't any past games!</p>
+        <h3>All Games</h3>
+        <% if @games.empty? %>
+          <p>There aren't any games yet!</p>
         <% else %>
-          <%= render partial: "admin/games/table", locals: { games: @past_games } %>
+          <%= render partial: "admin/games/table", locals: { games: @games } %>
         <% end %>
       </div>
     </div>

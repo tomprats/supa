@@ -16,8 +16,8 @@ module Admin
       new_game
 
       @games = Game.all
-      @current_games = League.current.games
-      @past_games = Game.where.not(id: @current_games.collect(&:id))
+      @current_games = Game.joins(:event).where(events: { league_id: League.current.id })
+      @recent_games = @current_games.where(events: { datetime: 1.week.ago..Time.now })
     end
 
     def edit

@@ -1,23 +1,10 @@
 <ul class="nav nav-pills">
-  <li class="active"><a href="#all-captains" data-toggle="tab">Captains</a></li>
-  <li><a href="#current-captains" data-toggle="tab">Current Captains</a></li>
-  <li><a href="#past-captains" data-toggle="tab">Past Captains</a></li>
+  <li class="active"><a href="#current-captains" data-toggle="tab">Current Captains</a></li>
+  <li><a href="#all-captains" data-toggle="tab">All Captains</a></li>
 </ul>
 
 <div id="captains-content" class="tab-content">
-  <div class="tab-pane active" id="all-captains">
-    <div class="row">
-      <div class="col-md-12">
-        <h3>Captains</h3>
-        <% if @captains.empty? %>
-          <p>There aren't any captains yet!</p>
-        <% else %>
-          <%= render partial: "admin/users/table", locals: { users: @captains } %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <div class="tab-pane" id="current-captains">
+  <div class="tab-pane active" id="current-captains">
     <div class="row">
       <div class="col-md-12">
         <h3>Current Captains</h3>
@@ -29,14 +16,14 @@
       </div>
     </div>
   </div>
-  <div class="tab-pane" id="past-captains">
+  <div class="tab-pane" id="all-captains">
     <div class="row">
       <div class="col-md-12">
-        <h3>Past Captains</h3>
-        <% if @past_captains.empty? %>
-          <p>There aren't any past captains!</p>
+        <h3>Captains</h3>
+        <% if @captains.empty? %>
+          <p>There aren't any captains yet!</p>
         <% else %>
-          <%= render partial: "admin/users/table", locals: { users: @past_captains } %>
+          <%= render partial: "admin/users/table", locals: { users: @captains } %>
         <% end %>
       </div>
     </div>

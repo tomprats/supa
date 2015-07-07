@@ -14,9 +14,10 @@ module Admin
 
     def index
       @event = Event.new
+
       @events = Event.all
-      @current_events = League.current.events
-      @past_events = Event.where.not(id: @current_events.collect(&:id))
+      @current_events = Event.where(league_id: League.current.id)
+      @recent_events = @current_events.where(datetime: 1.week.ago..Time.now)
     end
 
     def edit

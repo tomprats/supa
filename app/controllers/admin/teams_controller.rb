@@ -9,8 +9,7 @@ module Admin
 
     def index
       @teams = Team.all
-      @current_teams = League.current.teams
-      @past_teams = Team.where.not(id: @current_teams.collect(&:id))
+      @current_teams = Team.where(league_id: League.current.id)
     end
 
     def edit
