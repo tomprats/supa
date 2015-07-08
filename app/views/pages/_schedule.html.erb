@@ -12,15 +12,17 @@
             <th>Field</th>
             <th>Event</th>
           </thead>
-          <% @events.each do |event| %>
-            <tbody>
-              <td><%= event.title.blank? ? "Regular Season" : event.title %></td>
-              <td><%= event.date %></td>
-              <td><%= event.time %></td>
-              <td><%= event.field.name %></td>
-              <td><%= event.text.blank? ? event.game.try(:name) : event.text %></td>
-            </tbody>
-          <% end %>
+          <tbody>
+            <% @events.each do |event| %>
+              <tr class="<%= "success active" if event.datetime.beginning_of_day > DateTime.now && event.datetime.end_of_day < DateTime.now + 1.week %>">
+                <td><%= event.title.blank? ? "Regular Season" : event.title %></td>
+                <td><%= event.date %></td>
+                <td><%= event.time %></td>
+                <td><%= event.field.name %></td>
+                <td><%= event.text.blank? ? event.game.try(:name) : event.text %></td>
+              </tr>
+            <% end %>
+          </tbody>
         </table>
       </div>
     </div>
