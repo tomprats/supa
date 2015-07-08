@@ -26,6 +26,10 @@ class PagesController < ApplicationController
   def render_league
     @teams = @league.teams
     @events = @league.events
+    @birthdays = User.where("""
+      extract(month from birthday) = ?
+      AND extract(day from birthday) = ?
+    """, Date.today.strftime("%m"), Date.today.strftime("%d"))
 
     render :season
   end
