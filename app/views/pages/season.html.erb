@@ -1,13 +1,13 @@
 <h3 class="text-center no-margin-top">SUPA <%= @league.name %></h3>
 
+<% @birthdays.each do |user| %>
+  <% birthday = (rand(100)/(rand(4) + 1)).round + 12 %>
+  <h4 class="text-center">Happy <%= birthday.ordinalize %> Birthday <%= user.name %>!</h4>
+<% end %>
+
 <%= render partial: "pages/images" %>
 
 <div class="center">
-  <% @birthdays.each do |user| %>
-    <% birthday = (rand(100)/(rand(4) + 1)).round + 12 %>
-    <h4>Happy <%= birthday.ordinalize %> Birthday <%= user.name %>!</h4>
-  <% end %>
-
   <% if @league.registration? || @league.late_registration? %>
     <%= render partial: "shared/registration" %>
   <% end %>

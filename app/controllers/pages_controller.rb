@@ -29,7 +29,7 @@ class PagesController < ApplicationController
     @birthdays = User.where("""
       extract(month from birthday) = ?
       AND extract(day from birthday) = ?
-    """, Date.today.strftime("%m"), Date.today.strftime("%d"))
+    """, Time.zone.today.month, Time.zone.today.day)
 
     render :season
   end
