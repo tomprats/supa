@@ -1,5 +1,10 @@
 source "https://rubygems.org"
 
+ruby "2.2.2"
+
+gem "rails"
+gem "pg"
+
 # User authentication
 gem "devise"
 gem "omniauth"
@@ -7,7 +12,6 @@ gem "omniauth-facebook"
 gem "omniauth-twitter"
 gem "activemerchant", github: "tomprats/active_merchant", branch: "fix-paypal-digital-goods-gateway"
 gem "paypal-sdk-rest"
-gem "pry"
 
 # Testing
 group :development, :test do
@@ -16,24 +20,19 @@ group :development, :test do
   gem "shoulda-matchers"
 end
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", "4.0.0"
-
-# Use postgresql as the database for Active Record
-gem "pg"
-
 # Heroku compatable assets
 gem "rails_12factor", group: :production
 gem "yui-compressor"
 
 # Remaining assets
-gem "sass-rails", "~> 4.0.0"
+gem "sass"
+gem "sass-rails"
 gem "bootstrap-sass"
 gem "font-awesome-rails"
 gem "pickadate-rails"
-gem "uglifier", ">= 1.3.0"
-gem "coffee-rails", "~> 4.0.0"
-gem "jquery-datatables-rails", github: "rweng/jquery-datatables-rails"
+gem "uglifier"
+gem "coffee-rails"
+gem "jquery-datatables-rails"
 gem "jquery-rails"
 
 # Other
@@ -47,6 +46,5 @@ gem "prawn-table"
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem "pry"
 end
-
-gem "mocha", group: :test

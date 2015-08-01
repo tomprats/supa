@@ -1,23 +1,17 @@
 @import "variables";
-@import "bootstrap";
 
-.super-navbar-push {
-  margin-top: 100px;
-}
-
-.navbar-toggle {
-  margin: 8px 15px 8px 0;
-  padding: 5px 10px;
+.admin-navbar-push {
+  margin-top: 50px;
 }
 
 $color: $white;
-$dark-color: $green;
-$bg-color: $blue;
+$dark-color: $blue;
+$bg-color: $green;
 $dark-bg-color: darken($bg-color, 10%);
 
-.navbar.super-navbar {
-  z-index: 1000;
-  top: 100px;
+.navbar.admin-navbar {
+  z-index: 1015;
+  top: 50px;
   margin-right: 300px;
   background-color: $bg-color;
   .navbar-inner {
@@ -25,8 +19,6 @@ $dark-bg-color: darken($bg-color, 10%);
   }
   .navbar-toggle {
     border: 1px solid $dark-bg-color;
-    margin: 8px 15px 8px 0;
-    padding: 5px 10px;
     &:hover {
       background-color: darken($bg-color, 10%);
     }

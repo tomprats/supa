@@ -1,7 +1,7 @@
 class Questionnaire < ActiveRecord::Base
   belongs_to :user
   belongs_to :league
-  has_many :meetings, order: :datetime, dependent: :destroy
+  has_many :meetings, -> { order(:datetime) }, dependent: :destroy
 
   validates_presence_of :user, :league
 

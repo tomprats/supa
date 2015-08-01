@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   scope :super,    -> { where(admin: "super") }
   scope :standard, -> { where(admin: "standard") }
-  scope :none,     -> { where(admin: "none") }
+  scope :simple,   -> { where(admin: "none") }
 
   def self.tom
     find_by(email: "tprats108@gmail.com")

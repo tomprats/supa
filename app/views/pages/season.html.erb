@@ -2,7 +2,7 @@
 
 <% @birthdays.each do |user| %>
   <% birthday = (rand(100)/(rand(4) + 1)).round + 12 %>
-  <h4 class="text-center">Happy <%= birthday.ordinalize %> Birthday <%= user.name %>!</h4>
+  <h4 class="text-center"><%= fa_icon("birthday-cake") %> Happy <%= birthday.ordinalize %> Birthday <%= user.name %>!</h4>
 <% end %>
 
 <%= render partial: "pages/images" %>

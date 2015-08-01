@@ -1,0 +1,44 @@
+@import "variables";
+
+// Font Awesome
+table.dataTable thead th {
+  background-image: none !important;
+}
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+  font-family: FontAwesome;
+}
+table.dataTable thead th.sorting:after {
+  content: "\f0dc";
+}
+table.dataTable thead th.sorting_asc:after {
+  content: "\f0de";
+}
+table.dataTable thead th.sorting_desc:after {
+  content: "\f0dd";
+}
+
+// Custom
+.dataTables_wrapper table.table .DTTT_selected td {
+  color: white;
+  background-color: #069DD7;
+}
+.dataTables_wrapper .dataTables_length select {
+  height: 18px;
+}
+@media screen and (max-width: $grid-float-breakpoint) {
+  div.dataTables_info,
+  div.dataTables_length {
+    display: none;
+  }
+
+  div.dataTables_filter {
+    width: 100%;
+    input {
+      width: 100%;
+      margin-top: 20px;
+      text-align: center;
+    }
+  }
+}

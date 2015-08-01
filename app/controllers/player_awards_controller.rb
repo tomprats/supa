@@ -50,9 +50,11 @@ class PlayerAwardsController < ApplicationController
     @players = players.collect {|p| [p.name, p.id]}
     @females = players.where(gender: :female).collect {|p| [p.name, p.id]}
     season = League.where(season: League.current.season).pluck(:id)
-    @rookies = players.select { |p|
-      p.teams.where(league_id: season).count == 1
-    }.collect {|p| [p.name, p.id]}
+    @rookies = Rails.cache.fetch("rookies_#{League.current.id}", expires_in: 3.hours) do
+      players.select { |p|
+        p.teams.where(league_id: season).count == 1
+      }.collect {|p| [p.name, p.id]}
+    end
     @captains = League.current.teams.collect { |t|
       [t.captain, t.cocaptain]
     }.flatten.compact.collect {|c| [c.name, c.id]}

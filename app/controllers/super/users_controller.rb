@@ -6,7 +6,7 @@ module Super
       key = params[:key] || "last_name"
       @supers = User.super.order("#{key} ASC")
       @standards = User.standard.order("#{key} ASC")
-      @none = User.none.order("#{key} ASC")
+      @none = User.simple.order("#{key} ASC")
       @late = User.not_on_a_team
     end
 
