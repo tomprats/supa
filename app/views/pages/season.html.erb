@@ -11,6 +11,10 @@
   <% if @league.registration? || @league.late_registration? %>
     <%= render partial: "shared/registration" %>
   <% end %>
+  <% if @league.summer? && @league.voting? %>
+    <h3>Player Awards</h3>
+    <p><%= link_to("Sign in", new_player_award_path) %> to vote SUPA's <%= link_to("#{@league.name} Player Awards", new_player_award_path) %>!</p>
+  <% end %>
 
   <% if @league.late_registration? || @league.in_progress? || @league.over? %>
     <h3>Check out the teams!</h3>

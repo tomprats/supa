@@ -22,7 +22,7 @@
           <li><%= link_to(fa_icon("flag") + " Standings", standings_path) %></li>
           <li><%= link_to(fa_icon("bar-chart-o") + " Stats", stats_path) %></li>
         <% end %>
-        <% if League.current && League.current.voting? && current_user && current_user.on_a_team? %>
+        <% if League.current && League.current.summer? && League.current.voting? && current_user && current_user.on_a_team? %>
           <li><%= link_to(fa_icon("trophy") + " Player Awards", new_player_award_path) %></li>
         <% end %>
         <% if user_signed_in? %>

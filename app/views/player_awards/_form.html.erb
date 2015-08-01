@@ -35,5 +35,7 @@
       <%= f.select :spirit, @players, { include_blank: true }, { class: "form-control" } %>
     </div>
   </div>
-  <%= f.submit "Update", class: "btn btn-primary" %>
+  <div class="form-group text-center">
+    <%= f.submit "Update", class: "btn btn-primary" %>
+  </div>
 <% end %>

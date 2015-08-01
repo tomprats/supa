@@ -95,6 +95,10 @@ class League < ActiveRecord::Base
     state == "Over"
   end
 
+  def summer?
+    season == "Summer"
+  end
+
   def self.year_collection
     now = Date.today.year
     {
