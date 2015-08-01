@@ -2,6 +2,7 @@ class League < ActiveRecord::Base
   has_one :draft, dependent: :destroy
   has_many :teams, dependent: :destroy
   has_many :games, dependent: :destroy
+  has_many :player_awards, dependent: :destroy
   has_many :events, -> { order(:datetime) }, dependent: :destroy
   has_many :games, through: :events
   has_many :players, through: :teams
@@ -61,6 +62,7 @@ class League < ActiveRecord::Base
       "Draft" => "Draft",
       "Late Registration" => "Late Registration",
       "In Progress" => "In Progress",
+      "Voting" => "Voting",
       "Over" => "Over"
     }
   end
@@ -82,7 +84,11 @@ class League < ActiveRecord::Base
   end
 
   def in_progress?
-    state == "In Progress"
+    ["Late Registration", "In Progress", "Voting"].include? state
+  end
+
+  def voting?
+    state == "Voting"
   end
 
   def over?

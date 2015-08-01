@@ -1,4 +1,4 @@
-<% if League.current.pre_draft? || League.current.late_registration? || League.current.in_progress? %>
+<% if League.current.pre_draft? || League.current.in_progress? %>
   <%= link_to "Assign Players", "#assign_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
   <%= link_to "Trade Players", "#trade_modal", class: "btn btn-success", role: "button", data: { toggle: "modal" } %>
 <% end %>

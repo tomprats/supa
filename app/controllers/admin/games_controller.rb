@@ -3,8 +3,7 @@ module Admin
     before_filter :check_admin_level
 
     def create
-      d = params[:game][:event_attributes][:datetime] = convert_to_datetime(params[:game].delete(:date), params[:game].delete(:time))
-      binding.pry
+      params[:game][:event_attributes][:datetime] = convert_to_datetime(params[:game].delete(:date), params[:game].delete(:time))
       @game = Game.create(game_params)
       if @game.valid?
         redirect_to admin_games_path, notice: "Game was successfully created"

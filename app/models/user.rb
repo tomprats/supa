@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :stats, class_name: "PlayerStat", foreign_key: :player_id, dependent: :destroy
   has_many :registrations
   has_many :payments, through: :registrations
-  has_one :player_award
+  has_many :player_awards
   has_many :assessments, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :omniauthable,
@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   scope :super,    -> { where(admin: "super") }
   scope :standard, -> { where(admin: "standard") }
   scope :none,     -> { where(admin: "none") }
+
+  def self.tom
+    find_by(email: "tprats108@gmail.com")
+  end
 
   def self.default_scope
     order(:last_name, :first_name)
@@ -59,8 +63,12 @@ class User < ActiveRecord::Base
     a
   end
 
+  def player_award(league_id = League.current.id)
+    player_awards.find_by(league_id: league_id)
+  end
+
   def questionnaire
-    questionnaires.to_a.find { |q| q.league_id == League.current.id }
+    questionnaires.find_by(league_id: League.current.id)
   end
 
   def questionnaire_for(league_id)
@@ -142,17 +150,15 @@ class User < ActiveRecord::Base
     !DraftedPlayer.where(player_id: id, draft_id: draft_id).empty?
   end
 
-  def team(league_id = nil)
-    league_id ||= League.current.id
+  def team(league_id = League.current.id)
     teams.find_by(league_id: league_id)
   end
 
-  def on_a_team?
-    !!team
+  def on_a_team?(league_id = League.current.id)
+    teams.exists?(league_id: league_id)
   end
 
-  def captains_team(league_id = nil)
-    league_id ||= League.current.id
+  def captains_team(league_id = League.current.id)
     Team.where(league_id: league_id).where("captain_id = :id OR cocaptain_id = :id", id: id).first
   end
 

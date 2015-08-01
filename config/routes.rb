@@ -8,6 +8,7 @@ Supa::Application.routes.draw do
 
   resources :teams, only: [:show]
   resources :games, only: [:show]
+  resources :player_awards, except: [:index, :destroy]
 
   get :spring, to: "pages#spring"
   get :summer, to: "pages#summer"
@@ -50,6 +51,7 @@ Supa::Application.routes.draw do
       resources :games do
         resource :stats, only: [:edit, :update]
       end
+      resources :player_awards, only: :index
     end
 
     get :super, to: "super/announcements#index"

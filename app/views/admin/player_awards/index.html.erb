@@ -1,0 +1,35 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#player-awards" data-toggle="tab">Player Awards</a></li>
+</ul>
+
+<div id="player-awards-content" class="tab-content">
+  <div class="tab-pane active" id="player-awards">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Player Awards</h3>
+        <div class="row">
+          <% @awards.each_with_index do |(key, value), index| %>
+            <% if index % 3 == 0 && !index.zero? %>
+              </div><div class="row">
+            <% end %>
+            <div class="col-sm-4 padding-20">
+              <h4><%= key.to_s.titleize %></h4>
+              <% value.delete(nil) %>
+              <% sorted = value.sort_by { |k,v| v }.reverse %>
+              <% sorted.each do |user_id, count| %>
+                <div class="row">
+                  <div class="col-md-9">
+                    <%= User.find(user_id).name %>
+                  </div>
+                  <div class="col-md-3 text-right">
+                    <%= count %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

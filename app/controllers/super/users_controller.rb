@@ -20,7 +20,7 @@ module Super
       draft = league.draft
       player = User.find(params[:assign][:player_id])
       team = Team.find(params[:assign][:team_id])
-      if !(league.pre_draft? || league.late_registration? || league.in_progress?)
+      if !(league.pre_draft? || league.in_progress?)
         redirect_to :back, alert: "It's not time for that."
       elsif player.on_a_team?
         redirect_to :back, alert: "Player already on a team."
@@ -46,7 +46,7 @@ module Super
       player2 = User.find_by(id: params[:trade][:player2_id])
       team1 = player1.try(:team) || Team.find(params[:trade][:team1_id])
       team2 = player2.try(:team) || Team.find(params[:trade][:team2_id])
-      if !(league.pre_draft? || league.late_registration? || league.in_progress?)
+      if !(league.pre_draft? || league.in_progress?)
         redirect_to :back, alert: "It's not time for that."
       elsif (player1 && !player1.on_a_team?) || (player2 && !player2.on_a_team?)
         redirect_to :back, alert: "Player not on a team."

@@ -1,0 +1,39 @@
+<%= form_for(@player_award, html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= f.label :most_valuable, "Most Valuable Player", class: "col-md-6 control-label" %>
+    <div class="col-md-6">
+      <%= f.select :most_valuable, @players, { include_blank: true }, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :defensive, "Defensive Player of the Year", class: "col-md-6 control-label" %>
+    <div class="col-md-6">
+      <%= f.select :defensive, @players, { include_blank: true }, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :rookie, "Rookie of the Year", class: "col-md-6 control-label" %>
+    <div class="col-md-6">
+      <%= f.select :rookie, @rookies, { include_blank: true }, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :female, "Female Player of the Year", class: "col-md-6 control-label" %>
+    <div class="col-md-6">
+      <%= f.select :female, @females, { include_blank: true }, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :captain, "Captain of the Year", class: "col-md-6 control-label" %>
+    <div class="col-md-6">
+      <%= f.select :captain, @captains, { include_blank: true }, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :spirit, "Most Spirited Player of the Year", class: "col-md-6 control-label" %>
+    <div class="col-md-6">
+      <%= f.select :spirit, @players, { include_blank: true }, { class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Update", class: "btn btn-primary" %>
+<% end %>
