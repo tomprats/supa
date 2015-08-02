@@ -4,6 +4,6 @@ class Announcement < ActiveRecord::Base
   validates_presence_of :heading, :text, :importance
 
   def self.default_scope
-    order("importance DESC, created_at DESC")
+    order(importance: :desc, created_at: :desc)
   end
 end

@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   before_filter :check_attr
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :paypal_url, :mobile_device?
+  helper_method :not_found, :paypal_url, :mobile_device?
+
+  def not_found
+    raise ActionController::RoutingError.new("Not Found")
+  end
 
   def signed_in_root_path(resource_or_scope)
     profile_path

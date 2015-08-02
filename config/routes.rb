@@ -57,6 +57,7 @@ Supa::Application.routes.draw do
     get :super, to: "super/announcements#index"
     namespace :super do
       resources :announcements
+      resources :pages
       resources :leagues
       resources :drafts do
         get :order, on: :member
@@ -85,4 +86,6 @@ Supa::Application.routes.draw do
       resources :tentative_players, only: [:create, :destroy]
     end
   end
+
+  get ":path", to: "pages#page", as: :page
 end

@@ -3,7 +3,7 @@
   <%= render "layouts/head" %>
   <body>
     <%= render "layouts/header" %>
-    <div class="container-fluid  main-content">
+    <div class="container-fluid main-content <%= [controller_name, action_name].join("-") %>">
       <% if current_user && current_user.is_super_admin? %>
         <%= render "layouts/super_header" %>
         <%= render "layouts/admin_header" %>
@@ -26,7 +26,7 @@
             <% end %>
             <% unless flash.empty? %>
               <% flash.each do |name, msg| %>
-                <%= render partial: "layouts/message", locals: { kind: (name == :notice ? :success : :danger), message: msg.to_s.html_safe } %>
+                <%= render partial: "layouts/message", locals: { kind: (name.to_sym == :notice ? :success : :danger), message: msg.to_s.html_safe } %>
               <% end %>
             <% end %>
             <%= yield %>

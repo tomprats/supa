@@ -1,0 +1,23 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Pages</a></li>
+
+  <div class="btn-group pull-right">
+    <%= link_to "Add Page", "#pages_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
+    <%= render partial: "super/layouts/buttons" %>
+  </div>
+</ul>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Pages</h3>
+    <% if @pages.empty? %>
+      <p>There aren't any yet!</p>
+    <% else %>
+      <%= render partial: "super/pages/table", locals: { pages: @pages } %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: "super/pages/new_modal" %>
+<%= render partial: "super/users/assign_modal" %>
+<%= render partial: "super/users/trade_modal" %>
