@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
          :omniauthable, :recoverable, :rememberable, :trackable,
          :validatable
 
+  after_destroy :destroy_baggages
+
   scope :super,    -> { where(admin: "super") }
   scope :standard, -> { where(admin: "standard") }
   scope :simple,   -> { where(admin: "none") }
@@ -237,5 +239,9 @@ class User < ActiveRecord::Base
     else
       super
     end
+  end
+
+  def destroy_baggages
+    Baggage.where("partner1_id = :id OR partner2_id = :id", id: id).destroy_all
   end
 end
