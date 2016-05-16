@@ -9,7 +9,7 @@
         <% else %>
           <% if current_user.questionnaire_for(@league.id) %>
             <% if current_user.paid? %>
-              <%= link_to "Register", register_path, class: "btn btn-success" %>
+              <%= link_to "Register", "#", data: { toggle: "modal", target: "#waiver-modal" }, class: "btn btn-success" %>
             <% else %>
               <%= link_to "Pay with Credit Card", "#", data: { toggle: "modal", target: "#credit-card-modal" }, class: "btn btn-success" %>
             <% end %>
@@ -36,6 +36,7 @@
     </div>
   </div>
 
+  <%= render partial: "shared/waiver_modal" if current_user %>
   <%= render partial: "shared/credit_card_modal" if current_user %>
   <%= render partial: "questionnaires/modal" if current_user %>
 <% end %>
