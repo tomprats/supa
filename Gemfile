@@ -11,7 +11,7 @@ gem "devise"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
-gem "activemerchant", github: "tomprats/active_merchant", branch: "fix-paypal-digital-goods-gateway"
+gem "activemerchant"
 gem "paypal-sdk-rest"
 
 # Testing

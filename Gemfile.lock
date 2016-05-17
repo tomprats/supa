@@ -1,17 +1,3 @@
-GIT
-  remote: git://github.com/tomprats/active_merchant.git
-  revision: c7a8e04a402b5c5f8bbb4fb4aa7be082e16b08fc
-  branch: fix-paypal-digital-goods-gateway
-  specs:
-    activemerchant (1.42.9)
-      active_utils (~> 2.0, >= 2.0.1)
-      activesupport (>= 2.3.14, < 5.0.0)
-      builder (>= 2.1.2, < 4.0.0)
-      i18n (~> 0.5)
-      json (~> 1.7)
-      money (< 7.0.0)
-      nokogiri (~> 1.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -34,12 +20,14 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_utils (2.2.3)
-      activesupport (>= 2.3.11)
-      i18n
     activejob (4.2.3)
       activesupport (= 4.2.3)
       globalid (>= 0.3.0)
+    activemerchant (1.58.0)
+      activesupport (>= 3.2.14, < 5.1)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (>= 0.6.9)
+      nokogiri (~> 1.4)
     activemodel (4.2.3)
       activesupport (= 4.2.3)
       builder (~> 3.1)
@@ -120,8 +108,6 @@ GEM
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
-    money (6.6.1)
-      i18n (>= 0.6.4, <= 0.7.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -262,7 +248,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activemerchant!
+  activemerchant
   better_errors
   binding_of_caller
   bootstrap-sass
@@ -294,4 +280,4 @@ DEPENDENCIES
   yui-compressor
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

@@ -29,7 +29,7 @@ module PaypalPaymentsHelper
   end
 
   def setup_sdk_purchase(price, name, description, credit_card)
-    PayPal::SDK::REST.set_config(
+    PayPal::SDK.configure(
       mode: ENV["PAYPAL_SDK_MODE"],
       client_id: ENV["PAYPAL_SDK_ID"],
       client_secret: ENV["PAYPAL_SDK_SECRET"]
@@ -59,11 +59,7 @@ module PaypalPaymentsHelper
           currency: "USD"
         },
         description: description
-      }],
-      redirect_urls: {
-        return_url: payments_success_url,
-        cancel_return_url: payments_cancel_url,
-      }
+      }]
     })
   end
 end
