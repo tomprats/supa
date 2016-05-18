@@ -11,7 +11,7 @@ class Game < ActiveRecord::Base
   validate :team1_exists, :team2_exists, :teams_differ, :same_league
 
   def self.default_scope
-    includes(:event).order("events.datetime ASC")
+    joins(:event).order("events.datetime ASC")
   end
 
   def name
