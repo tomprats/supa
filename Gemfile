@@ -35,6 +35,7 @@ gem "uglifier"
 gem "coffee-rails"
 gem "jquery-datatables-rails"
 gem "jquery-rails"
+gem "haml"
 
 # Other
 gem "traitify"

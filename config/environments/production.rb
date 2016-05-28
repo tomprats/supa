@@ -81,4 +81,5 @@ Supa::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.action_mailer.default_url_options = { host: "www.stewartstownupa.com" }
+  config.action_mailer.asset_host = "http://www.stewartstownupa.com"
 end

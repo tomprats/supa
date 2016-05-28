@@ -27,5 +27,7 @@ Supa::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
   config.action_mailer.default_url_options = { host: "localhost:3000" }
+  config.action_mailer.asset_host = "http://localhost:3000"
 end

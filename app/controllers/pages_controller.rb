@@ -2,6 +2,10 @@ class PagesController < ApplicationController
   skip_before_filter :authenticate_user!
   skip_before_filter :check_attr
 
+  def letsencrypt
+    render text: "sXN0ObcfmrczOMUD4vAlPt_LSNAZwXK2HvN0XXhnQkw.Ys6D-B9BwVDfTv7J6Nt4cn_qX8RwGkG72j8JrNwzjlU"
+  end
+
   def current
     @league = League.current
     render_league

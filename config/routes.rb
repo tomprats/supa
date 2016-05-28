@@ -1,6 +1,8 @@
 Supa::Application.routes.draw do
   root to: "pages#current"
 
+  get "/.well-known/acme-challenge/:id" => "pages#letsencrypt"
+
   devise_for :users, controllers: {
     omniauth_callbacks: "authentications",
     registrations: "registrations"
