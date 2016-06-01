@@ -42,6 +42,11 @@ class User < ActiveRecord::Base
     where.not(id: registered.select(&:id))
   end
 
+  def self.with_questionnaires(league_id = nil)
+    league_id ||= League.current.id
+    includes(:questionnaires).where("questionnaires.league_id = ?", league_id).references(:questionnaires)
+  end
+
   def self.not_on_a_team
     league_id = League.current.id
     registered.select { |u| u.teams.empty? || !u.teams.collect(&:league_id).include?(league_id) }

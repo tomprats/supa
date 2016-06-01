@@ -81,6 +81,7 @@ Supa::Application.routes.draw do
     namespace :captain do
       resources :drafts, only: [:index, :show]
       resources :games, only: [:index, :show]
+      resources :users, only: :index
 
       resources :drafted_players, only: [:create] do
         post :create_from_tentative, on: :collection
