@@ -6,6 +6,7 @@ class Baggage < ActiveRecord::Base
 
   validates_presence_of :league_id, :partner1_id, :partner2_id
   validate :partners_differ
+  validate :registered
 
   def other_partner(user_id)
     user_id == partner1_id ? partner2 : partner1
@@ -31,6 +32,14 @@ class Baggage < ActiveRecord::Base
   def partners_differ
     if partner1_id && partner2_id && partner1_id == partner2_id
       errors.add(:partners, "must differ")
+    end
+  end
+
+  def registered
+    if approved
+      unless partner1.registered(league.id) && partner2.registered(league.id)
+        errors.add(:partners, "must be registered")
+      end
     end
   end
 end

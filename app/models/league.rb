@@ -2,6 +2,7 @@ class League < ActiveRecord::Base
   has_one :draft, dependent: :destroy
   has_many :teams, dependent: :destroy
   has_many :games, dependent: :destroy
+  has_many :baggages, dependent: :destroy
   has_many :player_awards, dependent: :destroy
   has_many :events, -> { order(:datetime) }, dependent: :destroy
   has_many :games, through: :events

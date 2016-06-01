@@ -17,7 +17,9 @@ module Captain
         name = user.name
         if baggage = @baggage.find { |b| [b.partner1_id, b.partner2_id].include? user.id }
           partner = baggage.other_partner(user.id)
-          name += " (#{partner.name})" unless partner.drafted?(@draft.id)
+          if partner.registered?(@draft.league_id) && !partner.drafted?(@draft.id)
+            name += " (#{partner.name})"
+          end
         end
         [name, user.id]
       end

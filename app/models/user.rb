@@ -77,16 +77,18 @@ class User < ActiveRecord::Base
     questionnaires.find_by(league_id: league_id)
   end
 
-  def registration
-    registrations.where(league_id: League.current.id).first
+  def registration(league_id = nil)
+    registrations.where(league_id: league_id || League.current.id).first
   end
 
   def not_registered?
     !registered?
   end
 
-  def registered?
-    registration && registration.registered?
+  def registered?(league_id = nil)
+    league_id ||= League.current.id
+    r = registration(league_id)
+    r && r.registered?
   end
 
   def apply_omniauth(omni)

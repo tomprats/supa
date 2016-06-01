@@ -1,19 +1,36 @@
 <ul class="nav nav-pills">
-  <li class="active"><a href="#">Baggage</a></li>
+  <li class="active"><a href="#current-baggage" data-toggle="tab">Current Baggage</a></li>
+  <li><a href="#all-baggage" data-toggle="tab">All Baggage</a></li>
 
   <div class="btn-group pull-right">
     <%= render partial: "super/layouts/buttons" %>
   </div>
 </ul>
 
-<div class="row">
-  <div class="col-md-12">
-    <h3>Baggage</h3>
-    <% if @baggages.empty? %>
-      <p>There aren't any yet!</p>
-    <% else %>
-      <%= render partial: "super/baggages/table", locals: { baggages: @baggages } %>
-    <% end %>
+<div id="baggage-content" class="tab-content">
+  <div class="tab-pane active" id="current-baggage">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Current Baggage</h3>
+        <% if @current_baggages.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render partial: "super/baggages/table", locals: { baggages: @current_baggages } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="all-baggage">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>All Baggage</h3>
+        <% if @baggages.empty? %>
+          <p>There aren't any yet!</p>
+        <% else %>
+          <%= render partial: "super/baggages/table", locals: { baggages: @baggages } %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -59,12 +59,13 @@ module Captain
         AND (partner1_id = :id OR partner2_id = :id)
       """, league_id: draft.league_id, approved: true, id: player_id)
 
-      if baggage
-        partner = baggage.other_partner(player_id)
-        if !partner.drafted?(draft.id) && drafted_baggage = drafted_player.team.drafted_players.find_by(player_id: nil)
-          drafted_baggage.update(player_id: partner.id)
-          TentativePlayer.where(draft_id: draft.id, player_id: partner.id).destroy_all
-        end
+      return unless baggage
+      partner = baggage.other_partner(player_id)
+      return if partner.drafted?(draft.id)
+      return unless partner.registered?(draft.league_id)
+      if drafted_baggage = drafted_player.team.drafted_players.find_by(player_id: nil)
+        drafted_baggage.update(player_id: partner.id)
+        TentativePlayer.where(draft_id: draft.id, player_id: partner.id).destroy_all
       end
     end
   end

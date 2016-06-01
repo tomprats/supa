@@ -3,6 +3,7 @@ module Super
     before_filter :check_admin_level
 
     def index
+      @current_baggages = League.current.baggages
       @baggages = Baggage.all
     end
 
