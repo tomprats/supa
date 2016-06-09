@@ -71,6 +71,7 @@ Supa::Application.routes.draw do
         put :export, on: :collection
         put :assign, on: :collection
         put :trade, on: :collection
+        get :shirt_sizes, on: :collection
       end
       resources :baggages do
         post :approve, on: :member

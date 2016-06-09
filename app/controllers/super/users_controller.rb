@@ -15,6 +15,16 @@ module Super
       render layout: false
     end
 
+    def shirt_sizes
+      league = League.current
+      pdf = ShirtSizesPdf.new(league)
+
+      send_data pdf.render,
+        filename: league.name.downcase.parameterize + ".pdf",
+        type: "application/pdf",
+        disposition: "inline"
+    end
+
     def assign
       league = League.current
       draft = league.draft
