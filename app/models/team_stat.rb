@@ -1,6 +1,6 @@
 class TeamStat < ActiveRecord::Base
   has_many   :player_stats, -> { joins(:player).includes(:player).order("users.last_name ASC") }, foreign_key: :team_stats_id, dependent: :destroy
-  belongs_to :team
+  belongs_to :team, touch: true
 
   delegate :league, to: :team, allow_nil: true
 

@@ -1,5 +1,5 @@
 class PlayerStat < ActiveRecord::Base
-  belongs_to :player, class_name: "User"
+  belongs_to :player, class_name: "User", touch: true
   belongs_to :team_stats, class_name: "TeamStat"
 
   delegate :league, to: :team_stats, allow_nil: true
