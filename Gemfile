@@ -11,8 +11,6 @@ gem "devise"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
-gem "activemerchant"
-gem "paypal-sdk-rest"
 
 # Testing
 group :development, :test do
@@ -38,6 +36,7 @@ gem "jquery-rails"
 gem "haml"
 
 # Other
+gem "stripe"
 gem "traitify"
 gem "prawn"
 gem "prawn-table"

@@ -19,4 +19,5 @@ $(document).ready(function() {
     min: [9, 0],
     max: [21, 0]
   });
+  $("#stripe_card_exp").mask("99/9999");
 });

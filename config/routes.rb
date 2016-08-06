@@ -20,10 +20,6 @@ Supa::Application.routes.draw do
   get "stats/:league_id", to: "stats#index", as: :league_stats
   get "standings/:league_id", to: "stats#standings", as: :league_standings
 
-  get  "payments/checkout"
-  get  "payments/success"
-  post "payments/notify"
-  get  "payments/cancel"
   post "payments/credit_card", as: :credit_card
   post "payments/cash",        as: :cash
 

@@ -1,0 +1,41 @@
+#credit-card-modal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      = form_for :card, url: credit_card_path, html: { id: "stripe-token-form", class: "hide" } do |f|
+        = hidden_field_tag :league_id, @league.id
+        = hidden_field_tag :stripe_token
+        = f.submit
+      = form_for :stripe_card, html: { id: "credit-card-form", class: "form-horizontal" } do |f|
+        .modal-header
+          %button.close(type="button" data-dismiss="modal" aria-hidden="true") ×
+          %h3 Credit Card Payment
+        .modal-body
+          .form-group
+            .col-md-12.text-center
+              Credit Card information will be verified and processed through Stripe (not stored).
+          .form-group
+            .col-md-4
+              %b= @league.name
+            .col-md-8
+              $#{number_with_precision @league.current_price, precision: 2}
+          .form-group
+            = f.label :name, class: "col-md-4 control-label"
+            .col-md-8
+              = f.text_field :name, { placeholder: "Name", class: "form-control" }
+          .form-group
+            = f.label :number, class: "col-md-4 control-label"
+            .col-md-6
+              = f.text_field :number, { placeholder: "Without dashes or spaces", class: "form-control" }
+            .col-md-2
+              = f.text_field :cvc, { placeholder: "CVC", class: "form-control" }
+          .form-group
+            = f.label "Expiration", class: "col-md-4 control-label"
+            .col-md-8
+              = f.text_field :exp, placeholder: DateTime.now.strftime("%m/%Y"), class: "form-control"
+          .form-group.hide
+            .col-sm-offset-4.col-sm-8
+              .error
+          %p.text-center You are not registered until after you click the green register button!
+        .modal-footer
+          = f.submit "Pay", class: "btn btn-primary"
+          %button.btn.btn-default(data-dismiss="modal" aria-hidden="true") Cancel
