@@ -1,0 +1,4 @@
+.flash-placeholder.hide
+- flash.each do |key, value|
+  .alert.text-center(class="alert-#{key}")= value
+- flash.clear

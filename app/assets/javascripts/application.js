@@ -28,14 +28,3 @@ $(document).ready(function() {
     return false;
   });
 });
-
-window.notice = function(message, type) {
-  var original = $(".message.hide")
-  var notice = original.clone();
-  notice.removeClass("hide");
-  var alert = notice.find(".alert")
-  alert.removeClass("alert-danger")
-  alert.addClass("alert-" + type)
-  notice.find("span").text(message);
-  notice.insertAfter(original);
-}

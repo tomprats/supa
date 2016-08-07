@@ -90,10 +90,10 @@ $(document).ready(function() {
       var picks = $(".pick:not(.hide)").map(function() { return $(this).find("select").val() }).get()
       if(picks.length == parseInt($(".total").text())) {
         $.post(location.pathname, { picks: picks }, function(data) {
-          notice("Draft Order Saved", "success");
+          flash("Draft Order Saved", "success");
         });
       } else {
-        notice("Number of Picks does not match Number of Registered Players", "danger");
+        flash("Number of Picks does not match Number of Registered Players", "danger");
       }
     });
   }
