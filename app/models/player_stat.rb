@@ -1,4 +1,4 @@
-class PlayerStat < ActiveRecord::Base
+class PlayerStat < ApplicationRecord
   belongs_to :player, class_name: "User", touch: true
   belongs_to :team_stats, class_name: "TeamStat"
 

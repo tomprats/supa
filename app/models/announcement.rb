@@ -1,4 +1,4 @@
-class Announcement < ActiveRecord::Base
+class Announcement < ApplicationRecord
   belongs_to :creator,  class_name: "User"
 
   validates_presence_of :heading, :text, :importance

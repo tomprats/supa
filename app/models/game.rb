@@ -1,4 +1,4 @@
-class Game < ActiveRecord::Base
+class Game < ApplicationRecord
   belongs_to :event, dependent: :destroy
   belongs_to :team_stats1, class_name: "TeamStat", dependent: :destroy
   belongs_to :team_stats2, class_name: "TeamStat", dependent: :destroy

@@ -1,4 +1,4 @@
-class League < ActiveRecord::Base
+class League < ApplicationRecord
   has_one :draft, dependent: :destroy
   has_many :teams, dependent: :destroy
   has_many :games, dependent: :destroy

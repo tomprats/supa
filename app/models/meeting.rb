@@ -1,4 +1,4 @@
-class Meeting < ActiveRecord::Base
+class Meeting < ApplicationRecord
   belongs_to :questionnaire
 
   validates_presence_of :datetime

@@ -1,4 +1,4 @@
-class Registration < ActiveRecord::Base
+class Registration < ApplicationRecord
   belongs_to :league
   belongs_to :user
   has_one :payment, dependent: :destroy

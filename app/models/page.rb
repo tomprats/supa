@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   belongs_to :creator,  class_name: "User"
 
   validates_format_of :path, with: /\A[a-z][a-z0-9_-]+\Z/

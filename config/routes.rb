@@ -1,4 +1,4 @@
-Supa::Application.routes.draw do
+Rails.application.routes.draw do
   root to: "pages#current"
 
   get "/.well-known/acme-challenge/:id" => "pages#letsencrypt"

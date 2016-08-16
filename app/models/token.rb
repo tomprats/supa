@@ -1,4 +1,4 @@
-class Token < ActiveRecord::Base
+class Token < ApplicationRecord
   belongs_to :user
 
   # Hack to fetch uuid value

@@ -1,4 +1,4 @@
-class TentativePlayer < ActiveRecord::Base
+class TentativePlayer < ApplicationRecord
   belongs_to :player, class_name: "User"
   belongs_to :team
 

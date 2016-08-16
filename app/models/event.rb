@@ -1,4 +1,4 @@
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   belongs_to :creator,  class_name: "User"
   belongs_to :league
   belongs_to :field

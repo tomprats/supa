@@ -1,4 +1,4 @@
-class Draft < ActiveRecord::Base
+class Draft < ApplicationRecord
   has_many :drafted_players, dependent: :destroy
   has_many :tentative_players, dependent: :destroy
   belongs_to :league

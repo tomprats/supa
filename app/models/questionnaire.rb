@@ -1,4 +1,4 @@
-class Questionnaire < ActiveRecord::Base
+class Questionnaire < ApplicationRecord
   belongs_to :user
   belongs_to :league
   has_many :meetings, -> { order(:datetime) }, dependent: :destroy

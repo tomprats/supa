@@ -1,4 +1,4 @@
-class Payment < ActiveRecord::Base
+class Payment < ApplicationRecord
   belongs_to :registration
   has_one :league, through: :registration
 
