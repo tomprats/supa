@@ -1,0 +1,11 @@
+#sign_up_modal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal" aria-hidden="true") ×
+        %h3 Sign In
+        = link_to "Sign up", new_user_path
+        |
+        = link_to "Forgot your password?", forgot_password_path
+      .modal-body
+        = render "form"

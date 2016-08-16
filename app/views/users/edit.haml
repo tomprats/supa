@@ -1,0 +1,15 @@
+.row
+  .col-md-7
+    .row
+      .col-md-12
+        %h2 Edit Profile
+    = render "form"
+  .col-md-5
+    = render "assessment"
+    = render "authentications"
+    .row
+      .col-md-12.center
+        %h3 Unhappy?
+        .row
+          .col-md-12
+            = button_to "Cancel my account", profile_path, data: { confirm: "Things just won't be the same without you. Are you sure you want to destroy all hope for redemption?" }, method: :delete, class: "btn btn-danger"

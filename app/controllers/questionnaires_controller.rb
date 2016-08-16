@@ -8,7 +8,7 @@ class QuestionnairesController < ApplicationController
   def create
     if Questionnaire.create(questionnaire_params).valid?
       save_baggage
-      redirect_to :back, notice: "Thanks for filling out the questionnaire"
+      redirect_to :back, success: "Thanks for filling out the questionnaire"
     else
       redirect_to :back, alert: "Questionnaire could not be created"
     end
@@ -17,7 +17,7 @@ class QuestionnairesController < ApplicationController
   def update
     if Questionnaire.find(params[:id]).update_attributes(questionnaire_params)
       save_baggage
-      redirect_to :back, notice: "Thanks for filling out the questionnaire"
+      redirect_to :back, success: "Thanks for filling out the questionnaire"
     else
       redirect_to :back, alert: "Questionnaire could not be updated"
     end
@@ -26,7 +26,7 @@ class QuestionnairesController < ApplicationController
   private
   def check_admin_level
     unless current_user.is_captain? || current_user.is_real_admin?
-      redirect_to profile_path, notice: "You are not authorized to be there!"
+      redirect_to profile_path, success: "You are not authorized to be there!"
     end
   end
 

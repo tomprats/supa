@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
       purchase_response: "Cash",
       notify_response: current_user.id
     )
-    redirect_to :back, notice: "Cash payment successful. They are still unregistered until they click register"
+    redirect_to :back, success: "Cash payment successful. They are still unregistered until they click register"
   end
 
   def credit_card
@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
 
     @payment.update_attributes(paid: true, token: charge.id)
 
-    redirect_to profile_path, notice: "Credit card payment successful. You are still unregistered until you click register"
+    redirect_to profile_path, success: "Credit card payment successful. You are still unregistered until you click register"
   rescue => e
     Rails.logger.error e
     redirect_to :back, alert: "Credit card payment was unsuccessful. Try again or email tom@stewartstownupa.com to troubleshoot with you"
@@ -30,7 +30,7 @@ class PaymentsController < ApplicationController
   private
   def check_admin_level
     unless current_user.is_super_admin?
-      redirect_to profile_path, notice: "You are not authorized to be there!"
+      redirect_to profile_path, success: "You are not authorized to be there!"
     end
   end
 
@@ -44,7 +44,7 @@ class PaymentsController < ApplicationController
       return redirect_to :back, alert: "#{action_name == "cash" ? "They" : "You"} have already paid"
     elsif @league.current_price.zero?
       @payment.update_attributes(paid: true)
-      return redirect_to :back, notice: "This league is free!"
+      return redirect_to :back, success: "This league is free!"
     end
   end
 end

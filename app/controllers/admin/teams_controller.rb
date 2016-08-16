@@ -4,7 +4,7 @@ module Admin
 
     def create
       @team = Team.create(team_params)
-      redirect_to admin_teams_path, notice: "#{@team.name} was successfully created."
+      redirect_to admin_teams_path, success: "#{@team.name} was successfully created."
     end
 
     def index
@@ -24,7 +24,7 @@ module Admin
 
     def destroy
       @team = Team.find(params[:id]).destroy
-      redirect_to admin_teams_path, notice: "#{@team.name} was successfully destroyed."
+      redirect_to admin_teams_path, success: "#{@team.name} was successfully destroyed."
     end
 
     private
@@ -44,7 +44,7 @@ module Admin
 
     def check_admin_level
       unless current_user.is_real_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
   end

@@ -7,7 +7,7 @@ gem "pg"
 gem "thin"
 
 # User authentication
-gem "devise"
+gem "bcrypt"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
@@ -41,9 +41,6 @@ gem "traitify"
 gem "prawn"
 gem "prawn-table"
 gem "redcarpet"
-
-# Use ActiveModel has_secure_password
-# gem "bcrypt-ruby", "~> 3.0.0"
 
 group :development do
   gem "better_errors"

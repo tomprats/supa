@@ -1,0 +1,68 @@
+- if action_name == "new" || action_name == "create"
+  - method = :post
+  - url = users_path
+- else
+  - method = :put
+  - url = profile_path
+
+= form_for @user, url: url, html: { method: method, class: "form-horizontal" } do |f|
+  .form-group
+    = f.label :email, class: "col-md-4 control-label"
+    .col-md-8
+      = f.text_field :email, { class: "form-control" }
+  .form-group
+    = f.label :first_name, class: "col-md-4 control-label"
+    .col-md-8
+      = f.text_field :first_name, { class: "form-control" }
+  .form-group
+    = f.label :last_name, class: "col-md-4 control-label"
+    .col-md-8
+      = f.text_field :last_name, { class: "form-control" }
+  .form-group
+    = f.label :gender, class: "col-md-4 control-label"
+    .col-md-8
+      = f.select :gender, { "Male" => :male, "Female" => :female }, {}, { class: "form-control" }
+  .form-group
+    = f.label :experience, class: "col-md-4 control-label"
+    .col-md-8
+      = f.select :experience, { "0" => "0 years", "1-2" => "1-2 years", "3-4" => "3-4 years", "6++" => "6++ years" }, {}, { class: "form-control" }
+  .form-group
+    = f.label :phone_number, class: "col-md-4 control-label"
+    .col-md-8
+      = f.text_field :phone_number, { class: "form-control" }
+  .form-group
+    = f.label :shirt_size, class: "col-md-4 control-label"
+    .col-md-8
+      = f.select :shirt_size, User.shirt_sizes, {}, { class: "form-control" }
+  .form-group
+    = f.label :birthday, class: "col-md-4 control-label"
+    .col-md-8
+      - if f.object.birthday
+        = f.text_field :birthday, { value: localize(f.object.birthday), class: "form-control" }
+      - else
+        = f.text_field :birthday, { value: "", class: "form-control" }
+  - if @password
+    .form-group
+      = f.label :current_password, "Current Password", class: "col-md-4 control-label"
+      .col-md-8
+        = f.password_field :current_password, placeholder: "Required to change Email/Password", class: "form-control"
+    .form-group
+      = f.label :password, class: "col-md-4 control-label"
+      .col-md-8
+        = f.password_field :password, placeholder: "New Password", class: "form-control"
+    .form-group
+      = f.label :password_confirmation, "Confirmation", class: "col-md-4 control-label"
+      .col-md-8
+        = f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control"
+  - else
+    .form-group
+      = f.label :password, class: "col-md-4 control-label"
+      .col-md-8
+        = f.password_field :password, class: "form-control"
+    .form-group
+      = f.label :password_confirmation, "Confirmation", class: "col-md-4 control-label"
+      .col-md-8
+        = f.password_field :password_confirmation, class: "form-control"
+  .form-group
+    .col-md-offset-4.col-md-8
+      = f.submit "Submit", class: "btn btn-primary"

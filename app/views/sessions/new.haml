@@ -1,0 +1,7 @@
+.login.center
+  %h3 Login With
+  = link_to "facebook", "/auth/facebook", class: "btn btn-primary login-button"
+  = link_to "twitter", "/auth/twitter", class: "btn btn-primary login-button"
+  = link_to "password", "#sign_up_modal", class: "admin_modal btn btn-primary login-button", role: "button", data: { toggle: "modal" }
+
+= render "modal"

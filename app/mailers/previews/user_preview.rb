@@ -1,10 +1,14 @@
 class UserPreview < ActionMailer::Preview
   def invite
-    UserMailer.registration_email(user)
+    UserMailer.invite(user)
+  end
+
+  def reset_password
+    UserMailer.reset_password(user)
   end
 
   private
   def user
-    User.find_by(email: "tprats108@gmail.com")
+    User.tom
   end
 end

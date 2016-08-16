@@ -31,9 +31,9 @@ module Super
       player = User.find(params[:assign][:player_id])
       team = Team.find(params[:assign][:team_id])
       if !(league.pre_draft? || league.in_progress?)
-        redirect_to :back, alert: "It's not time for that."
+        redirect_to :back, danger: "It's not time for that."
       elsif player.on_a_team?
-        redirect_to :back, alert: "Player already on a team."
+        redirect_to :back, danger: "Player already on a team."
       else
         unless league.pre_draft?
           DraftedPlayer.create(
@@ -45,7 +45,7 @@ module Super
         end
         team.players << player
 
-        redirect_to :back, notice: "Player successfully assigned."
+        redirect_to :back, success: "Player successfully assigned."
       end
     end
 
@@ -57,11 +57,11 @@ module Super
       team1 = player1.try(:team) || Team.find(params[:trade][:team1_id])
       team2 = player2.try(:team) || Team.find(params[:trade][:team2_id])
       if !(league.pre_draft? || league.in_progress?)
-        redirect_to :back, alert: "It's not time for that."
+        redirect_to :back, danger: "It's not time for that."
       elsif (player1 && !player1.on_a_team?) || (player2 && !player2.on_a_team?)
-        redirect_to :back, alert: "Player not on a team."
+        redirect_to :back, danger: "Player not on a team."
       elsif team1 == team2
-        redirect_to :back, alert: "Players on the same team."
+        redirect_to :back, danger: "Players on the same team."
       else
         if player1
           unless league.pre_draft?

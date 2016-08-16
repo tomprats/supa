@@ -6,9 +6,9 @@ module Admin
       params[:event][:datetime] = convert_to_datetime(params[:event].delete(:date), params[:event].delete(:time))
       @event = Event.create(event_params.merge!(creator_id: current_user.id))
       if @event.valid?
-        redirect_to admin_events_path, notice: "Event was successfully created"
+        redirect_to admin_events_path, success: "Event was successfully created"
       else
-        redirect_to :back, alert: "Event could not be created"
+        redirect_to :back, danger: "Event could not be created"
       end
     end
 
@@ -27,18 +27,18 @@ module Admin
     def update
       params[:event][:datetime] = convert_to_datetime(params[:event].delete(:date), params[:event].delete(:time))
       if Event.find(params[:id]).update_attributes(event_params)
-        redirect_to admin_events_path, notice: "Event was successfully updated"
+        redirect_to admin_events_path, success: "Event was successfully updated"
       else
-        redirect_to :back, alert: "Event could not be updated"
+        redirect_to :back, danger: "Event could not be updated"
       end
     end
 
     def destroy
       event = Event.find(params[:id])
       if !event.game && event.destroy
-        redirect_to admin_events_path, notice: "Event was successfully destroyed"
+        redirect_to admin_events_path, success: "Event was successfully destroyed"
       else
-        redirect_to :back, alert: "Event could not be destroyed"
+        redirect_to :back, danger: "Event could not be destroyed"
       end
     end
 
@@ -60,7 +60,7 @@ module Admin
 
     def check_admin_level
       unless current_user.is_real_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
   end

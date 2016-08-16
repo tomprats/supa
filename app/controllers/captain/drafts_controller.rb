@@ -30,19 +30,19 @@ module Captain
         @drafted_players = current_user.captains_team(@draft.league_id).drafted_players
         @last = @drafted_players.where.not(player_id: nil).last
         if flash.empty? && @last
-          flash[:notice] = "#{@last.name} has been drafted by #{@last.team.name}: <a target=\"_blank\" href=\"#{feed_draft_path(@draft.id)}\">View Feed</a>"
+          flash[:success] = "#{@last.name} has been drafted by #{@last.team.name}: <a target=\"_blank\" href=\"#{feed_draft_path(@draft.id)}\">View Feed</a>"
         end
       else
         @first = @draft.teams.first
         @draft.update_players unless @first.drafted_players.count == @first.players.count
-        redirect_to captain_path, notice: "All the registered players have been drafted"
+        redirect_to captain_path, success: "All the registered players have been drafted"
       end
     end
 
     private
     def check_admin_level
       unless current_user.is_captain? || current_user.is_super_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
   end

@@ -15,7 +15,7 @@ class PlayerAwardsController < ApplicationController
     if player_award.errors.any?
       redirect_to :back, alert: player_award.errors.try(:messages).to_s
     else
-      redirect_to profile_path, notice: "Player Awards created successfully"
+      redirect_to profile_path, success: "Player Awards created successfully"
     end
   end
 
@@ -27,7 +27,7 @@ class PlayerAwardsController < ApplicationController
   def update
     player_award = current_user.player_award
     if player_award.update_attributes(player_award_params)
-      redirect_to profile_path, notice: "Player Awards updated successfully"
+      redirect_to profile_path, success: "Player Awards updated successfully"
     else
       redirect_to :back, alert: player_award.errors.try(:messages).to_s
     end

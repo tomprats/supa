@@ -33,18 +33,18 @@
         <% Page.where("importance > 0").each do |page| %>
           <li><%= link_to(fa_icon("star") + " #{page.name}", page_path(page.path)) %></li>
         <% end %>
-        <% if user_signed_in? %>
+        <% if current_user %>
           <li><%= link_to(fa_icon("user") + " Profile", profile_path) %></li>
-          <% if current_user && current_user.is_captain? %>
+          <% if current_user.is_captain? %>
             <li><%= link_to(fa_icon("anchor") + " Captain", captain_path) %></li>
           <% end %>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li><%= link_to(fa_icon("power-off") + " Sign Out", sign_out_path, method: :delete) %></li>
+        <% if current_user %>
+          <li><%= link_to(fa_icon("power-off") + " Sign Out", session_path, method: :delete) %></li>
         <% else %>
-          <li><%= link_to(fa_icon("sign-in") + " Sign In/Up", new_user_session_path) %></li>
+          <li><%= link_to(fa_icon("sign-in") + " Sign In/Up", new_session_path) %></li>
         <% end %>
       </ul>
     </div>

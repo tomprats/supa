@@ -8,9 +8,9 @@ module Super
 
     def create
       if League.create(league_params).valid?
-        redirect_to super_leagues_path, notice: "League was successfully created"
+        redirect_to super_leagues_path, success: "League was successfully created"
       else
-        redirect_to :back, alert: "League could not be created"
+        redirect_to :back, danger: "League could not be created"
       end
     end
 
@@ -20,16 +20,16 @@ module Super
 
     def update
       if League.find(params[:id]).update_attributes(league_params)
-        redirect_to super_leagues_path, notice: "League was successfully updated"
+        redirect_to super_leagues_path, success: "League was successfully updated"
       else
-        redirect_to :back, alert: "League could not be updated"
+        redirect_to :back, danger: "League could not be updated"
       end
     end
 
     private
     def check_admin_level
       unless current_user.is_super_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
 

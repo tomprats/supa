@@ -8,7 +8,7 @@ module Super
 
     def create
       @draft = Draft.create(draft_params)
-      redirect_to super_drafts_path, notice: "Draft successfully created."
+      redirect_to super_drafts_path, success: "Draft successfully created."
     end
 
     def edit
@@ -17,18 +17,18 @@ module Super
 
     def update
       @draft.update(draft_params)
-      redirect_to super_drafts_path, notice: "Draft successfully updated."
+      redirect_to super_drafts_path, success: "Draft successfully updated."
     end
 
     def reset
       @draft = Draft.find(params[:id])
       @draft.setup_players
-      redirect_to super_drafts_path, notice: "Draft successfully reset."
+      redirect_to super_drafts_path, success: "Draft successfully reset."
     end
 
     def destroy
       @draft = Draft.find(params[:id]).destroy
-      redirect_to super_drafts_path, notice: "Draft successfully destroyed."
+      redirect_to super_drafts_path, success: "Draft successfully destroyed."
     end
 
     def order
@@ -66,7 +66,7 @@ module Super
     private
     def check_admin_level
       unless current_user.is_super_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, success: "You are not authorized to be there!"
       end
     end
 

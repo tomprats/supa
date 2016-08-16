@@ -1,7 +1,0 @@
-<div class="login center">
-  <h3>Login With:</h3>
-  <%= link_to "facebook", user_omniauth_authorize_path(:facebook), method: "get", class: "btn btn-primary login-button" %>
-  <%= link_to "twitter", user_omniauth_authorize_path(:twitter), method: "get", class: "btn btn-primary login-button" %>
-  <%= link_to "password", "#sign_up_modal", class: "admin_modal btn btn-primary login-button", role: "button", data: { toggle: "modal" } %>
-</div>
-<%= render partial: "sign_up_modal" %>

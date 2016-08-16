@@ -1,0 +1,16 @@
+.row
+  .col-md-12
+    %h2 Edit Password
+    = form_for :user, url: password_path, html: { method: :put, class: "form-horizontal" } do |f|
+      = hidden_field_tag :token, params[:token]
+      .form-group
+        = f.label :password, class: "col-md-4 control-label"
+        .col-md-6
+          = f.password_field :password, { class: "form-control" }
+      .form-group
+        = f.label :password_confirmation, "Password Confirmation", class: "col-md-4 control-label"
+        .col-md-6
+          = f.password_field :password_confirmation, { class: "form-control" }
+      .form-group
+        .col-md-offset-4.col-md-8
+          = f.submit "Save Password", class: "btn btn-primary"

@@ -1,7 +1,13 @@
 class UserMailer < ApplicationMailer
-  def registration_email(user)
+  def invite(user)
     @user = user
 
     mail(to: @user.email, subject: "SUPA - Summer League Registration!")
+  end
+
+  def reset_password(user)
+    @user = user
+
+    mail(to: @user.email, subject: "SUPA - Reset Password")
   end
 end

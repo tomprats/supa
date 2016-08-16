@@ -1,6 +1,5 @@
 class TeamsController < ApplicationController
-  skip_before_filter :authenticate_user!
-  skip_before_filter :check_attr
+  skip_before_filter :require_user!, :check_attr
 
   def show
     if params[:id]
@@ -8,7 +7,7 @@ class TeamsController < ApplicationController
     elsif current_user.team
       @team = current_user.team
     else
-      redirect_to profile_path, :notice => "You don't have a team yet!"
+      redirect_to profile_path, danger: "You don't have a team yet!"
     end
   end
 end

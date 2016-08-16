@@ -7,12 +7,12 @@ module Captain
       @draft_player = TentativePlayer.create(
         tentative_player_params.merge!(team_id: current_user.captains_team(league_id).id)
       )
-      redirect_to :back, notice: "Tentative Player successfully created."
+      redirect_to :back, success: "Tentative Player successfully created."
     end
 
     def destroy
       @draft_player = TentativePlayer.find(params[:id]).destroy
-      redirect_to :back, notice: "Tentative Player successfully destroyed."
+      redirect_to :back, success: "Tentative Player successfully destroyed."
     end
 
     private
@@ -26,7 +26,7 @@ module Captain
 
     def check_admin_level
       unless current_user.is_captain?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
   end

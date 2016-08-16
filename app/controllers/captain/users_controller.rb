@@ -15,7 +15,7 @@ module Captain
     private
     def check_admin_level
       unless current_user.is_captain? || current_user.is_super_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
   end

@@ -1,6 +1,5 @@
 class DraftsController < ApplicationController
-  skip_before_filter :authenticate_user!
-  skip_before_filter :check_attr
+  skip_before_filter :require_user!, :check_attr
 
   def feed
     if params[:id]

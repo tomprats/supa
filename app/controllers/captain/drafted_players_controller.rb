@@ -20,7 +20,7 @@ module Captain
     private
     def check_admin_level
       unless current_user.is_captain?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
 
@@ -40,9 +40,9 @@ module Captain
           more = draft.update_turn
           if (more && draft.players_undrafted?) || (!more && !draft.players_undrafted?)
             updated_players unless more
-            redirect_to :back, notice: "Player successfully drafted."
+            redirect_to :back, success: "Player successfully drafted."
           else
-            redirect_to :back, alert: "Organizer must update draft order."
+            redirect_to :back, danger: "Organizer must update draft order."
           end
         end
       else

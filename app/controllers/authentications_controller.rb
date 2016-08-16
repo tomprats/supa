@@ -1,19 +1,17 @@
-class AuthenticationsController < Devise::OmniauthCallbacksController
+class AuthenticationsController < ApplicationController
+  skip_before_filter :require_user!, :check_attr, only: :create
+
   def destroy
-    @authentication = Authentication.find(params[:id])
+    @authentication = current_user.authentications.find(params[:id])
     if current_user.authentications.count > 1 || !current_user.encrypted_password.blank?
       @authentication.destroy
-      redirect_to :back, notice: "Successfully destroyed authentication."
+      redirect_to :back, success: "Successfully destroyed authentication."
     else
       redirect_to :back, alert: "You must have at least 1 method of authentication (password, facebook, twitter...)."
     end
   end
 
-  def facebook
-    authenticate_with_provider
-  end
-
-  def twitter
+  def create
     authenticate_with_provider
   end
 
@@ -25,37 +23,41 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
   def authenticate_with_provider
     omni = request.env["omniauth.auth"]
 
-    authentication = Authentication.find_by_provider_and_uid(omni['provider'], omni['uid'])
+    authentication = Authentication.find_by_provider_and_uid(omni["provider"], omni["uid"])
 
     if authentication
-      flash[:notice] = "Logged in Successfully"
-      sign_in_and_redirect User.find(authentication.user_id)
+      session[:current_user_id] = authentication.user_id
+      redirect_to profile_path, success: "Logged in Successfully"
     elsif current_user
-      token = omni['credentials'].token
-      token_secret = omni['credentials'].secret
+      token = omni["credentials"].token
+      token_secret = omni["credentials"].secret
 
-      current_user.authentications.create!(provider: omni['provider'], uid: omni['uid'], token: token, token_secret: token_secret)
-      flash[:notice] = "Authentication successful."
-      sign_in_and_redirect current_user
+      current_user.authentications.create!(provider: omni["provider"], uid: omni["uid"], token: token, token_secret: token_secret)
+      redirect_to profile_path, success: "Authentication successful."
     else
       user = User.new
-      if omni['provider'] == "facebook"
-        user.email = omni['extra']['raw_info'].email
-        user.first_name = omni['info'].first_name
-        user.last_name  = omni['info'].last_name
-        user.gender     = omni['extra']['raw_info'].gender
-        if omni['extra']['raw_info'].birthday
-          user.birthday   = Date.strptime(omni['extra']['raw_info'].birthday, "%m/%d/%Y")
+      if omni["provider"] == "facebook"
+        user.email = omni["extra"]["raw_info"].email
+        user.first_name = omni["info"].first_name
+        user.last_name  = omni["info"].last_name
+        user.gender     = omni["extra"]["raw_info"].gender
+        if omni["extra"]["raw_info"].birthday
+          user.birthday   = Date.strptime(omni["extra"]["raw_info"].birthday, "%m/%d/%Y")
         end
       end
 
-      user.apply_omniauth(omni)
+      user.authentications.build(
+        provider:     omni["provider"],
+        uid:          omni["uid"],
+        token:        omni["credentials"].token,
+        token_secret: omni["credentials"].secret
+      )
 
       if user.save
-        flash[:notice] = "Logged in."
-        sign_in_and_redirect User.find(user.id)
+        session[:current_user_id] = user.id
+        redirect_to profile_path, success: "Logged in."
       else
-        session[:omniauth] = omni.except('extra')
+        session[:omniauth] = omni.except("extra")
         redirect_to new_user_registration_path
       end
     end

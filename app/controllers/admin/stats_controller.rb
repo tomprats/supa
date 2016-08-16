@@ -20,9 +20,9 @@ module Admin
     def update
       @game =  Game.find(params[:game_id])
       if @game.update_attributes(game_params)
-        redirect_to admin_games_path, notice: "Stats were successfully updated"
+        redirect_to admin_games_path, success: "Stats were successfully updated"
       else
-        redirect_to :back, alert: @game.errors.try(:messages).to_s
+        redirect_to :back, danger: @game.errors.try(:messages).to_s
       end
     end
 
@@ -36,7 +36,7 @@ module Admin
 
     def check_admin_level
       unless current_user.is_real_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, danger: "You are not authorized to be there!"
       end
     end
   end

@@ -1,4 +1,11 @@
 class User < ActiveRecord::Base
+  has_secure_password validations: false
+
+  validates_presence_of :email, :first_name, :last_name
+  validates_uniqueness_of :email
+  validates :email, format: /@/i
+  validates_confirmation_of :password, allow_blank: true
+
   has_many :authentications, dependent: :destroy
   has_many :announcements
   has_and_belongs_to_many :teams
@@ -9,11 +16,9 @@ class User < ActiveRecord::Base
   has_many :payments, through: :registrations
   has_many :player_awards
   has_many :assessments, dependent: :destroy
+  has_many :tokens
 
-  devise :database_authenticatable, :registerable, :omniauthable,
-         :omniauthable, :recoverable, :rememberable, :trackable,
-         :validatable
-
+  before_validation :format_email
   after_destroy :destroy_baggages
 
   scope :super,    -> { where(admin: "super") }
@@ -94,19 +99,6 @@ class User < ActiveRecord::Base
     league_id ||= League.current.id
     r = registration(league_id)
     r && r.registered?
-  end
-
-  def apply_omniauth(omni)
-    authentications.build(
-      provider:     omni['provider'],
-      uid:          omni['uid'],
-      token:        omni['credentials'].token,
-      token_secret: omni['credentials'].secret
-    )
-  end
-
-  def password_required?
-    (authentications.empty? || !password.blank?) && super
   end
 
   def admin_collection
@@ -240,12 +232,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_with_password(params, *options)
-    if encrypted_password.blank?
-      update_attributes(params, *options)
-    else
-      super
-    end
+  def token
+    @token ||= tokens.first || tokens.create
+  end
+
+  private
+  def format_email
+    self.email = self.email.strip.downcase
   end
 
   def destroy_baggages

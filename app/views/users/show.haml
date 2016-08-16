@@ -1,0 +1,19 @@
+.row
+  .col-md-12
+    .row
+      .col-md-6
+        = link_to "Edit Profile", edit_profile_path
+        |
+        = link_to "Logout", session_path, method: :delete
+        - if @league.registration? || @league.late_registration?
+          = render "shared/registration"
+      .col-md-6
+        = render "assessment"
+        = render "authentications"
+    .row
+      .col-md-12
+        %h3 Teams
+        - if @user.teams.empty?
+          %p You aren't signed up for any teams yet, sorry!
+        - else
+          = render partial: "teams/table", locals: { teams: @user.teams }

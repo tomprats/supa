@@ -1,0 +1,10 @@
+= form_for @user, url: session_path, html: { class: "form-horizontal" } do |f|
+  .form-group
+    = f.label :email, class: "col-md-4 control-label"
+    .col-md-8
+      = f.text_field :email, { class: "form-control" }
+  .form-group
+    = f.label :password, class: "col-md-4 control-label"
+    .col-md-8
+      = f.password_field :password, { class: "form-control" }
+  = f.submit "Submit", class: "btn btn-primary"

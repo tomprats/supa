@@ -1,0 +1,27 @@
+.row
+  .col-md-12
+    .row
+      .col-md-12.center
+        %h3 Authentications
+    .row
+      .col-md-12.center
+        = fa_icon "facebook-square"
+        - if @facebook
+          = link_to "Disable?", @facebook, data: { confirm: "Are you sure?" }, method: :delete
+        - else
+          = link_to "Enable?", "/auth/facebook"
+    .row
+      .col-md-12.center
+        = fa_icon "twitter"
+        - if @twitter
+          = link_to "Disable?", @twitter, data: { confirm: "Are you sure?" }, method: :delete
+        - else
+          = link_to "Enable?", "/auth/twitter"
+    .row
+      .col-md-12.center
+        - if @password
+          = fa_icon "check-square"
+          Password Enabled
+        - else
+          = fa_icon "unlock"
+          Password Disabled

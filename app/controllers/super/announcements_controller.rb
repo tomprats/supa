@@ -8,7 +8,7 @@ module Super
 
     def create
       if Announcement.create(announcement_params.merge!(creator_id: current_user.id)).valid?
-        redirect_to super_announcements_path, notice: "Announcement was successfully created"
+        redirect_to super_announcements_path, success: "Announcement was successfully created"
       else
         redirect_to :back, alert: "Announcement could not be created"
       end
@@ -20,7 +20,7 @@ module Super
 
     def update
       if Announcement.find(params[:id]).update_attributes(announcement_params)
-        redirect_to super_announcements_path, notice: "Announcement was successfully updated"
+        redirect_to super_announcements_path, success: "Announcement was successfully updated"
       else
         redirect_to :back, alert: "Announcement could not be updated"
       end
@@ -28,7 +28,7 @@ module Super
 
     def destroy
       if Announcement.find(params[:id]).destroy
-        redirect_to super_announcements_path, notice: "Announcement was successfully destroyed"
+        redirect_to super_announcements_path, success: "Announcement was successfully destroyed"
       else
         redirect_to :back, alert: "Announcement could not be destroyed"
       end
@@ -37,7 +37,7 @@ module Super
     private
     def check_admin_level
       unless current_user.is_super_admin?
-        redirect_to profile_path, notice: "You are not authorized to be there!"
+        redirect_to profile_path, success: "You are not authorized to be there!"
       end
     end
 
