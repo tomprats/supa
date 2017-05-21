@@ -1,12 +1,7 @@
-- close_date = "Monday May 30th"
 %p Hey #{@user.first_name}!
-%p If you didn't already know, the Summer League Registration is live! <b>It will close #{close_date} at 10:00 PM. #{link_to "Sign up today!", "http://www.stewartstownupa.com"}</b> When signing up, remember that your registration is not complete until you click "Register" after paying the league fee. If you neglect to click Register, you will not be considered registered and will not be drafted!
+%p If you didn't already know, the Summer Season Sign-Ups are Live! They will close Friday, June 2nd.
+%p When signing up, remember that your registration is not complete until you click "Register" after paying the league fee. If you neglect to click Register, you will not be considered registered and will not be placed on a team in the draft. For all of those who have already signed up, thank you very much!
 %div(style="text-align: center;")
-  %h3 GET READY TO LAYOUT
-  %p= image_tag "layout.jpg", width: 300
-  %p There will be no late signups this year, so sign up TODAY!
-  %h3 Use your head and #{link_to "Sign Up!", "http://www.stewartstownupa.com"}
-  %p= image_tag "basketball.gif", width: 300
-  %p For all of those who have already signed up, thank you very much!
-  %p Farewell Friend,<br>SUPA
-  %small Brought to you by #{link_to "Tomify!", "https://tomify.me"}
+  %h3= link_to "Sign Up Today!", "http://www.stewartstownupa.com"
+  %p= image_tag "gifs/zonked.gif", width: 300
+  %p Thanks,<br>Stewartstown Ultimate Players Assosciation
