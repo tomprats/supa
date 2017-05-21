@@ -58,7 +58,7 @@ class AuthenticationsController < ApplicationController
         redirect_to profile_path, success: "Logged in."
       else
         session[:omniauth] = omni.except("extra")
-        redirect_to new_user_registration_path
+        redirect_to new_user_path, danger: "There was a problem authenticating (#{user.errors.full_messages.join(", ")})"
       end
     end
   end

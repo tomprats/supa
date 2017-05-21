@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
   skip_before_filter :require_user!, only: [:new, :create]
-  skip_before_filter :check_attr, only: [:show, :create, :edit, :update]
+  skip_before_filter :check_attr
   before_filter :set_variables, only: [:show, :edit, :update]
+
+  def new
+    @user = User.new
+  end
 
   def create
     @user = User.new(user_params)

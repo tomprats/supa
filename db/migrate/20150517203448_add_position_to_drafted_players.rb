@@ -4,7 +4,5 @@ class AddPositionToDraftedPlayers < ActiveRecord::Migration
     add_column :drafted_players, :position, :integer
     remove_column :drafted_players, :round, :integer
     remove_column :drafts, :order, :text
-
-    DraftedPlayer.destroy_all
   end
 end

@@ -30,41 +30,6 @@ class CreatePayments < ActiveRecord::Migration
     add_column :teams, :league_id, :integer
     add_column :games, :league_id, :integer
 
-    # Convert drafts season/year to league
-    Draft.all.each do |draft|
-      league = League.where(season: draft.season, year: draft.year).first
-      league ||= League.create(season: draft.season, year: draft.year)
-      draft.update_attributes(league_id: league.id)
-    end
-
-    # Convert teams season/year to league
-    Team.all.each do |team|
-      league = League.where(season: team.season, year: team.year).first
-      league ||= League.create(season: team.season, year: team.year)
-      team.update_attributes(league_id: league.id)
-    end
-
-    # Convert games season/year to league
-    Game.all.each do |game|
-      team = game.team1
-      league = League.where(season: team.season, year: team.year).first
-      league ||= League.create(season: team.season, year: team.year)
-      game.update_attributes(league_id: league.id)
-    end
-
-    # Convert spring registered to payment
-    User.where(spring_registered: true).each do |user|
-      registration = Registration.create(
-        user_id: user.id,
-        league_id: League.where(season: "Spring", year: 2014).first.id,
-        registered: true
-      )
-      Payment.create(
-        registration_id: registration.id,
-        paid: true
-      )
-    end
-
     remove_column :drafts, :season, :string
     remove_column :drafts, :year, :integer
     remove_column :teams, :season, :string
