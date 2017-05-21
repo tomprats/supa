@@ -36,9 +36,11 @@ class UsersController < ApplicationController
   def user_params
     params[:user][:birthday] = DateTime.strptime(params[:user][:birthday], "%m/%d/%Y").to_date rescue nil
     params.require(:user).permit(
-      :email, :first_name, :last_name,
+      :email, :experience, :first_name,
+      :gender, :image, :last_name,
       :password, :password_confirmation,
-      :image, :post_notifications
+      :phone_number, :post_notifications,
+      :shirt_size
     )
   end
 
