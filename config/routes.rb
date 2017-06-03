@@ -62,7 +62,7 @@ Rails.application.routes.draw do
     resources :leagues
     resources :drafts do
       get :order, on: :member
-      post :order, on: :member, to: :update_order
+      post :order, on: :member, to: "drafts#update_order"
       delete :reset, on: :member
     end
     resources :fields
