@@ -6,7 +6,7 @@ class Baggage < ApplicationRecord
 
   validates_presence_of :league_id, :partner1_id, :partner2_id
   validate :partners_differ
-  validate :registered
+  validate :registered?
 
   def other_partner(user_id)
     user_id == partner1_id ? partner2 : partner1
@@ -35,9 +35,9 @@ class Baggage < ApplicationRecord
     end
   end
 
-  def registered
+  def registered?
     if approved
-      unless partner1.registered(league.id) && partner2.registered(league.id)
+      unless partner1.registered?(league.id) && partner2.registered?(league.id)
         errors.add(:partners, "must be registered")
       end
     end
