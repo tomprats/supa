@@ -23,13 +23,6 @@
             <%= link_to "Questionnaire", "#", data: { toggle: "modal", target: "#questionnaire-modal" }, class: "btn btn-primary" %>
           <% end %>
         <% end %>
-        <% if @league.late_registration? %>
-          <div class="row">
-            <div class="col-md-12 margin-top-10">
-              Captains will be selecting from post draft registrations after our June 1st games.
-            </div>
-          </div>
-        <% end %>
       <% else %>
         <%= link_to "Sign in to Register!", new_session_path, class: "btn btn-success"  %>
       <% end %>
