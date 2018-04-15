@@ -1,10 +1,10 @@
 class PasswordsController < ApplicationController
-  skip_before_filter :require_user!, :check_attr
+  skip_before_action :require_user!, :check_attr
 
   def create
     if user = User.find_by(email: params[:email])
       UserMailer.reset_password(user).deliver_now
-      redirect_to :back, success: "Email Sent!"
+      redirect_back success: "Email Sent!"
     else
       render :new, warning: "Email Not Found"
     end
@@ -17,7 +17,7 @@ class PasswordsController < ApplicationController
       session[:current_user_id] = user.id
       redirect_to profile_path, success: "Password Updated!"
     else
-      redirect_to :back, warning: user.errors.full_messages.join(", ")
+      redirect_back warning: user.errors.full_messages.join(", ")
     end
   end
 

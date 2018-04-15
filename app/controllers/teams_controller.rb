@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  skip_before_filter :require_user!, :check_attr
+  skip_before_action :require_user!, :check_attr
 
   def show
     if params[:id]

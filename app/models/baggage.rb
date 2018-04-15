@@ -1,6 +1,6 @@
 class Baggage < ApplicationRecord
   belongs_to :league
-  belongs_to :approver, class_name: "User"
+  belongs_to :approver, class_name: "User", optional: true
   belongs_to :partner1, class_name: "User"
   belongs_to :partner2, class_name: "User"
 

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :success, :info, :warning, :danger
 
-  before_filter :require_user!, :check_attr
+  before_action :require_user!, :check_attr
 
   def not_found
     raise ActionController::RoutingError.new("Not Found")
@@ -11,9 +11,7 @@ class ApplicationController < ActionController::Base
   helper_method :not_found
 
   def current_user
-    @current_user ||= User.find(session[:current_user_id])
-  rescue
-    nil
+    @current_user ||= User.find(session[:current_user_id]) rescue nil
   end
   helper_method :current_user
 
@@ -21,9 +19,14 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path, warning: "You need to sign in!" unless current_user
   end
 
+  def redirect_back(options = {})
+    options[:fallback_location] ||= root_path
+    super(options)
+  end
+
   def check_attr
     if !current_user.account_registered?
-      redirect_to edit_profile_path, danger: "Please fill in your registration information below."
+      redirect_to edit_profile_path, danger: "Please fill in your registration information below (phone number, experience, shirt size)."
     elsif !current_user.valid_shirt_size?
       redirect_to edit_profile_path, danger: "Please update your shirt size."
     end

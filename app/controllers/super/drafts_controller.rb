@@ -1,6 +1,6 @@
 module Super
   class DraftsController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def index
       @drafts = Draft.all

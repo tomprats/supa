@@ -1,13 +1,13 @@
 class AuthenticationsController < ApplicationController
-  skip_before_filter :require_user!, :check_attr, only: :create
+  skip_before_action :require_user!, :check_attr, only: :create
 
   def destroy
     @authentication = current_user.authentications.find(params[:id])
     if current_user.authentications.count > 1 || !current_user.encrypted_password.blank?
       @authentication.destroy
-      redirect_to :back, success: "Successfully destroyed authentication."
+      redirect_back success: "Successfully destroyed authentication."
     else
-      redirect_to :back, alert: "You must have at least 1 method of authentication (password, facebook, twitter...)."
+      redirect_back alert: "You must have at least 1 method of authentication (password, facebook, twitter...)."
     end
   end
 

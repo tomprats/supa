@@ -1,6 +1,6 @@
 module Admin
   class EventsController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def create
       params[:event][:datetime] = convert_to_datetime(params[:event].delete(:date), params[:event].delete(:time))
@@ -8,7 +8,7 @@ module Admin
       if @event.valid?
         redirect_to admin_events_path, success: "Event was successfully created"
       else
-        redirect_to :back, danger: "Event could not be created"
+        redirect_back danger: "Event could not be created"
       end
     end
 
@@ -29,7 +29,7 @@ module Admin
       if Event.find(params[:id]).update_attributes(event_params)
         redirect_to admin_events_path, success: "Event was successfully updated"
       else
-        redirect_to :back, danger: "Event could not be updated"
+        redirect_back danger: "Event could not be updated"
       end
     end
 
@@ -38,7 +38,7 @@ module Admin
       if !event.game && event.destroy
         redirect_to admin_events_path, success: "Event was successfully destroyed"
       else
-        redirect_to :back, danger: "Event could not be destroyed"
+        redirect_back danger: "Event could not be destroyed"
       end
     end
 

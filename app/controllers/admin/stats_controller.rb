@@ -1,6 +1,6 @@
 module Admin
   class StatsController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def edit
       @game = Game.find(params[:game_id])
@@ -22,7 +22,7 @@ module Admin
       if @game.update_attributes(game_params)
         redirect_to admin_games_path, success: "Stats were successfully updated"
       else
-        redirect_to :back, danger: @game.errors.try(:messages).to_s
+        redirect_back danger: @game.errors.try(:messages).to_s
       end
     end
 

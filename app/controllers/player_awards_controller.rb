@@ -13,7 +13,7 @@ class PlayerAwardsController < ApplicationController
 
     player_award = current_user.player_awards.create(player_award_params.merge!(league_id: League.current.id))
     if player_award.errors.any?
-      redirect_to :back, alert: player_award.errors.try(:messages).to_s
+      redirect_back alert: player_award.errors.try(:messages).to_s
     else
       redirect_to profile_path, success: "Player Awards created successfully"
     end
@@ -29,7 +29,7 @@ class PlayerAwardsController < ApplicationController
     if player_award.update_attributes(player_award_params)
       redirect_to profile_path, success: "Player Awards updated successfully"
     else
-      redirect_to :back, alert: player_award.errors.try(:messages).to_s
+      redirect_back alert: player_award.errors.try(:messages).to_s
     end
   end
 

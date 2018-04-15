@@ -1,6 +1,6 @@
 module Captain
   class DraftedPlayersController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def create
       draft = Draft.find(params[:drafted_player][:draft_id])
@@ -26,11 +26,11 @@ module Captain
 
     def draft_player(draft, player)
       if !draft.active?
-        redirect_to :back, alert: "The draft has not started yet."
+        redirect_back alert: "The draft has not started yet."
       elsif draft.my_turn?(current_user)
         if player.drafted?(draft.id)
           TentativePlayer.where(draft_id: draft.id, player_id: player.id).destroy_all
-          redirect_to :back, alert: "Player already drafted."
+          redirect_back alert: "Player already drafted."
         else
           drafted_player = draft.current_pick
           drafted_player.update(player_id: player.id)
@@ -40,13 +40,13 @@ module Captain
           more = draft.update_turn
           if (more && draft.players_undrafted?) || (!more && !draft.players_undrafted?)
             updated_players unless more
-            redirect_to :back, success: "Player successfully drafted."
+            redirect_back success: "Player successfully drafted."
           else
-            redirect_to :back, danger: "Organizer must update draft order."
+            redirect_back danger: "Organizer must update draft order."
           end
         end
       else
-        redirect_to :back, alert: "It is not your turn!"
+        redirect_back alert: "It is not your turn!"
       end
     end
 

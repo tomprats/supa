@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  skip_before_filter :require_user!, only: [:new, :create, :destroy]
-  skip_before_filter :check_attr
-  before_filter :set_variables, only: [:show, :edit, :update]
+  skip_before_action :require_user!, only: [:new, :create, :destroy]
+  skip_before_action :check_attr
+  before_action :set_variables, only: [:show, :edit, :update]
 
   def new
     @user = User.new
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     end
 
     if @user.save
-      redirect_to :back, success: "Profile Updated!"
+      redirect_back success: "Profile Updated!"
     else
       render :edit, warning: @user.errors.full_messages.join(", ")
     end
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       session.clear
       redirect_to root_path, success: "Sorry to see you go"
     else
-      redirect_to :back, alert: "There was a problem cancelling your account"
+      redirect_back alert: "There was a problem cancelling your account"
     end
   end
 

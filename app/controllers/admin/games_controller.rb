@@ -1,6 +1,6 @@
 module Admin
   class GamesController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def create
       params[:game][:event_attributes][:datetime] = convert_to_datetime(params[:game].delete(:date), params[:game].delete(:time))
@@ -8,7 +8,7 @@ module Admin
       if @game.valid?
         redirect_to admin_games_path, success: "Game was successfully created"
       else
-        redirect_to :back, danger: "Game could not be created"
+        redirect_back danger: "Game could not be created"
       end
     end
 
@@ -30,7 +30,7 @@ module Admin
       if Game.find(params[:id]).update_attributes(game_params)
         redirect_to admin_games_path, success: "Game was successfully updated"
       else
-        redirect_to :back, danger: "Game could not be updated"
+        redirect_back danger: "Game could not be updated"
       end
     end
 
@@ -38,7 +38,7 @@ module Admin
       if Game.find(params[:id]).destroy
         redirect_to admin_games_path, success: "Game was successfully destroyed"
       else
-        redirect_to :back, danger: "Game could not be destroyed"
+        redirect_back danger: "Game could not be destroyed"
       end
     end
 

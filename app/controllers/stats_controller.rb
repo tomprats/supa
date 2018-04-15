@@ -1,5 +1,5 @@
 class StatsController < ApplicationController
-  skip_before_filter :require_user!, :check_attr
+  skip_before_action :require_user!, :check_attr
 
   def index
     @league = params[:league_id] ? League.find(params[:league_id]) : League.current

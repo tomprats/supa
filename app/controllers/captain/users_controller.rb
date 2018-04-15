@@ -1,6 +1,6 @@
 module Captain
   class UsersController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def index
       league = League.current

@@ -1,6 +1,6 @@
 module Admin
   class TeamsController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def create
       @team = Team.create(team_params)

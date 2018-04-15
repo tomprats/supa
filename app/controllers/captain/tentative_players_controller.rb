@@ -1,18 +1,18 @@
 module Captain
   class TentativePlayersController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def create
       league_id = Draft.find(params[:tentative_player][:draft_id]).league_id
       @draft_player = TentativePlayer.create(
         tentative_player_params.merge!(team_id: current_user.captains_team(league_id).id)
       )
-      redirect_to :back, success: "Tentative Player successfully created."
+      redirect_back success: "Tentative Player successfully created."
     end
 
     def destroy
       @draft_player = TentativePlayer.find(params[:id]).destroy
-      redirect_to :back, success: "Tentative Player successfully destroyed."
+      redirect_back success: "Tentative Player successfully destroyed."
     end
 
     private

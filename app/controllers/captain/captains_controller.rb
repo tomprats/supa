@@ -1,6 +1,6 @@
 module Captain
   class CaptainsController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def index
       @current_team = current_user.captains_team

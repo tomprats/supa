@@ -1,6 +1,6 @@
 module Super
   class LeaguesController < ApplicationController
-    before_filter :check_admin_level
+    before_action :check_admin_level
 
     def index
       @leagues = League.all
@@ -10,7 +10,7 @@ module Super
       if League.create(league_params).valid?
         redirect_to super_leagues_path, success: "League was successfully created"
       else
-        redirect_to :back, danger: "League could not be created"
+        redirect_back danger: "League could not be created"
       end
     end
 
@@ -22,7 +22,7 @@ module Super
       if League.find(params[:id]).update_attributes(league_params)
         redirect_to super_leagues_path, success: "League was successfully updated"
       else
-        redirect_to :back, danger: "League could not be updated"
+        redirect_back danger: "League could not be updated"
       end
     end
 

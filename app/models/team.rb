@@ -1,8 +1,8 @@
 class Team < ApplicationRecord
   belongs_to              :league
-  has_and_belongs_to_many :players, class_name: 'User'
-  belongs_to              :captain, class_name: 'User'
-  belongs_to              :cocaptain, class_name: 'User'
+  has_and_belongs_to_many :players, class_name: "User"
+  belongs_to              :captain, class_name: "User"
+  belongs_to              :cocaptain, class_name: "User", optional: true
   has_many                :team_stats
   has_many                :drafted_players
   has_many                :tentative_players

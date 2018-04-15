@@ -1,5 +1,6 @@
 class QuestionnairesController < ApplicationController
-  before_filter :check_admin_level, only: :show
+  before_action :check_admin_level, only: :show
+  skip_before_action :check_attr
 
   def show
     @questionnaire = Questionnaire.find(params[:id])
@@ -8,18 +9,18 @@ class QuestionnairesController < ApplicationController
   def create
     if Questionnaire.create(questionnaire_params).valid?
       save_baggage
-      redirect_to :back, success: "Thanks for filling out the questionnaire"
+      redirect_back success: "Thanks for filling out the questionnaire"
     else
-      redirect_to :back, alert: "Questionnaire could not be created"
+      redirect_back alert: "Questionnaire could not be created"
     end
   end
 
   def update
     if Questionnaire.find(params[:id]).update_attributes(questionnaire_params)
       save_baggage
-      redirect_to :back, success: "Thanks for filling out the questionnaire"
+      redirect_back success: "Thanks for filling out the questionnaire"
     else
-      redirect_to :back, alert: "Questionnaire could not be updated"
+      redirect_back alert: "Questionnaire could not be updated"
     end
   end
 

@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       UserMailer.reset_password_email(user).deliver_now
       redirect_to root_path, success: "Email Sent"
     else
-      redirect_to :back, danger: "Email could not be found"
+      redirect_back danger: "Email could not be found"
     end
   end
 

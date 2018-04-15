@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
       purchase_response: "Cash",
       notify_response: current_user.id
     )
-    redirect_to :back, success: "Cash payment successful. They are still unregistered until they click register"
+    redirect_back success: "Cash payment successful. They are still unregistered until they click register"
   end
 
   def credit_card
@@ -24,7 +24,7 @@ class PaymentsController < ApplicationController
     redirect_to profile_path, success: "Credit card payment successful. You are still unregistered until you click register"
   rescue => e
     Rails.logger.error e
-    redirect_to :back, alert: "Credit card payment was unsuccessful. Try again or email tom@stewartstownupa.com to troubleshoot with you"
+    redirect_back alert: "Credit card payment was unsuccessful. Try again or email tom@stewartstownupa.com to troubleshoot with you"
   end
 
   private
@@ -41,10 +41,10 @@ class PaymentsController < ApplicationController
     @registration ||= user.registrations.create(league_id: @league.id)
     @payment = @registration.payment || @registration.create_payment
     if @payment.paid?
-      return redirect_to :back, alert: "#{action_name == "cash" ? "They" : "You"} have already paid"
+      return redirect_back alert: "#{action_name == "cash" ? "They" : "You"} have already paid"
     elsif @league.current_price.zero?
       @payment.update_attributes(paid: true)
-      return redirect_to :back, success: "This league is free!"
+      return redirect_back success: "This league is free!"
     end
   end
 end

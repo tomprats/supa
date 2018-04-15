@@ -238,7 +238,7 @@ class User < ApplicationRecord
 
   private
   def format_email
-    self.email = self.email.strip.downcase
+    self.email = self.email.strip.downcase if email
   end
 
   def destroy_baggages
