@@ -52,8 +52,8 @@ class User < ApplicationRecord
     includes(:questionnaires).where("questionnaires.league_id = ?", league_id).references(:questionnaires)
   end
 
-  def self.not_on_a_team
-    league_id = League.current.id
+  def self.not_on_a_team(league_id = nil)
+    league_id ||= League.current.id
     registered.select { |u| u.teams.empty? || !u.teams.collect(&:league_id).include?(league_id) }
   end
 
@@ -88,7 +88,7 @@ class User < ApplicationRecord
   end
 
   def registration(league_id = nil)
-    registrations.where(league_id: league_id || League.current.id).first
+    registrations.find_or_initialize_by(league_id: league_id || League.current.id)
   end
 
   def not_registered?
@@ -183,17 +183,8 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def paid?
-    league = League.current
-    if registration
-      payment = registration.payment
-    else
-      registrations.create(league_id: league.id)
-    end
-    payment ||= registration.create_payment
-    return true if payment.paid?
-    return false unless league.current_price.zero?
-    payment.update_attributes(paid: true)
+  def paid?(league_id = nil)
+    registration(league_id).paid?
   end
 
   def games_played(league_id = nil)

@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <%= link_to "Register", register_path, class: "btn btn-primary waiver-register", disabled: true %>
+        <%= link_to "Register", register_path(@league.id), class: "btn btn-primary waiver-register", disabled: true %>
         <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
       </div>
     </div>

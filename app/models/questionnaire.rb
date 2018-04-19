@@ -1,7 +1,7 @@
 class Questionnaire < ApplicationRecord
   belongs_to :user
   belongs_to :league
-  has_many :meetings, -> { order(:datetime) }, dependent: :destroy
+  has_many :meetings, -> { joins(:event).order("events.datetime") }, dependent: :destroy
 
   validates_presence_of :user, :league
 

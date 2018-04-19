@@ -3,6 +3,7 @@ class Event < ApplicationRecord
   belongs_to :league
   belongs_to :field
   has_one :game
+  has_many :meetings, dependent: :destroy
 
   validates_presence_of :datetime
 

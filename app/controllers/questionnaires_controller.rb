@@ -50,14 +50,6 @@ class QuestionnairesController < ApplicationController
   end
 
   def questionnaire_params
-    if params[:questionnaire][:meetings_attributes]
-      meetings = params[:questionnaire][:meetings_attributes].collect do |m|
-        m[1][:datetime] = convert_to_datetime(m[1].delete(:date), m[1].delete(:time))
-        m[1]
-      end
-      params[:questionnaire][:meetings_attributes] = meetings
-    end
-
     params.require(:questionnaire).permit(
       :handling,
       :cutting,
@@ -72,11 +64,7 @@ class QuestionnairesController < ApplicationController
       :cutter,
       :league_id,
       :user_id,
-      meetings_attributes: [:id, :datetime, :available]
+      meetings_attributes: [:id, :event_id, :available]
     )
-  end
-
-  def convert_to_datetime(date, time)
-    DateTime.strptime("#{date} #{time}", "%m/%d/%Y %I:%M %p") if !date.blank? && !time.blank?
   end
 end

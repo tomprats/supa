@@ -3,9 +3,6 @@ class Registration < ApplicationRecord
   belongs_to :user
   has_one :payment, dependent: :destroy
 
-  delegate :paid, :paid?, to: :payment
-  delegate :price, to: :league
-
   validates_presence_of :league_id, :user_id
 
   def registered?
@@ -14,5 +11,9 @@ class Registration < ApplicationRecord
 
   def not_registered?
     !registered
+  end
+
+  def paid?
+    (payment || build_payment).paid? || league.current_price.zero?
   end
 end

@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :check_admin_level, only: :cash
-  before_action :set_payment
+  before_action :check_status, :set_payment
 
   def cash
     @payment.update_attributes(
@@ -24,7 +24,7 @@ class PaymentsController < ApplicationController
     redirect_to profile_path, success: "Credit card payment successful. You are still unregistered until you click register"
   rescue => e
     Rails.logger.error e
-    redirect_back alert: "Credit card payment was unsuccessful. Try again or email tom@stewartstownupa.com to troubleshoot with you"
+    redirect_back alert: "Credit card payment was unsuccessful. Try again or email tom@tomify.me to troubleshoot with you"
   end
 
   private
@@ -34,17 +34,16 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def set_payment
+  def check_status
     user = action_name == "cash" ? User.find(params[:user_id]) : current_user
     @league = League.find(params[:league_id])
-    @registration = user.registrations.where(league_id: @league.id).first
-    @registration ||= user.registrations.create(league_id: @league.id)
-    @payment = @registration.payment || @registration.create_payment
-    if @payment.paid?
+    @registration = user.registration(@league.id)
+    if @registration.paid?
       return redirect_back alert: "#{action_name == "cash" ? "They" : "You"} have already paid"
-    elsif @league.current_price.zero?
-      @payment.update_attributes(paid: true)
-      return redirect_back success: "This league is free!"
     end
+  end
+
+  def set_payment
+    @payment = @registration.payment || @registration.create_payment
   end
 end

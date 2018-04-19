@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root to: "pages#current"
 
-  get "/.well-known/acme-challenge/:id" => "pages#letsencrypt"
-
   resources :teams, only: [:show]
   resources :games, only: [:show]
   resources :player_awards, except: [:index, :destroy]
@@ -34,8 +32,8 @@ Rails.application.routes.draw do
   post :password, to: "passwords#create"
   get :password, to: "passwords#edit"
   put :password, to: "passwords#update"
-  get :register, to: "registrations#create"
-  get :unregister, to: "registrations#destroy"
+  get "register/:league_id", to: "registrations#create", as: :register
+  get "unregister/:league_id", to: "registrations#destroy", as: :unregister
 
   get :feed, to: "drafts#feed"
   resources :drafts, only: [] do

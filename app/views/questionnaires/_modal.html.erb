@@ -3,8 +3,9 @@ if @questionnaire
   url = questionnaire_path(@questionnaire.id)
 else
   @questionnaire = Questionnaire.new(user_id: current_user.id, league_id: @league.id)
-  @league.events.collect(&:datetime).uniq.each do |datetime|
-    @questionnaire.meetings.build(datetime: datetime)
+  @league.events.each do |event|
+    next if @questionnaire.meetings.find{ |meeting| meeting.event.datetime == event.datetime }
+    @questionnaire.meetings.build(event: event)
   end
   url = questionnaires_path
 end %>
@@ -126,8 +127,7 @@ end %>
                 <%= label_tag :select_all, check_box_tag(:select_all) + " Select All" %>
               </div>
               <%= f.fields_for :meetings do |m| %>
-                <%= m.hidden_field :date %>
-                <%= m.hidden_field :time %>
+                <%= m.hidden_field :event_id %>
                 <div class="checkbox">
                   <%= m.label :available, m.check_box(:available) + " #{m.object.date} #{m.object.time}" %>
                 </div>
