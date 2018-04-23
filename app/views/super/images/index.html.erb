@@ -1,0 +1,23 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Images</a></li>
+
+  <div class="btn-group pull-right">
+    <%= link_to "Add Image", "#images_new_modal", class: "admin_modal btn btn-primary", role: "button", data: { toggle: "modal" } %>
+    <%= render partial: "super/layouts/buttons" %>
+  </div>
+</ul>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Images</h3>
+    <% if @images.empty? %>
+      <p>There aren't any yet!</p>
+    <% else %>
+      <%= render partial: "super/images/table", locals: { images: @images } %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: "super/images/new_modal" %>
+<%= render partial: "super/users/assign_modal" %>
+<%= render partial: "super/users/trade_modal" %>

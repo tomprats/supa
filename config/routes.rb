@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get :super, to: "super/announcements#index"
   namespace :super do
     resources :announcements
+    resources :images
     resources :pages
     resources :leagues
     resources :drafts do

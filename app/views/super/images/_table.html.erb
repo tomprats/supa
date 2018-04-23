@@ -1,0 +1,25 @@
+<table class="data-table table table-striped table-responsive">
+  <thead>
+    <tr>
+      <th>Link</th>
+      <th>Source</th>
+      <th>Importance</th>
+      <th>Creator</th>
+      <th class="dont-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% images.each do |image| %>
+      <tr>
+        <td><%= image.link %></td>
+        <td><%= image.src %></td>
+        <td><%= image.importance %></td>
+        <td><%= image.creator.name %></td>
+        <td class="btn-group">
+          <%= link_to "Edit", edit_super_image_path(image), class: "btn btn-primary" %>
+          <%= link_to "Delete", super_image_path(image), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this image?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,28 @@
+<% if @image
+  url = super_image_path(@image.id)
+else
+  @image = Image.new
+  url = super_images_path
+end %>
+
+<%= form_for(@image, url: url, html: { class: "form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <%= f.label :link, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.url_field :link, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :src, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.url_field :src, { class: "form-control" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :importance, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.number_field :importance, { class: "form-control" } %>
+    </div>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
