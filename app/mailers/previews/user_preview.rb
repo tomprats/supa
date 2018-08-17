@@ -1,4 +1,8 @@
 class UserPreview < ActionMailer::Preview
+  def championship
+    UserMailer.championship(user)
+  end
+
   def invite
     UserMailer.invite(user)
   end

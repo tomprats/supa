@@ -1,4 +1,10 @@
 class UserMailer < ApplicationMailer
+  def championship(user)
+    @user = user
+
+    mail(to: @user.email, subject: "SUPA - Championship Game!")
+  end
+
   def invite(user)
     @user = user
 
