@@ -111,7 +111,6 @@ class User < ApplicationRecord
 
   def self.shirt_sizes
     [
-      "Mens XSmall",
       "Mens Small",
       "Mens Medium",
       "Mens Large",
