@@ -24,6 +24,8 @@ gem "rails_12factor", group: :production
 gem "yui-compressor"
 
 # Remaining assets
+gem "carrierwave"
+gem "fog-aws"
 gem "sass"
 gem "sass-rails"
 gem "bootstrap-sass"

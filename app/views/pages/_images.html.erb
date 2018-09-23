@@ -2,7 +2,7 @@
   <div class="owl-carousel">
     <% Image.all.each do |image| %>
       <%= link_to image.link do %>
-        <%= image_tag image.src %>
+        <%= image_tag image.src_url %>
       <% end %>
     <% end %>
   </div>
