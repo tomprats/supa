@@ -39,8 +39,8 @@
             <li><%= link_to(fa_icon("anchor") + " Captain", captain_path) %></li>
           <% end %>
         <% end %>
-        <li><%= link_to(fa_icon("facebook"), "https://www.facebook.com/StewartstownUPA", class: "navbar-brand") %></li>
-        <li><%= link_to(fa_icon("instagram"), "https://www.instagram.com/stewartstownupa", class: "navbar-brand") %></li>
+        <li><%= link_to(fa_icon("facebook"), "https://www.facebook.com/StewartstownUPA", class: "navbar-brand", target: :_blank) %></li>
+        <li><%= link_to(fa_icon("instagram"), "https://www.instagram.com/stewartstownupa", class: "navbar-brand", target: :_blank) %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>

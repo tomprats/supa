@@ -1,7 +1,7 @@
 <div class="owl-wrapper">
   <div class="owl-carousel">
     <% Image.all.each do |image| %>
-      <%= link_to image.link do %>
+      <%= link_to image.link, target: :_blank do %>
         <%= image_tag image.src_url %>
       <% end %>
     <% end %>
