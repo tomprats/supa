@@ -4,7 +4,7 @@ ruby "2.5.0"
 
 gem "rails"
 gem "pg"
-gem "thin"
+gem "unicorn"
 
 # User authentication
 gem "bcrypt"
@@ -18,10 +18,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
 end
-
-# Heroku compatable assets
-gem "rails_12factor", group: :production
-gem "yui-compressor"
 
 # Remaining assets
 gem "carrierwave"

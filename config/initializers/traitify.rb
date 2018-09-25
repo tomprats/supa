@@ -1,7 +1,7 @@
 Traitify.configure do |traitify|
   traitify.version = "v1"
-  traitify.host = ENV["TRAITIFY_HOST"]
-  traitify.public_key = ENV["TRAITIFY_PUBLIC"]
-  traitify.secret_key = ENV["TRAITIFY_SECRET"]
+  traitify.host = Rails.application.secrets.traitify_host
+  traitify.public_key = Rails.application.secrets.traitify_public
+  traitify.secret_key = Rails.application.secrets.traitify_secret
   traitify.deck_id = "core"
 end
