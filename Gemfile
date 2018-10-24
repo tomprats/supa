@@ -5,6 +5,7 @@ ruby "2.5.0"
 gem "rails"
 gem "pg"
 gem "unicorn"
+gem "sidekiq"
 
 # User authentication
 gem "bcrypt"
@@ -46,6 +47,7 @@ group :development do
   gem "capistrano-rails-collection"
   gem "capistrano-rvm"
   gem "capistrano-secrets-yml"
+  gem "capistrano-sidekiq"
   gem "capistrano-unicorn-nginx", github: "capistrano-plugins/capistrano-unicorn-nginx", branch: "systemd"
 
   gem "better_errors"

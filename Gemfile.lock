@@ -89,6 +89,9 @@ GEM
     capistrano-secrets-yml (1.1.1)
       capistrano (~> 3.10)
       sshkit (~> 1.15)
+    capistrano-sidekiq (1.0.2)
+      capistrano (>= 3.9.0)
+      sidekiq (>= 3.4)
     carrierwave (1.2.3)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -102,6 +105,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.2)
     crass (1.0.4)
     debug_inspector (0.0.3)
     diff-lcs (1.3)
@@ -212,6 +216,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     rack (2.0.5)
+    rack-protection (2.0.4)
+      rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
@@ -244,6 +250,7 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
+    redis (4.0.2)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -274,6 +281,10 @@ GEM
       tilt (>= 1.1, < 3)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
+    sidekiq (5.2.2)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -319,6 +330,7 @@ DEPENDENCIES
   capistrano-rails-collection
   capistrano-rvm
   capistrano-secrets-yml
+  capistrano-sidekiq
   capistrano-unicorn-nginx!
   carrierwave
   coffee-rails
@@ -342,6 +354,7 @@ DEPENDENCIES
   sass
   sass-rails
   shoulda-matchers
+  sidekiq
   stripe
   traitify
   uglifier

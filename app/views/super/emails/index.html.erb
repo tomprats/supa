@@ -1,0 +1,22 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Emails</a></li>
+
+  <div class="btn-group pull-right">
+    <%= link_to "New Email", new_super_email_path, class: "btn btn-primary" %>
+    <%= render partial: "super/layouts/buttons" %>
+  </div>
+</ul>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Emails</h3>
+    <% if @emails.empty? %>
+      <p>There aren't any yet!</p>
+    <% else %>
+      <%= render partial: "super/emails/table", locals: { emails: @emails } %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: "super/users/assign_modal" %>
+<%= render partial: "super/users/trade_modal" %>

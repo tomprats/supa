@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "SUPA <notify@tomify.me>"
+  default from: "SUPA <info@stewartstownupa.com>"
   layout "mailer"
 end

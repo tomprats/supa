@@ -8,6 +8,7 @@ require "capistrano/rails/collection"
 require "capistrano/rails/migrations"
 require "capistrano/rvm"
 require "capistrano/secrets_yml"
+require "capistrano/sidekiq"
 require "capistrano/unicorn_nginx"
 
 require "capistrano/scm/git"

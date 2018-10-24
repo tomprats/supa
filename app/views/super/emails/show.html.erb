@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h4>Subject: <%= @email.subject %></h4>
+        <h4>Raw Body:</h4>
+        <div><%= text_area_tag :body, @email.body, class: "form-control", rows: 5 %></div>
+        <h4>Body:</h4>
+        <p>Hey <%= current_user.first_name %>!</p>
+        <div id="email_body_preview"><%= @email.body_html %></div>
+      </div>
+    </div>
+  </div>
+</div>

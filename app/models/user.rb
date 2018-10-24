@@ -66,6 +66,10 @@ class User < ApplicationRecord
     ]
   end
 
+  def tom?
+    email == "tprats108@gmail.com"
+  end
+
   def assessment
     unless a = assessments.to_a.first
       uid = Traitify.new.create_assessment.id

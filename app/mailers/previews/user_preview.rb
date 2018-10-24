@@ -1,4 +1,4 @@
-class UserPreview < ActionMailer::Preview
+class UserPreview < ApplicationPreview
   def championship
     UserMailer.championship(user)
   end
@@ -9,10 +9,5 @@ class UserPreview < ActionMailer::Preview
 
   def reset_password
     UserMailer.reset_password(user)
-  end
-
-  private
-  def user
-    User.tom
   end
 end

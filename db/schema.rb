@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_23_230011) do
+ActiveRecord::Schema.define(version: 2018_10_17_083123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(version: 2018_09_23_230011) do
     t.datetime "updated_at"
     t.integer "turn", default: 1
     t.integer "league_id"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.string "body", null: false
+    t.string "subject", null: false
+    t.boolean "sent", default: false, null: false
+    t.boolean "previewed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_emails_on_owner_id"
   end
 
   create_table "events", id: :serial, force: :cascade do |t|
