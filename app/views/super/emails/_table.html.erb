@@ -1,0 +1,31 @@
+<table class="data-table table table-striped table-responsive">
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Previewed</th>
+      <th>Sent</th>
+      <th>Owner</th>
+      <th class="dont-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% emails.each do |email| %>
+      <tr>
+        <td><%= email.subject %></td>
+        <td><%= email.previewed ? "Yes" : "No" %></td>
+        <td><%= email.sent ? "Yes" : "No" %></td>
+        <td><%= email.owner&.name %></td>
+        <td class="btn-group">
+          <% if email.sent? %>
+            <%= link_to "View", super_email_path(email), class: "btn btn-primary" %>
+          <% else %>
+            <%= link_to "Edit", edit_super_email_path(email), class: "btn btn-primary" %>
+            <%= link_to "Preview", preview_super_email_path(email), method: :post, remote: true, class: "btn btn-info email-action", data: { confirm: "Are you sure you're ready to email all the super admins? It is required before emailing the players" } %>
+            <%= link_to "Send", send_super_email_path(email), method: :post, remote: true, class: "btn btn-warning email-action", data: { confirm: "Are you sure you're ready to email EVERYONE? This cannot be undone" } %>
+            <%= link_to "Delete", super_email_path(email), method: :delete, remote: true, class: "btn btn-danger email-action", data: { confirm: "Are you sure you want to delete this email?" } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

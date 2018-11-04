@@ -5,6 +5,7 @@ ruby "2.5.0"
 gem "rails"
 gem "pg"
 gem "unicorn"
+gem "sidekiq"
 
 # User authentication
 gem "bcrypt"

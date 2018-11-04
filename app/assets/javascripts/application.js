@@ -18,6 +18,7 @@
 //= require pickadate/picker.time
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require Markdown.Converter
 //
 //= require_tree .
 

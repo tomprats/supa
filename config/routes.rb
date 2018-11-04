@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   root to: "pages#current"
 
@@ -56,6 +58,10 @@ Rails.application.routes.draw do
   get :super, to: "super/announcements#index"
   namespace :super do
     resources :announcements
+    resources :emails do
+      post :preview, on: :member
+      post :send, on: :member, to: "emails#email"
+    end
     resources :images
     resources :pages
     resources :leagues
@@ -87,6 +93,8 @@ Rails.application.routes.draw do
     end
     resources :tentative_players, only: [:create, :destroy]
   end
+
+  mount Sidekiq::Web, at: :sidekiq, constraints: TomConstraint.new
 
   get ":path", to: "pages#page", as: :page
 end
