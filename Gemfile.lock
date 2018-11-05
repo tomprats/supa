@@ -7,6 +7,14 @@ GIT
       capistrano (>= 3.1)
       sshkit (>= 1.2.0)
 
+GIT
+  remote: git://github.com/tomprats/capistrano-sidekiq-systemd.git
+  revision: 8cf3968ba6f98141e9dd619b358eb449c4477fa0
+  specs:
+    capistrano-sidekiq-systemd (0.0.0)
+      capistrano (>= 3.1)
+      sshkit (>= 1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -327,6 +335,7 @@ DEPENDENCIES
   capistrano-rails-collection
   capistrano-rvm
   capistrano-secrets-yml
+  capistrano-sidekiq-systemd!
   capistrano-unicorn-nginx!
   carrierwave
   coffee-rails
