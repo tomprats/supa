@@ -17,15 +17,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  def reset_password
-    if user = User.find_by(email: params[:email])
-      UserMailer.reset_password_email(user).deliver_now
-      redirect_to root_path, success: "Email Sent"
-    else
-      redirect_back danger: "Email could not be found"
-    end
-  end
-
   def destroy
     session[:current_user_id] = nil
     redirect_to root_path

@@ -1,0 +1,9 @@
+.row
+  .col-md-12.center
+    %h2 Subscription
+    - if current_user.unsubscribed
+      %p We missed you, are you ready to come back?
+      = link_to "Resubscribe", subscription_path, method: :post, class: "btn btn-primary"
+    - else
+      %p By unsubscribing you won't receive any more mass communications BUT you will still receive individual emails such as password reset. To disable those you must delete your account.
+      = link_to "Unsubscribe", subscription_path, data: { confirm: "Are you sure you want to unsubscribe?" }, method: :delete, class: "btn btn-danger"

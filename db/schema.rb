@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_083123) do
+ActiveRecord::Schema.define(version: 2018_11_18_063005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_083123) do
     t.string "gender", limit: 255
     t.string "shirt_size", limit: 255
     t.string "admin", limit: 255, default: "none"
+    t.boolean "unsubscribed", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

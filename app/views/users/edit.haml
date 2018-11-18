@@ -12,4 +12,8 @@
         %h3 Unhappy?
         .row
           .col-md-12
+            = link_to "Subscription", subscription_path, class: "btn btn-primary"
+        %br
+        .row
+          .col-md-12
             = button_to "Cancel my account", profile_path, data: { confirm: "Things just won't be the same without you. Are you sure you want to destroy all hope for redemption?" }, method: :delete, class: "btn btn-danger"

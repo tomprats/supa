@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   put :password, to: "passwords#update"
   get "register/:league_id", to: "registrations#create", as: :register
   get "unregister/:league_id", to: "registrations#destroy", as: :unregister
+  resource :subscription, only: [:create, :show, :destroy]
 
   get :feed, to: "drafts#feed"
   resources :drafts, only: [] do

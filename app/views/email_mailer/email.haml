@@ -6,3 +6,7 @@
 
 %p Hey #{@user.first_name}!
 = @html
+%div(style="text-align: center; margin: 10px;")
+  %small
+    If you wish to unsubscribe,
+    = link_to "click here", subscription_url(token: @user.token)
